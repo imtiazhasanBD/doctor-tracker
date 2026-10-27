@@ -35,16 +35,16 @@ export const GENDERS = ['male', 'female', 'other'] as const;
 export const PATIENT_STATUSES = ['active', 'discharged'] as const;
 
 export const patientSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  name: z.string().trim().min(2, 'Name must be at least 2 characters').max(100),
   doctorId: z.string().min(1, 'Doctor is required'),
   age: z.number().min(0, 'Age must be >= 0').max(120, 'Age must be <= 120'),
   gender: z.enum(GENDERS, { message: 'Select gender' }),
-  phone: z.string().min(5, 'Valid phone number is required'),
-  email: z.string().email('Valid email is required').or(z.literal('')).optional(),
+  phone: z.string().trim().regex(/^\+?[0-9\s\-()]{7,20}$/, 'Valid phone number is required (7-20 digits)'),
+  email: z.string().trim().email('Valid email is required').or(z.literal('')).optional(),
   condition: z.string().min(1, 'Condition is required'),
   status: z.enum(PATIENT_STATUSES),
   visitDate: z.string().min(1, 'Visit date is required'),
-  notes: z.string().max(1000).optional(),
+  notes: z.string().trim().max(1000).optional(),
 });
 
 export type PatientFormData = z.infer<typeof patientSchema>;

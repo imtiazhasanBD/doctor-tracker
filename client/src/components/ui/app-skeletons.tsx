@@ -9,7 +9,7 @@ interface TableSkeletonProps {
 
 export function TableSkeleton({ columns = 7, rows = 6 }: TableSkeletonProps) {
   return (
-    <div className="border border-slate-200 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl overflow-hidden">
+    <div className="border border-slate-200 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md overflow-hidden">
       {/* Table Header skeleton */}
       <div className="h-10 bg-slate-50 dark:bg-[#10192e] border-b border-slate-200 dark:border-[#162444] flex items-center px-4 gap-4">
         {Array.from({ length: columns }).map((_, i) => (
@@ -44,6 +44,103 @@ export function TableSkeleton({ columns = 7, rows = 6 }: TableSkeletonProps) {
         ))}
       </div>
     </div>
+  );
+}
+
+export function StatCardsRowSkeleton({ count = 4 }: { count?: number }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {Array.from({ length: count }).map((_, i) => (
+        <Card
+          key={i}
+          className="border-slate-100/90 dark:border-[#1c2d54] bg-white dark:bg-[#0e1933] rounded-md shadow-[0_4px_15px_-3px_rgba(15,23,42,0.03)] p-5 flex flex-col justify-between transition-colors"
+        >
+          <div className="flex items-start gap-3.5">
+            <Skeleton className="w-11 h-11 rounded-md shrink-0 dark:bg-[#16294a]" />
+            <div className="min-w-0 flex-1 space-y-2">
+              <Skeleton className="h-3 w-24 dark:bg-[#16294a]" />
+              <Skeleton className="h-7 w-16 dark:bg-[#16294a]" />
+            </div>
+          </div>
+          <div className="flex items-end justify-between mt-3.5 pt-1">
+            <div className="space-y-1.5">
+              <Skeleton className="h-3 w-12 dark:bg-[#16294a]" />
+              <Skeleton className="h-2.5 w-20 dark:bg-[#16294a]" />
+            </div>
+            <Skeleton className="h-8 w-16 rounded dark:bg-[#16294a]" />
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+export function PatientsTableSkeleton({ rows = 8 }: { rows?: number }) {
+  return (
+    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
+      {/* Table Header: Patients Count & Export CSV button */}
+      <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
+        <div className="flex items-center gap-2.5">
+          <Skeleton className="w-8 h-8 rounded-md dark:bg-[#15233c]" />
+          <Skeleton className="h-5 w-32 dark:bg-[#15233c]" />
+        </div>
+        <Skeleton className="h-8 w-20 rounded-md dark:bg-[#15233c]" />
+      </div>
+
+      {/* Main Table Headers */}
+      <div className="overflow-x-auto">
+        <div className="flex items-center gap-4 py-3.5 border-b border-slate-100 dark:border-[#172545]">
+          <Skeleton className="w-8 h-3.5 dark:bg-[#15233c]" />
+          <Skeleton className="w-36 h-3.5 dark:bg-[#15233c]" />
+          <Skeleton className="w-28 h-3.5 dark:bg-[#15233c]" />
+          <Skeleton className="w-12 h-3.5 dark:bg-[#15233c]" />
+          <Skeleton className="w-16 h-3.5 dark:bg-[#15233c]" />
+          <Skeleton className="w-24 h-3.5 dark:bg-[#15233c]" />
+          <Skeleton className="w-24 h-3.5 dark:bg-[#15233c]" />
+          <Skeleton className="w-20 h-3.5 dark:bg-[#15233c]" />
+          <Skeleton className="w-16 h-3.5 ml-auto dark:bg-[#15233c]" />
+        </div>
+
+        {/* Table Rows */}
+        <div className="divide-y divide-slate-100/80 dark:divide-[#172545]/60">
+          {Array.from({ length: rows }).map((_, r) => (
+            <div key={r} className="flex items-center gap-4 py-3.5">
+              <Skeleton className="w-8 h-3.5 dark:bg-[#142038]" />
+              <div className="flex items-center gap-3 w-36">
+                <Skeleton className="w-8 h-8 rounded-md shrink-0 dark:bg-[#142038]" />
+                <div className="space-y-1.5 flex-1 min-w-0">
+                  <Skeleton className="h-3 w-20 dark:bg-[#142038]" />
+                  <Skeleton className="h-2.5 w-16 dark:bg-[#142038]" />
+                </div>
+              </div>
+              <Skeleton className="w-28 h-3.5 dark:bg-[#142038]" />
+              <Skeleton className="w-12 h-3.5 dark:bg-[#142038]" />
+              <Skeleton className="w-16 h-3.5 dark:bg-[#142038]" />
+              <Skeleton className="w-24 h-3.5 dark:bg-[#142038]" />
+              <Skeleton className="w-24 h-3.5 dark:bg-[#142038]" />
+              <Skeleton className="w-16 h-5 rounded-md dark:bg-[#142038]" />
+              <div className="flex items-center gap-1.5 ml-auto">
+                <Skeleton className="w-6 h-6 rounded-md dark:bg-[#142038]" />
+                <Skeleton className="w-6 h-6 rounded-md dark:bg-[#142038]" />
+                <Skeleton className="w-6 h-6 rounded-md dark:bg-[#142038]" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Pagination Footer skeleton */}
+      <div className="flex flex-col sm:flex-row items-center justify-between pt-4 mt-2 border-t border-slate-100 dark:border-[#172545] gap-3">
+        <Skeleton className="h-4 w-44 dark:bg-[#15233c]" />
+        <div className="flex items-center gap-1">
+          <Skeleton className="w-7 h-7 rounded-md dark:bg-[#15233c]" />
+          <Skeleton className="w-7 h-7 rounded-md dark:bg-[#15233c]" />
+          <Skeleton className="w-7 h-7 rounded-md dark:bg-[#15233c]" />
+          <Skeleton className="w-7 h-7 rounded-md dark:bg-[#15233c]" />
+          <Skeleton className="w-7 h-7 rounded-md dark:bg-[#15233c]" />
+        </div>
+      </div>
+    </Card>
   );
 }
 

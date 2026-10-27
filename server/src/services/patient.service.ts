@@ -30,9 +30,16 @@ export async function listPatients(q: ListPatientsQuery, opts: { populateDoctor?
   const skip = (q.page - 1) * q.limit;
 
   let query = Patient.find(filter).select('-nameLower').sort(SORTS[q.sort]).skip(skip).limit(q.limit);
-  if (populateDoctor) query = query.populate('doctor', 'name specialization hospital');
+  if (populateDoctor) {
+    query = query
+      .populate('doctorId', 'name specialization hospital')
+      .populate('doctor', 'name specialization hospital');
+  }
 
-  const [data, total] = await Promise.all([query.lean(), Patient.countDocuments(filter)]);
+  const [data, total] = await Promise.all([
+    query.lean({ virtuals: true }),
+    Patient.countDocuments(filter),
+  ]);
   return { data, ...pageMeta(q.page, q.limit, total) };
 }
 
@@ -48,10 +55,11 @@ export async function getPatient(id: string) {
 /** Insert patient + bump the doctor's counter atomically. */
 export async function createPatient(doctorId: string, input: CreatePatientInput) {
   return withTransaction(async (session) => {
-    const doctor = await Doctor.findByIdAndUpdate(doctorId, { $inc: { patientCount: 1 } }, { session });
+    const opts = session ? { session } : undefined;
+    const doctor = await Doctor.findByIdAndUpdate(doctorId, { $inc: { patientCount: 1 } }, opts);
     if (!doctor) throw new NotFoundError('Doctor not found');
 
-    const [patient] = await Patient.create([{ ...input, doctorId }], { session });
+    const [patient] = await Patient.create([{ ...input, doctorId }], opts);
     return patient.toJSON();
   });
 }
@@ -59,20 +67,21 @@ export async function createPatient(doctorId: string, input: CreatePatientInput)
 /** Edit patient fields. Changing doctorId moves the patient and adjusts both counters. */
 export async function updatePatient(id: string, input: UpdatePatientInput) {
   return withTransaction(async (session) => {
+    const opts = session ? { session } : undefined;
     const patient = await Patient.findById(id).session(session);
     if (!patient) throw new NotFoundError('Patient not found');
 
     const { doctorId: newDoctorId, ...fields } = input;
 
     if (newDoctorId && newDoctorId !== String(patient.doctorId)) {
-      const target = await Doctor.findByIdAndUpdate(newDoctorId, { $inc: { patientCount: 1 } }, { session });
+      const target = await Doctor.findByIdAndUpdate(newDoctorId, { $inc: { patientCount: 1 } }, opts);
       if (!target) throw new NotFoundError('Target doctor not found');
-      await Doctor.updateOne({ _id: patient.doctorId }, { $inc: { patientCount: -1 } }, { session });
+      await Doctor.updateOne({ _id: patient.doctorId }, { $inc: { patientCount: -1 } }, opts);
       patient.set('doctorId', newDoctorId);
     }
 
     patient.set(fields); // save() runs validators + the nameLower hook
-    await patient.save({ session });
+    await patient.save(opts);
     return patient.toJSON();
   });
 }
@@ -80,12 +89,13 @@ export async function updatePatient(id: string, input: UpdatePatientInput) {
 /** Delete patient + decrement the doctor's counter atomically. Optionally scoped to a doctor. */
 export async function deletePatient(id: string, doctorId?: string) {
   await withTransaction(async (session) => {
+    const opts = session ? { session } : undefined;
     const filter: Record<string, any> = { _id: id };
     if (doctorId) filter.doctorId = doctorId;
 
-    const patient = await Patient.findOneAndDelete(filter, { session });
+    const patient = await Patient.findOneAndDelete(filter, opts);
     if (!patient) throw new NotFoundError('Patient not found');
 
-    await Doctor.updateOne({ _id: patient.doctorId }, { $inc: { patientCount: -1 } }, { session });
+    await Doctor.updateOne({ _id: patient.doctorId }, { $inc: { patientCount: -1 } }, opts);
   });
 }
