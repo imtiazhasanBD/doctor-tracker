@@ -2,7 +2,7 @@ import { Doctor } from '../models/Doctor';
 import { Patient } from '../models/Patient';
 import { ConflictError, NotFoundError } from '../utils/errors';
 import { dateRange, pageMeta, prefixRegex } from '../utils/query';
-import type { CreateDoctorInput, ListDoctorsQuery } from '../validators/doctor.validators';
+import type { CreateDoctorInput, UpdateDoctorInput, ListDoctorsQuery } from '../validators/doctor.validators';
 
 const SORTS: Record<ListDoctorsQuery['sort'], Record<string, 1 | -1>> = {
   newest: { createdAt: -1, _id: -1 },
@@ -39,6 +39,18 @@ export async function createDoctor(input: CreateDoctorInput) {
 
 export async function getDoctor(id: string) {
   const doctor = await Doctor.findById(id).select('-nameLower').lean();
+  if (!doctor) throw new NotFoundError('Doctor not found');
+  return doctor;
+}
+
+export async function updateDoctor(id: string, input: UpdateDoctorInput) {
+  const updateData: Record<string, any> = { ...input };
+  if (updateData.name) {
+    updateData.nameLower = updateData.name.toLowerCase();
+  }
+  const doctor = await Doctor.findByIdAndUpdate(id, updateData, { new: true, runValidators: true })
+    .select('-nameLower')
+    .lean();
   if (!doctor) throw new NotFoundError('Doctor not found');
   return doctor;
 }

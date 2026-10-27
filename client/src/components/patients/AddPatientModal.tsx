@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { patientSchema, PatientFormData, CONDITIONS, GENDERS, PATIENT_STATUSES } from '@/schemas';
 import { usePatientMutations } from '@/hooks/usePatients';
 import { useDoctors } from '@/hooks/useDoctors';
-import { Patient } from '@/types/api';
+import { Patient, Doctor } from '@/types/api';
 import {
   Dialog,
   DialogContent,
@@ -40,7 +40,7 @@ export function AddPatientModal({
 }: Props) {
   const { createPatient, updatePatient } = usePatientMutations();
   const { data: doctorsData } = useDoctors({ limit: 50 });
-  const doctorsList = doctorsData?.data || [];
+  const doctorsList: Doctor[] = doctorsData?.data || [];
 
   const isEdit = Boolean(patientToEdit);
 

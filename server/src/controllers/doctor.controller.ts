@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import * as doctors from '../services/doctor.service';
 import * as patients from '../services/patient.service';
-import { createDoctorSchema, listDoctorsQuery } from '../validators/doctor.validators';
+import { createDoctorSchema, updateDoctorSchema, listDoctorsQuery } from '../validators/doctor.validators';
 import { createPatientSchema, listPatientsQuery } from '../validators/patient.validators';
 import { doctorPatientParams, idParam } from '../validators/common';
 
@@ -21,6 +21,13 @@ export async function create(req: Request, res: Response) {
 export async function getOne(req: Request, res: Response) {
   const { id } = idParam.parse(req.params);
   res.json({ data: await doctors.getDoctor(id) });
+}
+
+export async function update(req: Request, res: Response) {
+  const { id } = idParam.parse(req.params);
+  const data = updateDoctorSchema.parse(req.body);
+  const doctor = await doctors.updateDoctor(id, data);
+  res.json({ data: doctor });
 }
 
 export async function remove(req: Request, res: Response) {

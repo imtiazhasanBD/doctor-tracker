@@ -53,21 +53,14 @@ export function StatCard({
   sparkColor = '#3b82f6',
   className,
 }: StatCardProps) {
-  const growthStr =
-    typeof growth === 'number'
-      ? growth >= 0
-        ? `+${growth}%`
-        : `${growth}%`
-      : growth.startsWith('+') || growth.startsWith('-')
-        ? growth
-        : `+${growth}`;
-
-  const isNegative = growthStr.startsWith('-');
+  const cleanGrowth = String(growth).replace(/^[+-\s]+/, '');
+  const isNegative = String(growth).trim().startsWith('-');
+  const growthDisplay = `${cleanGrowth}${cleanGrowth.endsWith('%') ? '' : '%'}`;
 
   return (
     <Card
       className={cn(
-        'border-slate-100/90 dark:border-[#1c2d54] bg-white dark:bg-[#0e1933] rounded-xl shadow-[0_4px_15px_-3px_rgba(15,23,42,0.03)] p-5 flex flex-col justify-between transition-colors',
+        'border-slate-100/90 dark:border-[#1c2d54] bg-white dark:bg-[#0e1933] rounded-md shadow-[0_4px_15px_-3px_rgba(15,23,42,0.03)] p-5 flex flex-col justify-between transition-colors',
         className
       )}
     >
@@ -100,7 +93,7 @@ export function StatCard({
                 : 'text-[#10b981] dark:text-[#34d399]'
             )}
           >
-            {isNegative ? '↓ ' : '↑ '} {growthStr}
+            {isNegative ? '↓ ' : '↑ '} {growthDisplay}
           </span>
           <p className="text-[11px] text-[#94a3b8] dark:text-[#5a6d8c] leading-tight">
             {period}

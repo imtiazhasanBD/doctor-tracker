@@ -12,10 +12,15 @@ interface DoctorQueryParams {
 }
 
 export function useDoctors(params?: DoctorQueryParams) {
-  return useQuery<DoctorsResponse>({
+  return useQuery<any>({
     queryKey: ['doctors', params],
     queryFn: async () => {
-      const res = await api.get('/doctors', { params });
+      const p: Record<string, any> = { ...params };
+      if (p.q && !p.search) {
+        p.search = p.q;
+      }
+      delete p.q;
+      const res = await api.get('/doctors', { params: p });
       return res.data;
     },
   });
@@ -68,8 +73,21 @@ export function useDoctorMutations() {
     },
   });
 
+  const updateDoctor = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: Partial<DoctorFormData> }) => {
+      const res = await api.patch(`/doctors/${id}`, data);
+      return res.data.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['doctors'] });
+      queryClient.invalidateQueries({ queryKey: ['doctor', variables.id] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard', 'stats'] });
+    },
+  });
+
   return {
     createDoctor,
+    updateDoctor,
     deleteDoctor,
   };
 }

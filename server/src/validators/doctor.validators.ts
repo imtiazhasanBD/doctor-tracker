@@ -28,4 +28,6 @@ export const listDoctorsQuery = z
   .refine(validRange, validRangeError);
 
 export type CreateDoctorInput = z.infer<typeof createDoctorSchema>;
+export const updateDoctorSchema = createDoctorSchema.partial();
+export type UpdateDoctorInput = z.infer<typeof updateDoctorSchema>;
 export type ListDoctorsQuery = z.infer<typeof listDoctorsQuery>;
