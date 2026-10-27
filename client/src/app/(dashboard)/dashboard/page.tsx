@@ -12,11 +12,11 @@ import {
   ChevronRight,
   Eye,
   Stethoscope,
-  ArrowUpRight,
 } from 'lucide-react';
 import { useDashboardStats } from '@/hooks/useDashboardStats';
 import { PatientsPerDoctorChart } from '@/components/dashboard/PatientsPerDoctorChart';
 import { PatientsByConditionChart } from '@/components/dashboard/PatientsByConditionChart';
+import { StatCard } from '@/components/dashboard/StatCard';
 import { DashboardSkeleton } from '@/components/ui/app-skeletons';
 import {
   Card,
@@ -35,32 +35,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
-
-// MINI SPARKLINE SVG FOR STAT CARDS
-const MiniSparkline = ({ color }: { color: string }) => {
-  const gradId = `spark-${color.replace('#', '')}`;
-  return (
-    <svg width="76" height="34" viewBox="0 0 76 34" fill="none" className="shrink-0 select-none">
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="34" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor={color} stopOpacity="0.22" />
-          <stop offset="100%" stopColor={color} stopOpacity="0.0" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M2 25C14 27 24 21 36 21C48 21 56 12 74 7V34H2V25Z"
-        fill={`url(#${gradId})`}
-      />
-      <path
-        d="M2 25C14 27 24 21 36 21C48 21 56 12 74 7"
-        stroke={color}
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-};
 
 // HOSPITAL BANNER ILLUSTRATION
 const HospitalBannerIllustration = () => (
@@ -215,43 +189,9 @@ export default function DashboardPage() {
 
         {/* 4 Metric Cards Row */}
         <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 px-4">
-          {statCards.map((card) => {
-            const IconComponent = card.icon;
-            return (
-              <Card
-                key={card.title}
-                className="border-slate-100/90 bg-white rounded-md shadow-[0_4px_15px_-3px_rgba(15,23,42,0.03)] p-5 flex flex-col justify-between"
-              >
-                <div className="flex items-start gap-3.5">
-                  <div
-                    className={`w-11 h-11 rounded-[14px] ${card.iconBg} flex items-center justify-center shrink-0`}
-                  >
-                    <IconComponent className={`w-5 h-5 ${card.iconColor}`} />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[12px] font-medium text-[#64748b] truncate">
-                      {card.title}
-                    </p>
-                    <h3 className="text-[24px] sm:text-[26px] font-extrabold text-[#0f172a] leading-tight mt-0.5">
-                      {card.value}
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="flex items-end justify-between mt-3.5 pt-1">
-                  <div>
-                    <span className="inline-flex items-center text-[11.5px] font-bold text-[#10b981]">
-                      ↑ {card.growth}
-                    </span>
-                    <p className="text-[11px] text-[#94a3b8] leading-tight">
-                      {card.period}
-                    </p>
-                  </div>
-                  <MiniSparkline color={card.sparkColor} />
-                </div>
-              </Card>
-            );
-          })}
+          {statCards.map((card) => (
+            <StatCard key={card.title} {...card} />
+          ))}
         </div>
       </div>
 
@@ -271,7 +211,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Actions Card (2 cols) */}
-        <Card className="lg:col-span-2 border-slate-100 bg-white rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] flex flex-col justify-between">
+        <Card className="lg:col-span-2 border-slate-100 bg-white rounded-md p-5 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] flex flex-col justify-between">
           <CardHeader className="p-0 pb-3">
             <CardTitle className="text-[14.5px] font-bold text-[#0f172a] flex items-center gap-2">
               <Zap className="w-4 h-4 text-[#2584ff] fill-[#2584ff]" />

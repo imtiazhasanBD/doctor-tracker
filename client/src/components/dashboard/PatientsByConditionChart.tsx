@@ -56,8 +56,8 @@ export function PatientsByConditionChart({
   });
 
   return (
-    <Card className="border-slate-100 bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] h-full">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 pt-5 px-5">
+    <Card className="border-slate-100 bg-white rounded-md shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] h-full">
+      <CardHeader className="flex flex-row items-center justify-between py-2 px-4">
         <div className="flex items-center gap-2">
           <PieChartIcon className="w-4 h-4 text-[#2584ff]" />
           <CardTitle className="text-[14.5px] font-bold text-[#0f172a]">
