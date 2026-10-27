@@ -44,7 +44,7 @@ export async function getDashboardStats(days = 30) {
         { $group: { _id: '$condition', count: { $sum: 1 } } },
         { $sort: { count: -1 } },
       ]),
-      Patient.find({}, 'name condition status createdAt doctorId')
+      Patient.find({}, 'name condition status createdAt doctorId age')
         .sort({ createdAt: -1, _id: -1 })
         .limit(5)
         .populate('doctor', 'name')

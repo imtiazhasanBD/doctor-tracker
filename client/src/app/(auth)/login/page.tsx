@@ -247,7 +247,7 @@ export default function LoginPage() {
       <div className="col-span-1 lg:col-span-5 h-full flex flex-col items-center justify-center p-6 sm:p-10 bg-white overflow-hidden">
         {/* CENTER LOGIN CARD CONTAINER */}
         <div className="w-full max-w-[420px] pt-6">
-          <div className="relative rounded-[28px] px-7 sm:px-9 pt-12 pb-9 bg-white border border-slate-100 shadow-[0_15px_50px_-12px_rgba(15,23,42,0.07)]">
+          <div className="relative rounded-md px-7 sm:px-9 pt-12 pb-9 bg-white border border-slate-100 shadow-[0_15px_50px_-12px_rgba(15,23,42,0.07)]">
             
             {/* Floating Top Center Heart Badge */}
             <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-[56px] h-[56px] rounded-[18px] flex items-center justify-center bg-gradient-to-b from-white to-[#f5fafe] border border-slate-100 shadow-[0_8px_22px_-4px_rgba(14,116,144,0.15)]">

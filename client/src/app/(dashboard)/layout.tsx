@@ -32,12 +32,12 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-slate-50">
+    <div className="flex h-screen w-full overflow-hidden bg-[#f8fafc]">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar />
-        <main className="flex-1 overflow-y-auto p-6 md:p-8">
-          <div className="mx-auto max-w-7xl">{children}</div>
+        <main className="flex-1 overflow-y-auto bg-[#f8fafc]">
+          <div className="mx-auto max-w-[1500px]">{children}</div>
         </main>
       </div>
     </div>

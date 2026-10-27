@@ -87,4 +87,7 @@ export interface DashboardStats {
   };
   patientsPerDoctor: TopDoctor[];
   conditions: ConditionStat[];
+  recentPatients?: any[];
+  timezone?: string;
+  generatedAt?: string;
 }
