@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${outfit.variable} font-sans h-full antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${outfit.variable} font-sans h-full antialiased`}>
       <body className="min-h-full font-sans bg-background text-foreground">
         <Providers>{children}</Providers>
       </body>

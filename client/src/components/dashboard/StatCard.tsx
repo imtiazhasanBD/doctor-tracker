@@ -65,24 +65,24 @@ export function StatCard({
   return (
     <Card
       className={cn(
-        'border-slate-100/90 bg-white rounded-md shadow-[0_4px_15px_-3px_rgba(15,23,42,0.03)] p-5 flex flex-col justify-between',
+        'border-slate-100/90 dark:border-[#1c2d54] bg-white dark:bg-[#0e1933] rounded-xl shadow-[0_4px_15px_-3px_rgba(15,23,42,0.03)] p-5 flex flex-col justify-between transition-colors',
         className
       )}
     >
       <div className="flex items-start gap-3.5">
         <div
           className={cn(
-            'w-11 h-11 rounded-[14px] flex items-center justify-center shrink-0',
+            'w-11 h-11 rounded-md flex items-center justify-center shrink-0',
             iconBg
           )}
         >
           <Icon className={cn('w-5 h-5', iconColor)} />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] font-medium text-[#64748b] truncate">
+          <p className="text-[12px] font-medium text-[#64748b] dark:text-[#7a8da8] truncate">
             {title}
           </p>
-          <h3 className="text-[24px] sm:text-[26px] font-extrabold text-[#0f172a] leading-tight mt-0.5">
+          <h3 className="text-[24px] sm:text-[26px] font-extrabold text-[#0f172a] dark:text-white leading-tight mt-0.5">
             {value}
           </h3>
         </div>
@@ -90,10 +90,10 @@ export function StatCard({
 
       <div className="flex items-end justify-between mt-3.5 pt-1">
         <div>
-          <span className="inline-flex items-center text-[11.5px] font-bold text-[#10b981]">
+          <span className="inline-flex items-center text-[11.5px] font-bold text-[#10b981] dark:text-[#34d399]">
             ↑ {growthStr}
           </span>
-          <p className="text-[11px] text-[#94a3b8] leading-tight">
+          <p className="text-[11px] text-[#94a3b8] dark:text-[#5a6d8c] leading-tight">
             {period}
           </p>
         </div>

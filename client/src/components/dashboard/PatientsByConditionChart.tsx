@@ -56,21 +56,21 @@ export function PatientsByConditionChart({
   });
 
   return (
-    <Card className="border-slate-100 bg-white rounded-md shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] h-full">
+    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] h-full transition-colors">
       <CardHeader className="flex flex-row items-center justify-between py-2 px-4">
         <div className="flex items-center gap-2">
-          <PieChartIcon className="w-4 h-4 text-[#2584ff]" />
-          <CardTitle className="text-[14.5px] font-bold text-[#0f172a]">
+          <PieChartIcon className="w-4 h-4 text-[#2584ff] dark:text-[#38bdf8]" />
+          <CardTitle className="text-[14.5px] font-bold text-[#0f172a] dark:text-white">
             Patients by Condition
           </CardTitle>
         </div>
 
         <button
           type="button"
-          className="inline-flex items-center gap-1.5 text-[11px] bg-[#f8fafc] border border-slate-200/80 text-[#475569] px-2.5 py-1 rounded-lg font-medium"
+          className="inline-flex items-center gap-1.5 text-[11px] bg-[#f8fafc] dark:bg-[#10192e] border border-slate-200/80 dark:border-[#1c2d54] text-[#475569] dark:text-[#8fa1be] px-2.5 py-1 rounded-lg font-medium transition-colors"
         >
           This Month
-          <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+          <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-[#5a6d8c]" />
         </button>
       </CardHeader>
 
@@ -98,7 +98,7 @@ export function PatientsByConditionChart({
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                       return (
-                        <div className="bg-[#0f172a] text-white text-[11px] px-2.5 py-1 rounded-md shadow-md">
+                        <div className="bg-[#0f172a] dark:bg-[#10192e] border border-transparent dark:border-[#1c2d54] text-white text-[11px] px-2.5 py-1 rounded-md shadow-md font-semibold">
                           {payload[0].name}: {payload[0].value?.toLocaleString()}
                         </div>
                       );
@@ -111,10 +111,10 @@ export function PatientsByConditionChart({
 
             {/* Center label */}
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[19px] font-extrabold text-[#0f172a] leading-none">
+              <span className="text-[19px] font-extrabold text-[#0f172a] dark:text-white leading-none">
                 {displayTotal.toLocaleString()}
               </span>
-              <span className="text-[11px] text-[#64748b] font-medium mt-1">
+              <span className="text-[11px] text-[#64748b] dark:text-[#6b7f9e] font-medium mt-1">
                 Patients
               </span>
             </div>
@@ -132,16 +132,16 @@ export function PatientsByConditionChart({
                     className="h-2.5 w-2.5 rounded-full shrink-0"
                     style={{ backgroundColor: item.color }}
                   />
-                  <span className="text-[#475569] font-medium truncate">
+                  <span className="text-[#475569] dark:text-[#8fa1be] font-medium truncate">
                     {item.name}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-3 shrink-0">
-                  <span className="font-bold text-[#0f172a]">
+                  <span className="font-bold text-[#0f172a] dark:text-white">
                     {item.value.toLocaleString()}
                   </span>
-                  <span className="text-[#94a3b8] text-[11px] w-7 text-right">
+                  <span className="text-[#94a3b8] dark:text-[#5a6d8c] text-[11px] w-7 text-right">
                     {item.pct}
                   </span>
                 </div>
