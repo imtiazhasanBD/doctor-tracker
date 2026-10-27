@@ -20,37 +20,25 @@ const COLORS = [
   '#94a3b8', // Others - Slate
 ];
 
-const DEFAULT_CONDITIONS: ConditionStat[] = [
-  { condition: 'Diabetes', count: 850 },
-  { condition: 'Hypertension', count: 825 },
-  { condition: 'Asthma', count: 719 },
-  { condition: 'Heart Disease', count: 619 },
-  { condition: 'Arthritis', count: 567 },
-  { condition: 'Others', count: 1420 },
-];
-
-const pctMap: Record<string, string> = {
-  Diabetes: '17%',
-  Hypertension: '16%',
-  Asthma: '14%',
-  'Heart Disease': '12%',
-  Arthritis: '11%',
-  Others: '30%',
-};
-
 export function PatientsByConditionChart({
   data = [],
-  totalPatients = 5000,
+  totalPatients = 0,
 }: Props) {
-  const sourceData = data.length > 0 ? data : DEFAULT_CONDITIONS;
-  const displayTotal = totalPatients > 0 ? totalPatients : 5000;
+  const sourceData = data;
+  const calculatedTotal = sourceData.reduce((acc, curr) => acc + (curr.count || 0), 0);
+  const displayTotal = totalPatients > 0 ? totalPatients : calculatedTotal;
 
   const chartData = sourceData.slice(0, 6).map((item, idx) => {
-    const pct = pctMap[item.condition] || `${Math.round((item.count / displayTotal) * 100)}%`;
+    const rawPct =
+      item.percentage != null
+        ? item.percentage
+        : displayTotal > 0
+          ? Math.round((item.count / displayTotal) * 100)
+          : 0;
     return {
       name: item.condition,
       value: item.count,
-      pct,
+      pct: `${rawPct}%`,
       color: COLORS[idx % COLORS.length],
     };
   });
@@ -75,7 +63,12 @@ export function PatientsByConditionChart({
       </CardHeader>
 
       <CardContent className="px-5 pb-4 pt-2">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 h-[220px]">
+        {chartData.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-[220px] text-center text-[#64748b] dark:text-[#6b7f9e]">
+            <p className="text-[13px] font-medium">No patient condition data recorded yet</p>
+          </div>
+        ) : (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 h-[220px]">
           {/* Donut Chart */}
           <div className="relative h-[185px] w-[185px] shrink-0">
             <ResponsiveContainer width="100%" height="100%">
@@ -149,6 +142,7 @@ export function PatientsByConditionChart({
             ))}
           </div>
         </div>
+      )}
       </CardContent>
     </Card>
   );

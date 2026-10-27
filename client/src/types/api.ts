@@ -69,25 +69,64 @@ export interface TopDoctor {
 export interface ConditionStat {
   condition: string;
   count: number;
+  percentage?: number;
+}
+
+export interface DashboardDoctor {
+  id: string;
+  _id?: string;
+  name: string;
+  specialization: string;
+  hospital?: string;
+  patients: number;
+  count?: number;
+  status: string;
+}
+
+export interface DashboardPatient {
+  id: string;
+  _id?: string;
+  name: string;
+  age: number;
+  condition: string;
+  status: string;
+  addedDate: string;
+  createdAt?: string;
+  doctor: string;
+  doctorId?: string;
 }
 
 export interface DashboardStats {
   totals: {
     doctors: number;
     patients: number;
+    thisMonthPatients?: number;
     todayPatients?: number;
     activePatients?: number;
     dischargedPatients?: number;
     avgPatientsPerDoctor?: number;
+    newPatients?: {
+      days: number;
+      count: number;
+    };
   };
   growth?: {
-    doctorsPctMonth: number;
-    patientsPctMonth: number;
-    todayPctYesterday: number;
+    doctorsPctMonth?: number;
+    doctorsGrowthText?: string;
+    patientsPctMonth?: number;
+    patientsGrowthText?: string;
+    thisMonthPct?: number;
+    thisMonthGrowthText?: string;
+    todayPctYesterday?: number;
+    todayGrowthText?: string;
+    conditionsPctMonth?: number;
+    conditionsGrowthText?: string;
   };
   patientsPerDoctor: TopDoctor[];
+  doctorDirectory?: DashboardDoctor[];
   conditions: ConditionStat[];
-  recentPatients?: any[];
+  recentPatients?: DashboardPatient[];
   timezone?: string;
   generatedAt?: string;
 }
+

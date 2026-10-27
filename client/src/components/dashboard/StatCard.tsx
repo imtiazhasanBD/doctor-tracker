@@ -62,6 +62,8 @@ export function StatCard({
         ? growth
         : `+${growth}`;
 
+  const isNegative = growthStr.startsWith('-');
+
   return (
     <Card
       className={cn(
@@ -90,8 +92,15 @@ export function StatCard({
 
       <div className="flex items-end justify-between mt-3.5 pt-1">
         <div>
-          <span className="inline-flex items-center text-[11.5px] font-bold text-[#10b981] dark:text-[#34d399]">
-            ↑ {growthStr}
+          <span
+            className={cn(
+              'inline-flex items-center text-[11.5px] font-bold',
+              isNegative
+                ? 'text-[#f43f5e] dark:text-[#f87171]'
+                : 'text-[#10b981] dark:text-[#34d399]'
+            )}
+          >
+            {isNegative ? '↓ ' : '↑ '} {growthStr}
           </span>
           <p className="text-[11px] text-[#94a3b8] dark:text-[#5a6d8c] leading-tight">
             {period}

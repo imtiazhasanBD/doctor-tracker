@@ -19,21 +19,11 @@ interface Props {
   data?: TopDoctor[];
 }
 
-const DEFAULT_DOCTORS: TopDoctor[] = [
-  { doctorId: '1', name: 'Dr. Rahman', count: 24 },
-  { doctorId: '2', name: 'Dr. Karim', count: 35 },
-  { doctorId: '3', name: 'Dr. Islam', count: 32 },
-  { doctorId: '4', name: 'Dr. Hasan', count: 20 },
-  { doctorId: '5', name: 'Dr. Chowdhury', count: 22 },
-  { doctorId: '6', name: 'Dr. Ahmed', count: 15 },
-  { doctorId: '7', name: 'Dr. Fazal', count: 11 },
-];
-
 export function PatientsPerDoctorChart({ data = [] }: Props) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
 
-  const sourceData = (data.length > 0 ? data : DEFAULT_DOCTORS).slice(0, 7);
+  const sourceData = data.slice(0, 7);
 
   const chartData = sourceData.map((item) => {
     let cleanName = item.name.trim();
@@ -116,54 +106,60 @@ export function PatientsPerDoctorChart({ data = [] }: Props) {
       </CardHeader>
 
       <CardContent className="px-3 pb-4 pt-2">
-        <div className="h-[225px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={chartData}
-              margin={{ top: 32, right: 10, left: -24, bottom: 4 }}
-            >
-              <CartesianGrid
-                strokeDasharray="3 3"
-                vertical={false}
-                stroke={isDark ? '#162444' : '#f1f5f9'}
-              />
-              <XAxis
-                dataKey="name"
-                tickLine={false}
-                axisLine={false}
-                interval={0}
-                tick={{ fontSize: 9.5, fill: isDark ? '#6b7f9e' : '#64748b' }}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tick={{ fontSize: 10.5, fill: isDark ? '#6b7f9e' : '#94a3b8' }}
-                domain={yDomain}
-                ticks={yTicks}
-              />
-              <Tooltip
-                cursor={{ fill: isDark ? '#10192e' : '#f8fafc' }}
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="bg-[#0f172a] dark:bg-[#10192e] border border-transparent dark:border-[#1c2d54] text-white text-[11px] px-2.5 py-1 rounded-md shadow-md font-semibold">
-                        {payload[0].value} Patients
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              <Bar
-                dataKey="count"
-                fill="#2584ff"
-                radius={[4, 4, 0, 0]}
-                maxBarSize={30}
-                label={renderCustomLabel}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+        {chartData.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-[225px] text-center text-[#64748b] dark:text-[#6b7f9e]">
+            <p className="text-[13px] font-medium">No doctor patient data available yet</p>
+          </div>
+        ) : (
+          <div className="h-[225px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartData}
+                margin={{ top: 32, right: 10, left: -24, bottom: 4 }}
+              >
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke={isDark ? '#162444' : '#f1f5f9'}
+                />
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  interval={0}
+                  tick={{ fontSize: 9.5, fill: isDark ? '#6b7f9e' : '#64748b' }}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tick={{ fontSize: 10.5, fill: isDark ? '#6b7f9e' : '#94a3b8' }}
+                  domain={yDomain}
+                  ticks={yTicks}
+                />
+                <Tooltip
+                  cursor={{ fill: isDark ? '#10192e' : '#f8fafc' }}
+                  content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                      return (
+                        <div className="bg-[#0f172a] dark:bg-[#10192e] border border-transparent dark:border-[#1c2d54] text-white text-[11px] px-2.5 py-1 rounded-md shadow-md font-semibold">
+                          {payload[0].value} Patients
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Bar
+                  dataKey="count"
+                  fill="#2584ff"
+                  radius={[4, 4, 0, 0]}
+                  maxBarSize={30}
+                  label={renderCustomLabel}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

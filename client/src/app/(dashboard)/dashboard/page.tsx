@@ -59,47 +59,30 @@ export default function DashboardPage() {
     return <DashboardSkeleton />;
   }
 
-  const totals = data?.totals || { doctors: 25, patients: 5000, todayPatients: 12 };
-  const growth = data?.growth || {
-    doctorsPctMonth: 12,
-    patientsPctMonth: 18,
-    todayPctYesterday: 20,
+  const totals = data?.totals || {
+    doctors: 0,
+    patients: 0,
+    thisMonthPatients: 0,
+    todayPatients: 0,
   };
+  const growth = data?.growth || {};
 
-  const conditionsCount = data?.conditions?.length || 6;
+  const conditionsCount = data?.conditions?.length || 0;
 
-  // Fallback rows matching the screenshot if API doesn't return table lists
-  const recentPatients = (data as any)?.recentPatients || [
-    { id: 1, name: 'Tanvir Ahmed', doctor: 'Dr. Rahman', age: 45, condition: 'Diabetes', addedDate: '2026-04-28', status: 'Active' },
-    { id: 2, name: 'Fatima Begum', doctor: 'Dr. Karim', age: 38, condition: 'Hypertension', addedDate: '2026-04-28', status: 'Active' },
-    { id: 3, name: 'Rahim Uddin', doctor: 'Dr. Islam', age: 52, condition: 'Heart Disease', addedDate: '2026-04-28', status: 'Active' },
-    { id: 4, name: 'Nusrat Jahan', doctor: 'Dr. Hasan', age: 29, condition: 'Asthma', addedDate: '2026-04-27', status: 'Discharged' },
-    { id: 5, name: 'Ali Hossain', doctor: 'Dr. Chowdhury', age: 40, condition: 'Back Pain', addedDate: '2026-04-27', status: 'Active' },
-  ];
-
-  const doctorDirectory =
-    (data as any)?.doctorDirectory ||
-    (data?.patientsPerDoctor?.length
-      ? data.patientsPerDoctor.slice(0, 5).map((doc) => ({
-        id: doc.doctorId,
-        name: doc.name,
-        specialization: doc.specialization || 'General',
-        patients: doc.count,
-        status: 'Active',
-      }))
-      : null) || [
-      { id: 1, name: 'Dr. Rahman', specialization: 'Cardiology', patients: 320, status: 'Active' },
-      { id: 2, name: 'Dr. Karim', specialization: 'Medicine', patients: 280, status: 'Active' },
-      { id: 3, name: 'Dr. Islam', specialization: 'Neurology', patients: 250, status: 'Active' },
-      { id: 4, name: 'Dr. Hasan', specialization: 'Pediatrics', patients: 210, status: 'Active' },
-      { id: 5, name: 'Dr. Chowdhury', specialization: 'Orthopedics', patients: 180, status: 'Active' },
-    ];
+  const recentPatients = data?.recentPatients || [];
+  const doctorDirectory = data?.doctorDirectory || [];
 
   const statCards = [
     {
       title: 'Total Doctors',
-      value: totals.doctors.toLocaleString(),
-      growth: `+${growth.doctorsPctMonth}%`,
+      value: (totals.doctors ?? 0).toLocaleString(),
+      growth:
+        growth.doctorsGrowthText ||
+        (growth.doctorsPctMonth != null
+          ? growth.doctorsPctMonth >= 0
+            ? `+${growth.doctorsPctMonth}%`
+            : `${growth.doctorsPctMonth}%`
+          : '+0%'),
       period: 'from last month',
       icon: User,
       iconBg: 'bg-[#ebf4ff] dark:bg-[#132c54]',
@@ -108,8 +91,14 @@ export default function DashboardPage() {
     },
     {
       title: 'Total Patients',
-      value: totals.patients.toLocaleString(),
-      growth: `+${growth.patientsPctMonth}%`,
+      value: (totals.patients ?? 0).toLocaleString(),
+      growth:
+        growth.patientsGrowthText ||
+        (growth.patientsPctMonth != null
+          ? growth.patientsPctMonth >= 0
+            ? `+${growth.patientsPctMonth}%`
+            : `${growth.patientsPctMonth}%`
+          : '+0%'),
       period: 'from last month',
       icon: Users,
       iconBg: 'bg-[#f4ebff] dark:bg-[#261c4a]',
@@ -118,8 +107,14 @@ export default function DashboardPage() {
     },
     {
       title: 'Patients Added This Month',
-      value: (totals.todayPatients ?? 12).toLocaleString(),
-      growth: `+${growth.todayPctYesterday ?? 20}%`,
+      value: (totals.thisMonthPatients ?? 0).toLocaleString(),
+      growth:
+        growth.thisMonthGrowthText ||
+        (growth.thisMonthPct != null
+          ? growth.thisMonthPct >= 0
+            ? `+${growth.thisMonthPct}%`
+            : `${growth.thisMonthPct}%`
+          : '+0%'),
       period: 'from last month',
       icon: UserPlus,
       iconBg: 'bg-[#ecfdf5] dark:bg-[#12332e]',
@@ -129,7 +124,7 @@ export default function DashboardPage() {
     {
       title: 'Patient Conditions',
       value: conditionsCount.toString(),
-      growth: '+8%',
+      growth: growth.conditionsGrowthText || '+0%',
       period: 'from last month',
       icon: Activity,
       iconBg: 'bg-[#fff7ed] dark:bg-[#3a2518]',
@@ -310,7 +305,14 @@ export default function DashboardPage() {
                 </TableRow>
               </TableHeader>
               <TableBody className="divide-y divide-slate-100 dark:divide-[#14203a] text-[12px]">
-                {recentPatients.map((p: any, idx: number) => {
+                {recentPatients.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={8} className="py-8 text-center text-slate-500 dark:text-[#7e91b0]">
+                      No recent patients recorded yet.
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  recentPatients.map((p: any, idx: number) => {
                   const doctorName =
                     typeof p.doctor === 'object' && p.doctor !== null
                       ? p.doctor.name || 'Unassigned'
@@ -378,7 +380,7 @@ export default function DashboardPage() {
                       </TableCell>
                     </TableRow>
                   );
-                })}
+                }))}
               </TableBody>
             </Table>
           </CardContent>
@@ -426,7 +428,14 @@ export default function DashboardPage() {
                 </TableRow>
               </TableHeader>
               <TableBody className="divide-y divide-slate-100 dark:divide-[#14203a] text-[12px]">
-                {doctorDirectory.map((doc: any, idx: number) => {
+                {doctorDirectory.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={5} className="py-8 text-center text-slate-500 dark:text-[#7e91b0]">
+                      No doctors available yet.
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  doctorDirectory.map((doc: any, idx: number) => {
                   const docName =
                     typeof doc.name === 'string'
                       ? doc.name
@@ -459,7 +468,7 @@ export default function DashboardPage() {
                       </TableCell>
                     </TableRow>
                   );
-                })}
+                }))}
               </TableBody>
             </Table>
           </CardContent>
