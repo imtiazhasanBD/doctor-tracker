@@ -28,7 +28,7 @@ import { DoctorDetailSkeleton, PatientsTableSkeleton } from '@/components/ui/app
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Patient } from '@/types/api';
 
-export default function DoctorDetailPage({
+function DoctorDetailContent({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -317,5 +317,17 @@ export default function DoctorDetailPage({
         doctorToEdit={doctor}
       />
     </div>
+  );
+}
+
+export default function DoctorDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  return (
+    <React.Suspense fallback={<DoctorDetailSkeleton />}>
+      <DoctorDetailContent params={params} />
+    </React.Suspense>
   );
 }
