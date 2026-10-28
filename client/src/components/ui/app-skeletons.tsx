@@ -1,4 +1,5 @@
 import React from 'react';
+import { BarChart3, PieChart, User, Stethoscope } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/card';
 
@@ -279,12 +280,32 @@ export function DashboardSkeleton() {
     <div className="space-y-5 pb-6">
       {/* 1. HERO WELCOME BANNER + 4 METRIC CARDS SKELETON */}
       <div className="relative rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/10 via-accent to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
-        {/* Top Banner Text Skeleton */}
+        {/* Top Right Hospital Illustration from public/ folder */}
+        <div className="hidden md:flex absolute top-0 right-0 h-[160px] items-end justify-end pointer-events-none z-0 opacity-95 dark:opacity-95">
+          <img
+            src="/Modern Hospital Amidst Lush Greenery-Photoroom.png"
+            alt="Modern Hospital Amidst Lush Greenery"
+            className="h-full w-auto object-contain object-right-bottom select-none pointer-events-none dark:hidden"
+          />
+          <img
+            src="/Starlit Modern Hospital at Night-Photoroom.png"
+            alt="Starlit Modern Hospital at Night"
+            className="h-full w-auto object-contain object-right-bottom select-none pointer-events-none hidden dark:block"
+          />
+        </div>
+
+        {/* Top Banner Text - Always permanent, never skeleton */}
         <div className="relative z-10 flex items-center justify-between p-3.5 sm:p-5 pb-3 sm:pb-5">
-          <div className="space-y-2">
-            <Skeleton className="h-3 w-28" />
-            <Skeleton className="h-7 w-64" />
-            <Skeleton className="h-3.5 w-72" />
+          <div>
+            <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+              WELCOME BACK
+            </p>
+            <h1 className="text-[19px] sm:text-[24px] font-bold tracking-tight text-foreground mt-0.5">
+              Here’s what’s happening today
+            </h1>
+            <p className="text-xs sm:text-[13px] text-muted-foreground mt-0.5">
+              Overview of your doctors and patients data.
+            </p>
           </div>
         </div>
 
@@ -313,8 +334,8 @@ export function DashboardSkeleton() {
         <Card className="lg:col-span-7 border-border bg-card rounded-xl shadow-xs p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Skeleton className="w-4 h-4 rounded" />
-              <Skeleton className="h-4 w-36" />
+              <BarChart3 className="w-4 h-4 text-chart-1" />
+              <span className="text-[14.5px] font-bold text-foreground">Patients Per Doctor</span>
             </div>
             <Skeleton className="h-7 w-24 rounded-lg" />
           </div>
@@ -334,8 +355,8 @@ export function DashboardSkeleton() {
         <Card className="lg:col-span-5 border-border bg-card rounded-xl shadow-xs p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Skeleton className="w-4 h-4 rounded" />
-              <Skeleton className="h-4 w-36" />
+              <PieChart className="w-4 h-4 text-chart-1" />
+              <span className="text-[14.5px] font-bold text-foreground">Patients by Condition</span>
             </div>
             <Skeleton className="h-7 w-24 rounded-lg" />
           </div>
@@ -366,8 +387,8 @@ export function DashboardSkeleton() {
         <Card className="lg:col-span-7 border-border bg-card rounded-xl p-4 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-border">
             <div className="flex items-center gap-2">
-              <Skeleton className="w-4 h-4 rounded" />
-              <Skeleton className="h-4 w-28" />
+              <User className="w-4 h-4 text-primary" />
+              <span className="text-sm sm:text-[14.5px] font-bold text-foreground">Recent Patients</span>
             </div>
             <Skeleton className="h-7 w-16 rounded-lg" />
           </div>
@@ -422,8 +443,8 @@ export function DashboardSkeleton() {
         <Card className="lg:col-span-5 border-border bg-card rounded-xl p-4 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-border">
             <div className="flex items-center gap-2">
-              <Skeleton className="w-4 h-4 rounded" />
-              <Skeleton className="h-4 w-28" />
+              <Stethoscope className="w-4 h-4 text-primary" />
+              <span className="text-sm sm:text-[14.5px] font-bold text-foreground">Doctor Directory</span>
             </div>
             <Skeleton className="h-7 w-16 rounded-lg" />
           </div>

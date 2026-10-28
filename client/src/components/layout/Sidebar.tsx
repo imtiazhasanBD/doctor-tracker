@@ -231,19 +231,6 @@ export function Sidebar() {
               <div className="my-3 h-px w-7 bg-sidebar-border mx-auto" />
             )}
 
-            <Link
-              href="/dashboard"
-              onClick={() => setMobileOpen(false)}
-              title={!showFull ? 'Settings' : undefined}
-              className={cn(
-                'flex items-center text-[13px] font-medium text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground rounded-xl transition-all',
-                showFull ? 'gap-3 px-3.5 py-2.5' : 'justify-center p-2.5'
-              )}
-            >
-              <Settings className="h-4 w-4 text-muted-foreground shrink-0" />
-              {showFull && <span>Settings</span>}
-            </Link>
-
             <button
               type="button"
               onClick={() => {
