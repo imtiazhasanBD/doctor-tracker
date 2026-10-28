@@ -37,7 +37,7 @@ patientSchema.index({ condition: 1, createdAt: -1 });
 patientSchema.index({ status: 1, createdAt: -1 });
 patientSchema.index({ nameLower: 1 });
 patientSchema.index({ visitDate: -1 });
-patientSchema.index({ createdAt: -1 });
+patientSchema.index({ createdAt: -1, _id: -1 }); // compound: covers default sort with _id tie-breaker
 
 export type PatientDoc = InferSchemaType<typeof patientSchema>;
 export const Patient = model('Patient', patientSchema);
