@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Search, RotateCcw } from 'lucide-react';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
@@ -46,8 +45,7 @@ export function PatientFilters({
   onReset,
 }: Props) {
   return (
-    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-4 shadow-sm transition-colors">
-      <div className="flex flex-col xl:flex-row items-end justify-between gap-3 w-full">
+    <div className="flex flex-col xl:flex-row items-end justify-between gap-3 w-full">
         {/* Left: Search Input Field */}
         <div className="w-full xl:max-w-xs 2xl:max-w-sm flex-1">
           <div className="relative">
@@ -204,6 +202,5 @@ export function PatientFilters({
           </div>
         </div>
       </div>
-    </Card>
   );
 }

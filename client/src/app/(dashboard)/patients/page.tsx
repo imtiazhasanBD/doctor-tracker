@@ -81,6 +81,39 @@ export default function PatientsPage() {
   const dischargedPatients = statsData?.totals?.dischargedPatients ?? 680;
   const todayPatients = statsData?.totals?.todayPatients ?? 12;
 
+  const filtersComponent = (
+    <PatientFilters
+      search={q}
+      onSearchChange={(val) => {
+        setQ(val);
+        setPage(1);
+      }}
+      doctorId={doctorId}
+      onDoctorIdChange={(val) => {
+        setDoctorId(val);
+        setPage(1);
+      }}
+      condition={condition}
+      onConditionChange={(val) => {
+        setCondition(val);
+        setPage(1);
+      }}
+      status={status}
+      onStatusChange={(val) => {
+        setStatus(val);
+        setPage(1);
+      }}
+      date={date}
+      onDateChange={(val) => {
+        setDate(val);
+        setPage(1);
+      }}
+      doctors={doctorsData?.data || []}
+      conditions={filtersData?.conditions || []}
+      onReset={handleReset}
+    />
+  );
+
   return (
     <div className="space-y-4">
       {/* Top Header matching mockup */}
@@ -151,41 +184,9 @@ export default function PatientsPage() {
         </div>
       )}
 
-      {/* Filter Bar matching mockup */}
-      <PatientFilters
-        search={q}
-        onSearchChange={(val) => {
-          setQ(val);
-          setPage(1);
-        }}
-        doctorId={doctorId}
-        onDoctorIdChange={(val) => {
-          setDoctorId(val);
-          setPage(1);
-        }}
-        condition={condition}
-        onConditionChange={(val) => {
-          setCondition(val);
-          setPage(1);
-        }}
-        status={status}
-        onStatusChange={(val) => {
-          setStatus(val);
-          setPage(1);
-        }}
-        date={date}
-        onDateChange={(val) => {
-          setDate(val);
-          setPage(1);
-        }}
-        doctors={doctorsData?.data || []}
-        conditions={filtersData?.conditions || []}
-        onReset={handleReset}
-      />
-
-      {/* Full-Width Patients Table Card */}
+      {/* Combined Section Card: 1st Patients list + Export, then All Filters, then Table */}
       {isLoading ? (
-        <PatientsTableSkeleton rows={limit} />
+        <PatientsTableSkeleton rows={limit} filters={filtersComponent} />
       ) : (
         <PatientsTable
           patients={patients}
@@ -197,6 +198,7 @@ export default function PatientsPage() {
           showDoctorColumn={true}
           onEditPatient={handleEdit}
           doctors={doctorsData?.data || []}
+          filters={filtersComponent}
         />
       )}
 

@@ -53,6 +53,7 @@ interface Props {
   totalPages?: number;
   onPageChange?: (page: number) => void;
   onEditDoctor?: (doctor: Doctor) => void;
+  filters?: React.ReactNode;
 }
 
 // Specialization icon & styling helper matching mockup
@@ -115,6 +116,7 @@ export function DoctorsTable({
   totalPages = 1,
   onPageChange,
   onEditDoctor,
+  filters,
 }: Props) {
   const { deleteDoctor } = useDoctorMutations();
   const totalCount = total !== undefined ? total : doctors.length;
@@ -173,15 +175,15 @@ export function DoctorsTable({
   };
 
   return (
-    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
+    <div className="space-y-4">
       {/* Card Header matching mockup */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-md bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
             <Users className="h-4 w-4" />
           </div>
-          <h2 className="text-base font-bold text-slate-800 dark:text-white">
-            Doctors list 
+          <h2 className="text-lg font-bold text-slate-800 dark:text-white">
+            Doctors list
           </h2>
         </div>
 
@@ -194,6 +196,9 @@ export function DoctorsTable({
           Export
         </Button>
       </div>
+
+      {/* Filters (Search & Dropdowns) */}
+      {filters && <div className="pt-0.5">{filters}</div>}
 
       {/* Table */}
       <div className="overflow-x-auto">
@@ -425,6 +430,6 @@ export function DoctorsTable({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </Card>
+    </div>
   );
 }

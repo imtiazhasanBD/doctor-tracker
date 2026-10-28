@@ -69,12 +69,14 @@ export function StatCardsRowSkeleton({ count = 4 }: { count?: number }) {
 export function PatientsTableSkeleton({
   rows = 8,
   showDoctorColumn = true,
+  filters,
 }: {
   rows?: number;
   showDoctorColumn?: boolean;
+  filters?: React.ReactNode;
 }) {
   return (
-    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
+    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors space-y-4">
       {/* Table Header: Patients Count & Action / Export buttons */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
         <div className="flex items-center gap-2.5">
@@ -88,6 +90,9 @@ export function PatientsTableSkeleton({
           )}
         </div>
       </div>
+
+      {/* Filters (Search & Dropdowns) */}
+      {filters && <div className="pt-0.5">{filters}</div>}
 
       {/* Main Table Headers */}
       <div className="overflow-x-auto">
@@ -144,9 +149,15 @@ export function PatientsTableSkeleton({
   );
 }
 
-export function DoctorsTableSkeleton({ rows = 8 }: { rows?: number }) {
+export function DoctorsTableSkeleton({
+  rows = 8,
+  filters,
+}: {
+  rows?: number;
+  filters?: React.ReactNode;
+}) {
   return (
-    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
+    <div className="space-y-4">
       {/* Card Header: Doctors list & Export CSV button */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
         <div className="flex items-center gap-2">
@@ -155,6 +166,9 @@ export function DoctorsTableSkeleton({ rows = 8 }: { rows?: number }) {
         </div>
         <Skeleton className="h-8 w-20 rounded-md dark:bg-[#15233c]" />
       </div>
+
+      {/* Filters (Search & Dropdowns) */}
+      {filters && <div className="pt-0.5">{filters}</div>}
 
       {/* Main Table Headers */}
       <div className="overflow-x-auto">
@@ -205,7 +219,7 @@ export function DoctorsTableSkeleton({ rows = 8 }: { rows?: number }) {
           <Skeleton className="w-7 h-7 rounded-md dark:bg-[#15233c]" />
         </div>
       </div>
-    </Card>
+    </div>
   );
 }
 

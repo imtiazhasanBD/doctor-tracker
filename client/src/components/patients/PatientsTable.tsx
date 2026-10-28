@@ -61,6 +61,7 @@ interface Props {
   doctors?: Doctor[];
   actionButton?: React.ReactNode;
   title?: string;
+  filters?: React.ReactNode;
 }
 
 export function PatientsTable({
@@ -76,6 +77,7 @@ export function PatientsTable({
   doctors = [],
   actionButton,
   title,
+  filters,
 }: Props) {
   const { deletePatient } = usePatientMutations();
   const [patientToDelete, setPatientToDelete] = useState<{ id: string; name: string } | null>(null);
@@ -169,15 +171,15 @@ export function PatientsTable({
   };
 
   return (
-    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
+    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors space-y-4">
       {/* Table Header: Patients Count & Action / Export buttons */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-md bg-[#eff6ff] dark:bg-[#122347] text-[#2563eb] dark:text-[#3b82f6] flex items-center justify-center">
             <Users className="h-4 w-4" />
           </div>
-          <h2 className="text-base font-bold text-slate-800 dark:text-white">
-            {title ? `${title}` : `Patients`}
+          <h2 className="text-lg font-bold text-slate-800 dark:text-white">
+            {title ? `${title}` : `Patients list`}
           </h2>
         </div>
 
@@ -194,6 +196,9 @@ export function PatientsTable({
           {actionButton}
         </div>
       </div>
+
+      {/* Filters (Search & Dropdowns) */}
+      {filters && <div className="pt-0.5">{filters}</div>}
 
       {/* Main Table */}
       <div className="overflow-x-auto">

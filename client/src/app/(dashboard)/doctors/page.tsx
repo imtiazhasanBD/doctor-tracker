@@ -10,6 +10,7 @@ import { DoctorsTable } from '@/components/doctors/DoctorsTable';
 import { DoctorFilters } from '@/components/doctors/DoctorFilters';
 import { AddDoctorModal } from '@/components/doctors/AddDoctorModal';
 import { StatCard } from '@/components/dashboard/StatCard';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { DoctorsTableSkeleton, StatCardsRowSkeleton } from '@/components/ui/app-skeletons';
 import { Doctor } from '@/types/api';
@@ -154,39 +155,59 @@ export default function DoctorsPage() {
         </div>
       )}
 
-      {/* Filter Bar matching mockup */}
-      <DoctorFilters
-        search={q}
-        onSearchChange={handleSearchChange}
-        specialization={specialization}
-        onSpecializationChange={handleSpecChange}
-        hospital={hospital}
-        onHospitalChange={handleHospChange}
-        status={status}
-        onStatusChange={handleStatusChange}
-        specializations={filtersData?.specializations || []}
-        hospitals={filtersData?.hospitals || []}
-        onReset={handleReset}
-        onSearch={() => setPage(1)}
-      />
-
-      {/* Doctors Table Card with Pagination matching mockup */}
-      {isLoading ? (
-        <DoctorsTableSkeleton rows={limit} />
-      ) : (
-        <DoctorsTable
-          doctors={doctors}
-          startIndex={(currentPage - 1) * limit}
-          total={total}
-          page={currentPage}
-          totalPages={totalPages}
-          onPageChange={setPage}
-          onEditDoctor={(doc) => {
-            setDoctorToEdit(doc);
-            setAddModalOpen(true);
-          }}
-        />
-      )}
+      {/* Combined Section Card: 1st Doctors List + Export, then All Filters, then Table */}
+      <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
+        {isLoading ? (
+          <DoctorsTableSkeleton
+            rows={limit}
+            filters={
+              <DoctorFilters
+                search={q}
+                onSearchChange={handleSearchChange}
+                specialization={specialization}
+                onSpecializationChange={handleSpecChange}
+                hospital={hospital}
+                onHospitalChange={handleHospChange}
+                status={status}
+                onStatusChange={handleStatusChange}
+                specializations={filtersData?.specializations || []}
+                hospitals={filtersData?.hospitals || []}
+                onReset={handleReset}
+                onSearch={() => setPage(1)}
+              />
+            }
+          />
+        ) : (
+          <DoctorsTable
+            doctors={doctors}
+            startIndex={(currentPage - 1) * limit}
+            total={total}
+            page={currentPage}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            onEditDoctor={(doc) => {
+              setDoctorToEdit(doc);
+              setAddModalOpen(true);
+            }}
+            filters={
+              <DoctorFilters
+                search={q}
+                onSearchChange={handleSearchChange}
+                specialization={specialization}
+                onSpecializationChange={handleSpecChange}
+                hospital={hospital}
+                onHospitalChange={handleHospChange}
+                status={status}
+                onStatusChange={handleStatusChange}
+                specializations={filtersData?.specializations || []}
+                hospitals={filtersData?.hospitals || []}
+                onReset={handleReset}
+                onSearch={() => setPage(1)}
+              />
+            }
+          />
+        )}
+      </Card>
 
       {/* Add / Edit Doctor Modal */}
       <AddDoctorModal

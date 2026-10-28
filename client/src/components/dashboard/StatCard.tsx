@@ -42,7 +42,7 @@ export function StatCard({
           <p className="text-[12px] font-medium text-[#64748b] dark:text-[#7a8da8] truncate">
             {title}
           </p>
-          <h3 className="text-[24px] sm:text-[26px] font-extrabold text-[#0f172a] dark:text-white leading-tight mt-0.5">
+          <h3 className="text-[24px] sm:text-[26px] font-bold text-[#0f172a] dark:text-white leading-tight mt-0.5">
             {value}
           </h3>
         </div>
