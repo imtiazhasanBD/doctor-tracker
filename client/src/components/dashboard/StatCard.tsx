@@ -25,24 +25,24 @@ export function StatCard({
   return (
     <Card
       className={cn(
-        'border border-border bg-card rounded-md shadow-xs p-5 flex flex-col justify-between transition-colors',
+        'border border-border bg-card rounded-xl shadow-xs p-3.5 sm:p-5 flex flex-col justify-between transition-colors',
         className
       )}
     >
-      <div className="flex items-start gap-3.5">
+      <div className="flex items-start gap-2.5 sm:gap-3.5">
         <div
           className={cn(
-            'w-11 h-11 rounded-md flex items-center justify-center shrink-0',
+            'w-9 h-9 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center shrink-0',
             iconBg
           )}
         >
-          <Icon className={cn('w-5 h-5', iconColor)} />
+          <Icon className={cn('w-4 h-4 sm:w-5 sm:h-5', iconColor)} />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] font-medium text-muted-foreground truncate">
+          <p className="text-[11px] sm:text-[12px] font-medium text-muted-foreground truncate leading-tight">
             {title}
           </p>
-          <h3 className="text-[24px] sm:text-[26px] font-bold text-foreground leading-tight mt-0.5">
+          <h3 className="text-[19px] sm:text-[26px] font-bold text-foreground leading-tight mt-1 truncate">
             {value}
           </h3>
         </div>

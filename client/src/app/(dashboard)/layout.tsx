@@ -36,7 +36,7 @@ export default function DashboardLayout({
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar />
-        <main className="flex-1 px-4 pt-4 overflow-y-auto bg-background">
+        <main id="main-scroll-container" className="flex-1 px-3 sm:px-4 pt-4 pb-8 sm:pb-6 overflow-y-auto bg-background">
           <div className="mx-auto max-w-[1500px]">{children}</div>
         </main>
       </div>

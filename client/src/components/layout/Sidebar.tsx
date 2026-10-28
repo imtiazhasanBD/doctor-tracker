@@ -18,14 +18,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
 
 // DocTrack Logo SVG matching screenshot
-const DocTrackLogo = () => (
+export const DocTrackLogo = ({ className = 'h-9 w-9' }: { className?: string }) => (
   <svg
-    width="36"
-    height="36"
     viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="shrink-0"
+    className={cn('shrink-0', className)}
   >
     <defs>
       <linearGradient id="heartGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">

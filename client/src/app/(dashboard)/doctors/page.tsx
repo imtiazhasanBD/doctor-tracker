@@ -123,7 +123,7 @@ export default function DoctorsPage() {
       {statsLoading ? (
         <StatCardsRowSkeleton count={4} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <StatCard
             title="Total Doctors"
             value={totalDoctors}
@@ -156,7 +156,7 @@ export default function DoctorsPage() {
       )}
 
       {/* Combined Section Card: 1st Doctors List + Export, then All Filters, then Table */}
-      <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors">
+      <Card className="border-border bg-card rounded-xl p-3.5 sm:p-5 shadow-sm transition-colors">
         {isLoading ? (
           <DoctorsTableSkeleton
             rows={limit}

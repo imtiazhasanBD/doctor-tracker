@@ -47,17 +47,17 @@ export function TableSkeleton({ columns = 7, rows = 6 }: TableSkeletonProps) {
 
 export function StatCardsRowSkeleton({ count = 4 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       {Array.from({ length: count }).map((_, i) => (
         <Card
           key={i}
-          className="border-border bg-card rounded-md shadow-sm p-5 transition-colors"
+          className="border-border bg-card rounded-xl shadow-xs p-3.5 sm:p-5 transition-colors"
         >
-          <div className="flex items-start gap-3.5">
-            <Skeleton className="w-11 h-11 rounded-md shrink-0" />
+          <div className="flex items-start gap-2.5 sm:gap-3.5">
+            <Skeleton className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg shrink-0" />
             <div className="min-w-0 flex-1 space-y-2">
-              <Skeleton className="h-3 w-24" />
-              <Skeleton className="h-7 w-16" />
+              <Skeleton className="h-3 w-20 sm:w-24" />
+              <Skeleton className="h-6 sm:h-7 w-12 sm:w-16" />
             </div>
           </div>
         </Card>
@@ -170,8 +170,34 @@ export function DoctorsTableSkeleton({
       {/* Filters (Search & Dropdowns) */}
       {filters && <div className="pt-0.5">{filters}</div>}
 
-      {/* Main Table Headers */}
-      <div className="overflow-x-auto">
+      {/* Mobile Card Skeletons (lg:hidden) */}
+      <div className="space-y-3 lg:hidden">
+        {Array.from({ length: Math.min(rows, 4) }).map((_, r) => (
+          <div
+            key={r}
+            className="p-3.5 rounded-xl border border-border bg-card shadow-xs space-y-2.5"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex items-start gap-3 min-w-0 flex-1">
+                <Skeleton className="h-10 w-10 rounded-full shrink-0 mt-0.5" />
+                <div className="min-w-0 flex-1 space-y-2">
+                  <Skeleton className="h-4 w-32" />
+                  <Skeleton className="h-2.5 w-20" />
+                  <Skeleton className="h-3 w-36 mt-2" />
+                  <Skeleton className="h-3 w-28 mt-1" />
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <Skeleton className="h-5 w-14 rounded-md" />
+                <Skeleton className="h-7 w-7 rounded-md" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Main Table Headers (lg:block) */}
+      <div className="hidden lg:block overflow-x-auto">
         <div className="flex items-center gap-4 py-3.5 border-b border-border">
           <Skeleton className="w-40 h-3.5" />
           <Skeleton className="w-28 h-3.5" />
@@ -209,10 +235,9 @@ export function DoctorsTableSkeleton({
       </div>
 
       {/* Pagination Footer skeleton */}
-      <div className="flex flex-col sm:flex-row items-center justify-between pt-4 mt-2 border-t border-border gap-3">
-        <Skeleton className="h-4 w-44" />
+      <div className="flex flex-row items-center justify-between pt-4 mt-2 border-t border-border gap-2">
+        <Skeleton className="h-4 w-32" />
         <div className="flex items-center gap-1">
-          <Skeleton className="w-7 h-7 rounded-md" />
           <Skeleton className="w-7 h-7 rounded-md" />
           <Skeleton className="w-7 h-7 rounded-md" />
           <Skeleton className="w-7 h-7 rounded-md" />

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Edit2,
   Trash2,
@@ -20,6 +21,8 @@ import {
   ChevronRight,
   Activity,
   AlertTriangle,
+  MoreVertical,
+  User,
 } from 'lucide-react';
 import { Doctor } from '@/types/api';
 import {
@@ -34,6 +37,12 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogHeader,
@@ -43,6 +52,7 @@ import {
   AlertDialogCancel,
 } from '@/components/ui/alert-dialog';
 import { useDoctorMutations } from '@/hooks/useDoctors';
+import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
 interface Props {
@@ -118,6 +128,7 @@ export function DoctorsTable({
   onEditDoctor,
   filters,
 }: Props) {
+  const router = useRouter();
   const { deleteDoctor } = useDoctorMutations();
   const totalCount = total !== undefined ? total : doctors.length;
 
@@ -200,8 +211,125 @@ export function DoctorsTable({
       {/* Filters (Search & Dropdowns) */}
       {filters && <div className="pt-0.5">{filters}</div>}
 
-      {/* Table */}
-      <div className="overflow-x-auto">
+      {/* Mobile Doctor Card List matching mockup (Panel 4 & Panel 5) */}
+      <div className="space-y-3 lg:hidden">
+        {doctors.length === 0 ? (
+          <div className="text-center py-10 text-xs text-muted-foreground border border-dashed border-border rounded-xl">
+            No doctors found matching the criteria
+          </div>
+        ) : (
+          doctors.map((doctor, index) => {
+            const specMeta = getSpecializationMeta(doctor.specialization);
+            const SpecIcon = specMeta.Icon;
+            const docId = `DOC-2026-${String(startIndex + index + 1).padStart(3, '0')}`;
+            const initials = doctor.name
+              .replace('Dr. ', '')
+              .split(' ')
+              .map((n) => n[0])
+              .join('')
+              .slice(0, 2)
+              .toUpperCase();
+
+            return (
+              <div
+                key={doctor._id}
+                className="p-3.5 rounded-xl border border-border bg-card shadow-xs transition-colors space-y-2.5"
+              >
+                {/* Top row: Avatar + Name + Doc ID on left; Status badge + 3 dots menu on right */}
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-start gap-3 min-w-0 flex-1">
+                    <Avatar className="h-10 w-10 rounded-full border border-border shrink-0 mt-0.5">
+                      <AvatarFallback className="text-xs font-bold bg-primary/10 text-primary">
+                        {initials}
+                      </AvatarFallback>
+                    </Avatar>
+
+                    <div className="min-w-0 flex-1">
+                      <Link
+                        href={`/doctors/${doctor._id}`}
+                        className="font-bold text-[14px] text-foreground hover:text-primary transition-colors block leading-tight truncate"
+                      >
+                        {doctor.name}
+                      </Link>
+                      <span className="text-[11px] text-muted-foreground font-medium block mt-0.5">
+                        {docId}
+                      </span>
+
+                      {/* Hospital row */}
+                      <div className="flex items-center gap-1.5 mt-2 text-[12px] text-muted-foreground">
+                        <Building2 className="w-3.5 h-3.5 text-primary shrink-0" />
+                        <span className="truncate text-foreground/90 font-medium">
+                          {doctor.hospital}
+                        </span>
+                      </div>
+
+                      {/* Specialization row */}
+                      <div className="flex items-center gap-1.5 mt-1 text-[12px] text-muted-foreground">
+                        <div
+                          className={cn(
+                            'w-4 h-4 rounded-xs flex items-center justify-center shrink-0',
+                            specMeta.color
+                          )}
+                        >
+                          <SpecIcon className="w-3.5 h-3.5" />
+                        </div>
+                        <span className="truncate text-foreground/90 font-medium">
+                          {doctor.specialization}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Active Status Badge + Three dots dropdown */}
+                  <div className="flex items-center gap-1 shrink-0">
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-success/15 text-success">
+                      <span className="w-1.5 h-1.5 rounded-full bg-success" />
+                      Active
+                    </span>
+
+                    {/* Three dots actions menu (Panel 5) */}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        id={index === 0 ? 'doctor-actions-btn-0' : undefined}
+                        className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors cursor-pointer"
+                        aria-label="Doctor actions"
+                      >
+                        <MoreVertical className="h-4 w-4" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-40 bg-popover border border-border shadow-lg rounded-xl p-1">
+                        <DropdownMenuItem
+                          onClick={() => router.push(`/doctors/${doctor._id}`)}
+                          className="flex items-center gap-2.5 cursor-pointer text-xs px-2.5 py-2 rounded-lg"
+                        >
+                          <User className="h-3.5 w-3.5 text-muted-foreground" />
+                          <span>View Profile</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => onEditDoctor?.(doctor)}
+                          className="flex items-center gap-2.5 cursor-pointer text-xs px-2.5 py-2 rounded-lg"
+                        >
+                          <Edit2 className="h-3.5 w-3.5 text-muted-foreground" />
+                          <span>Edit Doctor</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={(e) => handleDeleteClick(e, doctor._id, doctor.name)}
+                          className="flex items-center gap-2.5 cursor-pointer text-xs px-2.5 py-2 rounded-lg text-destructive focus:text-destructive focus:bg-destructive/10"
+                        >
+                          <Trash2 className="h-3.5 w-3.5 text-destructive" />
+                          <span>Delete Doctor</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* Desktop Table (lg+) */}
+      <div className="hidden lg:block overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow className="border-b border-border hover:bg-transparent">
@@ -335,30 +463,25 @@ export function DoctorsTable({
         </Table>
       </div>
 
-      {/* Pagination Footer matching mockup */}
-      <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-muted-foreground pt-4 mt-2 border-t border-border gap-3">
-        <p>
+      {/* Pagination Footer matching mockup (Panel 6) */}
+      <div className="flex flex-row items-center justify-between text-xs text-muted-foreground pt-4 mt-2 border-t border-border gap-2">
+        <p className="text-[12px] whitespace-nowrap">
           Showing{' '}
           <span className="font-semibold text-foreground">
-            {totalCount === 0 ? 0 : startIndex + 1}
-          </span>{' '}
-          to{' '}
-          <span className="font-semibold text-foreground">
-            {Math.min(startIndex + doctors.length, totalCount)}
+            {totalCount === 0 ? 0 : `${startIndex + 1}-${Math.min(startIndex + doctors.length, totalCount)}`}
           </span>{' '}
           of{' '}
           <span className="font-semibold text-foreground">
             {totalCount}
-          </span>{' '}
-          doctors
+          </span>
         </p>
 
         {totalPages > 1 && onPageChange && (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 shrink-0">
             <button
               onClick={() => onPageChange(Math.max(1, page - 1))}
               disabled={page <= 1}
-              className="p-1.5 border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors cursor-pointer"
+              className="h-7 w-7 flex items-center justify-center border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors cursor-pointer"
               title="Previous Page"
             >
               <ChevronLeft className="h-3.5 w-3.5" />
@@ -381,7 +504,7 @@ export function DoctorsTable({
             <button
               onClick={() => onPageChange(Math.min(totalPages, page + 1))}
               disabled={page >= totalPages}
-              className="p-1.5 border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors cursor-pointer"
+              className="h-7 w-7 flex items-center justify-center border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors cursor-pointer"
               title="Next Page"
             >
               <ChevronRight className="h-3.5 w-3.5" />

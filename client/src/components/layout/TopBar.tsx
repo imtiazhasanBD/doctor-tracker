@@ -5,6 +5,7 @@ import { Search, Bell, ChevronDown, Menu } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useUIStore } from '@/store/ui.store';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { DocTrackLogo } from '@/components/layout/Sidebar';
 
 export function TopBar() {
   const { user } = useAuth();
@@ -12,8 +13,8 @@ export function TopBar() {
 
   return (
     <header className="flex h-16 w-full items-center justify-between border-b border-border bg-card px-4 sm:px-6 lg:px-8 shrink-0 transition-colors gap-3">
-      {/* Left: Mobile hamburger + Search Input */}
-      <div className="flex items-center gap-2.5 flex-1 max-w-[420px]">
+      {/* Left: Mobile hamburger + DocTrack logo on mobile; Desktop search bar on lg+ */}
+      <div className="flex items-center gap-2 sm:gap-2.5">
         <button
           type="button"
           id="mobile-menu-btn"
@@ -25,14 +26,23 @@ export function TopBar() {
           <Menu className="h-5 w-5" />
         </button>
 
-        <div className="relative w-full">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder="Search doctors, patients..."
-            className="w-full h-10 pl-10 pr-4 text-[12.5px] bg-secondary border border-input rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-ring transition-all"
-          />
+        {/* Brand in TopBar on mobile matching mockup */}
+        <div className="flex items-center gap-2 lg:hidden select-none">
+          <DocTrackLogo className="h-7 w-7" />
+          <span className="font-bold text-[17px] text-foreground tracking-tight leading-none">
+            Doc<span className="text-primary">Track</span>
+          </span>
         </div>
+      </div>
+
+      {/* Desktop Search Bar */}
+      <div className="hidden lg:flex relative w-full max-w-[420px]">
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <input
+          type="text"
+          placeholder="Search doctors, patients..."
+          className="w-full h-10 pl-10 pr-4 text-[12.5px] bg-secondary border border-input rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-ring transition-all"
+        />
       </div>
 
       {/* Right Controls */}
