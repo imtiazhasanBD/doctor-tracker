@@ -14,6 +14,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, LoginFormData } from '@/schemas';
 import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 
@@ -120,8 +121,14 @@ const DoctorClinicIllustration = () => (
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const { login, isLoggingIn, user, isLoading } = useAuth();
 
-  const { login, isLoggingIn } = useAuth();
+  React.useEffect(() => {
+    if (!isLoading && user) {
+      router.replace('/dashboard');
+    }
+  }, [user, isLoading, router]);
 
   const {
     register,

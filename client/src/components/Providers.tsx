@@ -32,7 +32,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <NuqsAdapter>
           <TooltipProvider>
             {children}
-            <Toaster richColors position="top-right" />
+            <Toaster richColors position="bottom-right" />
           </TooltipProvider>
         </NuqsAdapter>
       </QueryClientProvider>

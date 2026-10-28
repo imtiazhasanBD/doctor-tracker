@@ -14,6 +14,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (typeof window !== 'undefined' && error.response?.status === 401) {
+      document.cookie = 'dt_auth=; path=/; max-age=0; SameSite=Lax';
       if (!window.location.pathname.startsWith('/login')) {
         window.location.href = '/login';
       }

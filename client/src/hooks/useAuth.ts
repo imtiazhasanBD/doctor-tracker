@@ -13,9 +13,15 @@ export function useAuth() {
     queryFn: async () => {
       try {
         const res = await api.get('/auth/me');
+        if (typeof document !== 'undefined') {
+          document.cookie = 'dt_auth=1; path=/; max-age=2592000; SameSite=Lax';
+        }
         return res.data.data;
       } catch (err: any) {
         if (err.response?.status === 401) {
+          if (typeof document !== 'undefined') {
+            document.cookie = 'dt_auth=; path=/; max-age=0; SameSite=Lax';
+          }
           return null;
         }
         throw err;
@@ -34,6 +40,9 @@ export function useAuth() {
       return res.data.data;
     },
     onSuccess: (userData) => {
+      if (typeof document !== 'undefined') {
+        document.cookie = 'dt_auth=1; path=/; max-age=2592000; SameSite=Lax';
+      }
       queryClient.setQueryData(['auth', 'me'], userData);
       router.push('/dashboard');
     },
@@ -44,6 +53,9 @@ export function useAuth() {
       await api.post('/auth/logout');
     },
     onSuccess: () => {
+      if (typeof document !== 'undefined') {
+        document.cookie = 'dt_auth=; path=/; max-age=0; SameSite=Lax';
+      }
       queryClient.setQueryData(['auth', 'me'], null);
       queryClient.clear();
       router.push('/login');
