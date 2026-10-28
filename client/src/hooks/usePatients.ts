@@ -67,7 +67,7 @@ export function usePatientMutations() {
       queryClient.invalidateQueries({ queryKey: ['doctor-patients', variables.doctorId] });
       queryClient.invalidateQueries({ queryKey: ['doctor', variables.doctorId] });
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard', 'stats'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     },
   });
 
@@ -83,7 +83,7 @@ export function usePatientMutations() {
       } else if (updatedPatient?.doctorId?._id) {
         queryClient.invalidateQueries({ queryKey: ['doctor-patients', updatedPatient.doctorId._id] });
       }
-      queryClient.invalidateQueries({ queryKey: ['dashboard', 'stats'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     },
   });
 
@@ -102,7 +102,7 @@ export function usePatientMutations() {
       queryClient.invalidateQueries({ queryKey: ['doctor-patients'] });
       queryClient.invalidateQueries({ queryKey: ['doctor'] });
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard', 'stats'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     },
   });
 

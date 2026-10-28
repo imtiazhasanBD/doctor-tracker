@@ -2,9 +2,18 @@
 
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { PieChart as PieChartIcon, ChevronDown } from 'lucide-react';
+import { PieChart as PieChartIcon } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { ConditionStat } from '@/types/api';
+import { TIMEFRAME_OPTIONS, usePatientsByCondition } from '@/hooks/useDashboardStats';
+import { cn } from '@/lib/utils';
 
 interface Props {
   data?: ConditionStat[];
@@ -21,12 +30,23 @@ const COLORS = [
 ];
 
 export function PatientsByConditionChart({
-  data = [],
-  totalPatients = 0,
+  data: initialData = [],
+  totalPatients: initialTotal = 0,
 }: Props) {
-  const sourceData = data;
+  const [timeframe, setTimeframe] = React.useState<string>('month');
+  const { data: queryResult, isFetching } = usePatientsByCondition(timeframe, {
+    conditions: initialData,
+    total: initialTotal,
+  });
+
+  const sourceData = queryResult?.conditions !== undefined ? queryResult.conditions : initialData;
   const calculatedTotal = sourceData.reduce((acc, curr) => acc + (curr.count || 0), 0);
-  const displayTotal = totalPatients > 0 ? totalPatients : calculatedTotal;
+  const displayTotal =
+    queryResult?.total !== undefined && queryResult.total > 0
+      ? queryResult.total
+      : initialTotal > 0
+        ? initialTotal
+        : calculatedTotal;
 
   const chartData = sourceData.slice(0, 6).map((item, idx) => {
     const rawPct =
@@ -43,6 +63,8 @@ export function PatientsByConditionChart({
     };
   });
 
+  const activeOption = TIMEFRAME_OPTIONS.find((opt) => opt.value === timeframe);
+
   return (
     <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] h-full transition-colors">
       <CardHeader className="flex flex-row items-center justify-between py-2 px-4">
@@ -53,19 +75,28 @@ export function PatientsByConditionChart({
           </CardTitle>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex items-center gap-1.5 text-[11px] bg-[#f8fafc] dark:bg-[#10192e] border border-slate-200/80 dark:border-[#1c2d54] text-[#475569] dark:text-[#8fa1be] px-2.5 py-1 rounded-lg font-medium transition-colors"
-        >
-          This Month
-          <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-[#5a6d8c]" />
-        </button>
+        <Select value={timeframe} onValueChange={(val) => val && setTimeframe(val)}>
+          <SelectTrigger className="h-7 text-[11px] font-medium bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2d54] text-[#475569] dark:text-[#8fa1be] px-2.5 rounded-lg shadow-none gap-1 focus-visible:ring-1 focus-visible:ring-[#2584ff]">
+            <span>{activeOption?.label || 'This Month'}</span>
+          </SelectTrigger>
+          <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#1c2a47] min-w-[120px]">
+            {TIMEFRAME_OPTIONS.map((opt) => (
+              <SelectItem
+                key={opt.value}
+                value={opt.value}
+                className="text-xs text-[#0f172a] dark:text-slate-200 cursor-pointer"
+              >
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </CardHeader>
 
-      <CardContent className="px-5 pb-4 pt-2">
+      <CardContent className={cn('px-5 pb-4 pt-2 transition-opacity duration-200', isFetching && 'opacity-60')}>
         {chartData.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-[220px] text-center text-[#64748b] dark:text-[#6b7f9e]">
-            <p className="text-[13px] font-medium">No patient condition data recorded yet</p>
+            <p className="text-[13px] font-medium">No patient condition data for this timeframe</p>
           </div>
         ) : (
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 h-[220px]">

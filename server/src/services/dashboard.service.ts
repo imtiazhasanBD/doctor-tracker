@@ -83,7 +83,103 @@ export async function getDoctorDirectory(limit = 5) {
   }));
 }
 
-export async function getDashboardStats(days = 30) {
+export function getTimeframeDateFilter(timeframe: string = 'month') {
+  const now = new Date();
+  switch (timeframe) {
+    case 'today':
+      return { $gte: new Date(now.getTime() - 1 * DAY_MS) };
+    case 'week':
+    case '7d':
+      return { $gte: new Date(now.getTime() - 7 * DAY_MS) };
+    case 'month':
+    case '30d':
+      return { $gte: new Date(now.getTime() - 30 * DAY_MS) };
+    case 'quarter':
+    case '90d':
+      return { $gte: new Date(now.getTime() - 90 * DAY_MS) };
+    case 'year':
+    case '365d':
+      return { $gte: new Date(now.getTime() - 365 * DAY_MS) };
+    case 'all':
+      return null;
+    default:
+      return { $gte: new Date(now.getTime() - 30 * DAY_MS) };
+  }
+}
+
+export async function getPatientsPerDoctor(timeframe: string = 'month') {
+  const dateFilter = getTimeframeDateFilter(timeframe);
+  const matchStage: any = {};
+  if (dateFilter) {
+    matchStage.createdAt = dateFilter;
+  }
+
+  const results = await Patient.aggregate([
+    ...(dateFilter ? [{ $match: matchStage }] : []),
+    {
+      $group: {
+        _id: '$doctorId',
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { count: -1 } },
+    { $limit: 10 },
+    {
+      $lookup: {
+        from: 'doctors',
+        localField: '_id',
+        foreignField: '_id',
+        as: 'doctor',
+      },
+    },
+    { $unwind: { path: '$doctor', preserveNullAndEmptyArrays: true } },
+    {
+      $project: {
+        _id: 0,
+        doctorId: { $toString: '$_id' },
+        name: { $ifNull: ['$doctor.name', 'Dr. Unassigned'] },
+        specialization: { $ifNull: ['$doctor.specialization', 'General'] },
+        hospital: { $ifNull: ['$doctor.hospital', ''] },
+        count: 1,
+      },
+    },
+  ]);
+
+  return results;
+}
+
+export async function getPatientsByCondition(timeframe: string = 'month') {
+  const dateFilter = getTimeframeDateFilter(timeframe);
+  const matchStage: any = {};
+  if (dateFilter) {
+    matchStage.createdAt = dateFilter;
+  }
+
+  const conditions = await Patient.aggregate<{ _id: string; count: number }>([
+    ...(dateFilter ? [{ $match: matchStage }] : []),
+    { $group: { _id: '$condition', count: { $sum: 1 } } },
+    { $sort: { count: -1 } },
+  ]);
+
+  const total = conditions.reduce((acc, curr) => acc + curr.count, 0);
+  const safeTotal = total > 0 ? total : 1;
+  const conditionsFormatted = conditions.map((c) => ({
+    condition: c._id,
+    count: c.count,
+    percentage: Math.round((c.count / safeTotal) * 100),
+  }));
+
+  return {
+    conditions: conditionsFormatted,
+    total,
+  };
+}
+
+export async function getDashboardStats(
+  days = 30,
+  doctorTimeframe = 'month',
+  conditionTimeframe = 'month'
+) {
   const tz = env.STATS_TIMEZONE;
   const dayKey = dayKeyFormatter(tz);
   const now = new Date();
@@ -104,13 +200,14 @@ export async function getDashboardStats(days = 30) {
     topDoctors,
     daily,
     monthly,
-    conditions,
     recentPatients,
     patientsThisMonth,
     patientsLastMonth,
     patientsToday,
     patientsYesterday,
     doctorsThisMonth,
+    patientsPerDoctor,
+    conditionStats,
   ] = await Promise.all([
     Doctor.estimatedDocumentCount(),
     Patient.estimatedDocumentCount(),
@@ -124,16 +221,14 @@ export async function getDashboardStats(days = 30) {
       { $match: { createdAt: { $gte: sinceMonth } } },
       { $group: { _id: { $dateToString: { format: '%Y-%m', date: '$createdAt', timezone: tz } }, count: { $sum: 1 } } },
     ]),
-    Patient.aggregate<{ _id: string; count: number }>([
-      { $group: { _id: '$condition', count: { $sum: 1 } } },
-      { $sort: { count: -1 } },
-    ]),
     getRecentPatients(5),
     Patient.countDocuments({ createdAt: { $gte: startOfThisMonth } }),
     Patient.countDocuments({ createdAt: { $gte: startOfLastMonth, $lt: startOfThisMonth } }),
     Patient.countDocuments({ createdAt: { $gte: startOfToday } }),
     Patient.countDocuments({ createdAt: { $gte: startOfYesterday, $lt: startOfToday } }),
     Doctor.countDocuments({ createdAt: { $gte: startOfThisMonth } }),
+    getPatientsPerDoctor(doctorTimeframe),
+    getPatientsByCondition(conditionTimeframe),
   ]);
 
   // Zero-fill so charts get a continuous x-axis.
@@ -151,13 +246,6 @@ export async function getDashboardStats(days = 30) {
   const patientsGrowth = calculateGrowth(totalPatients, Math.max(1, totalPatients - patientsThisMonth));
   const thisMonthGrowth = calculateGrowth(patientsThisMonth, patientsLastMonth);
   const todayGrowth = calculateGrowth(patientsToday, patientsYesterday);
-
-  const totalConditionCounts = conditions.reduce((acc, curr) => acc + curr.count, 0) || totalPatients || 1;
-  const conditionsFormatted = conditions.map((c) => ({
-    condition: c._id,
-    count: c.count,
-    percentage: Math.round((c.count / totalConditionCounts) * 100),
-  }));
 
   const doctorDirectory = topDoctors.slice(0, 5).map((d) => ({
     id: d._id.toString(),
@@ -193,17 +281,11 @@ export async function getDashboardStats(days = 30) {
       conditionsPctMonth: 5,
       conditionsGrowthText: '+5%',
     },
-    patientsPerDoctor: topDoctors.map((d) => ({
-      doctorId: d._id.toString(),
-      name: d.name,
-      specialization: d.specialization,
-      hospital: d.hospital,
-      count: d.patientCount,
-    })),
+    patientsPerDoctor,
     doctorDirectory,
     patientsOverTime,
     patientsByMonth,
-    conditions: conditionsFormatted,
+    conditions: conditionStats.conditions,
     recentPatients,
     timezone: tz,
     generatedAt: now.toISOString(),

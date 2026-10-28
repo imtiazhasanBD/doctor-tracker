@@ -256,26 +256,26 @@ export function DashboardSkeleton() {
         </div>
       </div>
 
-      {/* 2. MIDDLE ROW: 2 CHARTS + QUICK ACTIONS SKELETON */}
+      {/* 2. MIDDLE ROW: 2 CHARTS SKELETON */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Patients Per Doctor Bar Chart (5 cols) */}
-        <Card className="lg:col-span-5 border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] p-5 space-y-4">
+        {/* Patients Per Doctor Bar Chart (7 cols) */}
+        <Card className="lg:col-span-7 border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Skeleton className="w-4 h-4 rounded dark:bg-[#162544]" />
               <Skeleton className="h-4 w-36 dark:bg-[#162544]" />
             </div>
-            <Skeleton className="h-6 w-20 rounded-lg dark:bg-[#162544]" />
+            <Skeleton className="h-7 w-24 rounded-lg dark:bg-[#162544]" />
           </div>
 
-          <div className="h-[225px] flex items-end justify-between gap-3 pt-6 px-4">
-            <Skeleton className="w-7 h-[45%] rounded-t dark:bg-[#162544]" />
-            <Skeleton className="w-7 h-[85%] rounded-t dark:bg-[#162544]" />
-            <Skeleton className="w-7 h-[75%] rounded-t dark:bg-[#162544]" />
-            <Skeleton className="w-7 h-[50%] rounded-t dark:bg-[#162544]" />
-            <Skeleton className="w-7 h-[55%] rounded-t dark:bg-[#162544]" />
-            <Skeleton className="w-7 h-[35%] rounded-t dark:bg-[#162544]" />
-            <Skeleton className="w-7 h-[25%] rounded-t dark:bg-[#162544]" />
+          <div className="h-[225px] flex items-end justify-between gap-4 pt-6 px-4">
+            <Skeleton className="w-8 h-[80%] rounded-t dark:bg-[#162544]" />
+            <Skeleton className="w-8 h-[60%] rounded-t dark:bg-[#162544]" />
+            <Skeleton className="w-8 h-[55%] rounded-t dark:bg-[#162544]" />
+            <Skeleton className="w-8 h-[50%] rounded-t dark:bg-[#162544]" />
+            <Skeleton className="w-8 h-[38%] rounded-t dark:bg-[#162544]" />
+            <Skeleton className="w-8 h-[32%] rounded-t dark:bg-[#162544]" />
+            <Skeleton className="w-8 h-[28%] rounded-t dark:bg-[#162544]" />
           </div>
         </Card>
 
@@ -286,13 +286,13 @@ export function DashboardSkeleton() {
               <Skeleton className="w-4 h-4 rounded dark:bg-[#162544]" />
               <Skeleton className="h-4 w-36 dark:bg-[#162544]" />
             </div>
-            <Skeleton className="h-6 w-20 rounded-lg dark:bg-[#162544]" />
+            <Skeleton className="h-7 w-24 rounded-lg dark:bg-[#162544]" />
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 h-[220px] px-2">
             <Skeleton className="h-[175px] w-[175px] rounded-full shrink-0 border-[16px] border-slate-100 dark:border-[#162544] bg-transparent" />
             <div className="flex-1 w-full space-y-3 pl-2">
-              {Array.from({ length: 5 }).map((_, idx) => (
+              {Array.from({ length: 6 }).map((_, idx) => (
                 <div key={idx} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Skeleton className="h-2.5 w-2.5 rounded-full dark:bg-[#162544]" />
@@ -305,26 +305,6 @@ export function DashboardSkeleton() {
                 </div>
               ))}
             </div>
-          </div>
-        </Card>
-
-        {/* Quick Actions (2 cols) */}
-        <Card className="lg:col-span-2 border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl p-5 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] flex flex-col justify-between">
-          <div className="flex items-center gap-2 pb-3">
-            <Skeleton className="w-4 h-4 rounded dark:bg-[#162544]" />
-            <Skeleton className="h-4 w-24 dark:bg-[#162544]" />
-          </div>
-
-          <div className="grid grid-cols-2 gap-2.5 pt-1">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="rounded-xl bg-[#f8fafc] dark:bg-[#10192e] border border-slate-100/90 dark:border-[#18284c] py-3.5 px-2 flex flex-col items-center justify-center text-center h-[105px] space-y-2"
-              >
-                <Skeleton className="w-10 h-10 rounded-full dark:bg-[#162544]" />
-                <Skeleton className="h-3 w-14 dark:bg-[#162544]" />
-              </div>
-            ))}
           </div>
         </Card>
       </div>

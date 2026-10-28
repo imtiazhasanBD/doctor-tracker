@@ -58,7 +58,7 @@ export function useDoctorMutations() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard', 'stats'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     },
   });
 
@@ -69,7 +69,7 @@ export function useDoctorMutations() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard', 'stats'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     },
   });
 
@@ -81,7 +81,7 @@ export function useDoctorMutations() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
       queryClient.invalidateQueries({ queryKey: ['doctor', variables.id] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard', 'stats'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     },
   });
 

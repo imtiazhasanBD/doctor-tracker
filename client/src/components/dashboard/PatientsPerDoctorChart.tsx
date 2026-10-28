@@ -10,20 +10,32 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts';
-import { BarChart3, ChevronDown } from 'lucide-react';
+import { BarChart3 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { TopDoctor } from '@/types/api';
+import { TIMEFRAME_OPTIONS, usePatientsPerDoctor } from '@/hooks/useDashboardStats';
+import { cn } from '@/lib/utils';
 
 interface Props {
   data?: TopDoctor[];
 }
 
-export function PatientsPerDoctorChart({ data = [] }: Props) {
+export function PatientsPerDoctorChart({ data: initialData = [] }: Props) {
+  const [timeframe, setTimeframe] = React.useState<string>('month');
+  const { data: serverData, isFetching } = usePatientsPerDoctor(timeframe, initialData);
+
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
 
-  const sourceData = data.slice(0, 7);
+  const sourceData = (serverData !== undefined ? serverData : initialData).slice(0, 7);
 
   const chartData = sourceData.map((item) => {
     let cleanName = item.name.trim();
@@ -51,40 +63,7 @@ export function PatientsPerDoctorChart({ data = [] }: Props) {
         yMax,
       ];
 
-  const renderCustomLabel = (props: any) => {
-    const { x, y, width, index, value } = props;
-    if (index === 2 || (chartData.length <= 2 && index === 0)) {
-      // Pill badge
-      const pillW = 76;
-      const pillH = 22;
-      return (
-        <g>
-          <rect
-            x={x + width / 2 - pillW / 2}
-            y={Math.max(y - 28, 4)}
-            width={pillW}
-            height={pillH}
-            rx={5}
-            fill={isDark ? '#10192e' : '#0f172a'}
-            stroke={isDark ? '#1c2d54' : 'none'}
-            strokeWidth={1}
-          />
-          <text
-            x={x + width / 2}
-            y={Math.max(y - 14, 18)}
-            fill="#ffffff"
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fontSize="10"
-            fontWeight="bold"
-          >
-            {value} Patients
-          </text>
-        </g>
-      );
-    }
-    return null;
-  };
+  const activeOption = TIMEFRAME_OPTIONS.find((opt) => opt.value === timeframe);
 
   return (
     <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] h-full transition-colors">
@@ -96,26 +75,35 @@ export function PatientsPerDoctorChart({ data = [] }: Props) {
           </CardTitle>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex items-center gap-1.5 text-[11px] bg-[#f8fafc] dark:bg-[#10192e] border border-slate-200/80 dark:border-[#1c2d54] text-[#475569] dark:text-[#8fa1be] px-2.5 py-1 rounded-lg font-medium transition-colors"
-        >
-          This Month
-          <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-[#5a6d8c]" />
-        </button>
+        <Select value={timeframe} onValueChange={(val) => val && setTimeframe(val)}>
+          <SelectTrigger className="h-7 text-[11px] font-medium bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2d54] text-[#475569] dark:text-[#8fa1be] px-2.5 rounded-lg shadow-none gap-1 focus-visible:ring-1 focus-visible:ring-[#2584ff]">
+            <span>{activeOption?.label || 'This Month'}</span>
+          </SelectTrigger>
+          <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#1c2a47] min-w-[120px]">
+            {TIMEFRAME_OPTIONS.map((opt) => (
+              <SelectItem
+                key={opt.value}
+                value={opt.value}
+                className="text-xs text-[#0f172a] dark:text-slate-200 cursor-pointer"
+              >
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </CardHeader>
 
-      <CardContent className="px-3 pb-4 pt-2">
+      <CardContent className={cn('px-3 pb-4 pt-2 transition-opacity duration-200', isFetching && 'opacity-60')}>
         {chartData.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-[225px] text-center text-[#64748b] dark:text-[#6b7f9e]">
-            <p className="text-[13px] font-medium">No doctor patient data available yet</p>
+            <p className="text-[13px] font-medium">No doctor patient data for this timeframe</p>
           </div>
         ) : (
           <div className="h-[225px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={chartData}
-                margin={{ top: 32, right: 10, left: -24, bottom: 4 }}
+                margin={{ top: 16, right: 10, left: -24, bottom: 4 }}
               >
                 <CartesianGrid
                   strokeDasharray="3 3"
@@ -154,7 +142,6 @@ export function PatientsPerDoctorChart({ data = [] }: Props) {
                   fill="#2584ff"
                   radius={[4, 4, 0, 0]}
                   maxBarSize={30}
-                  label={renderCustomLabel}
                 />
               </BarChart>
             </ResponsiveContainer>
