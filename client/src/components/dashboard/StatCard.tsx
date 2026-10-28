@@ -55,7 +55,10 @@ export function StatCard({
 }: StatCardProps) {
   const cleanGrowth = String(growth).replace(/^[+-\s]+/, '');
   const isNegative = String(growth).trim().startsWith('-');
-  const growthDisplay = `${cleanGrowth}${cleanGrowth.endsWith('%') ? '' : '%'}`;
+  const isNumeric = /^[0-9.]+/.test(cleanGrowth);
+  const growthDisplay = isNumeric
+    ? `${cleanGrowth}${cleanGrowth.endsWith('%') ? '' : '%'}`
+    : cleanGrowth;
 
   return (
     <Card

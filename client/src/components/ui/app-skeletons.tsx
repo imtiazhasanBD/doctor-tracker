@@ -15,9 +15,8 @@ export function TableSkeleton({ columns = 7, rows = 6 }: TableSkeletonProps) {
         {Array.from({ length: columns }).map((_, i) => (
           <Skeleton
             key={i}
-            className={`h-3 ${
-              i === 0 ? 'w-8' : i === 1 ? 'w-32' : 'flex-1'
-            }`}
+            className={`h-3 ${i === 0 ? 'w-8' : i === 1 ? 'w-32' : 'flex-1'
+              }`}
           />
         ))}
       </div>
@@ -29,15 +28,14 @@ export function TableSkeleton({ columns = 7, rows = 6 }: TableSkeletonProps) {
             {Array.from({ length: columns }).map((_, c) => (
               <Skeleton
                 key={c}
-                className={`h-3.5 ${
-                  c === 0
-                    ? 'w-6'
-                    : c === 1
+                className={`h-3.5 ${c === 0
+                  ? 'w-6'
+                  : c === 1
                     ? 'w-28'
                     : c === columns - 1
-                    ? 'w-14 ml-auto'
-                    : 'flex-1 max-w-[120px]'
-                }`}
+                      ? 'w-14 ml-auto'
+                      : 'flex-1 max-w-[120px]'
+                  }`}
               />
             ))}
           </div>
@@ -75,24 +73,34 @@ export function StatCardsRowSkeleton({ count = 4 }: { count?: number }) {
   );
 }
 
-export function PatientsTableSkeleton({ rows = 8 }: { rows?: number }) {
+export function PatientsTableSkeleton({
+  rows = 8,
+  showDoctorColumn = true,
+}: {
+  rows?: number;
+  showDoctorColumn?: boolean;
+}) {
   return (
     <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
-      {/* Table Header: Patients Count & Export CSV button */}
+      {/* Table Header: Patients Count & Action / Export buttons */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
         <div className="flex items-center gap-2.5">
           <Skeleton className="w-8 h-8 rounded-md dark:bg-[#15233c]" />
           <Skeleton className="h-5 w-32 dark:bg-[#15233c]" />
         </div>
-        <Skeleton className="h-8 w-20 rounded-md dark:bg-[#15233c]" />
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-8 w-20 rounded-md dark:bg-[#15233c]" />
+          {!showDoctorColumn && (
+            <Skeleton className="h-8 w-24 rounded-md dark:bg-[#15233c]" />
+          )}
+        </div>
       </div>
 
       {/* Main Table Headers */}
       <div className="overflow-x-auto">
         <div className="flex items-center gap-4 py-3.5 border-b border-slate-100 dark:border-[#172545]">
-          <Skeleton className="w-8 h-3.5 dark:bg-[#15233c]" />
           <Skeleton className="w-36 h-3.5 dark:bg-[#15233c]" />
-          <Skeleton className="w-28 h-3.5 dark:bg-[#15233c]" />
+          {showDoctorColumn && <Skeleton className="w-28 h-3.5 dark:bg-[#15233c]" />}
           <Skeleton className="w-12 h-3.5 dark:bg-[#15233c]" />
           <Skeleton className="w-16 h-3.5 dark:bg-[#15233c]" />
           <Skeleton className="w-24 h-3.5 dark:bg-[#15233c]" />
@@ -105,15 +113,14 @@ export function PatientsTableSkeleton({ rows = 8 }: { rows?: number }) {
         <div className="divide-y divide-slate-100/80 dark:divide-[#172545]/60">
           {Array.from({ length: rows }).map((_, r) => (
             <div key={r} className="flex items-center gap-4 py-3.5">
-              <Skeleton className="w-8 h-3.5 dark:bg-[#142038]" />
               <div className="flex items-center gap-3 w-36">
-                <Skeleton className="w-8 h-8 rounded-md shrink-0 dark:bg-[#142038]" />
+                <Skeleton className="w-8 h-8 rounded-full shrink-0 dark:bg-[#142038]" />
                 <div className="space-y-1.5 flex-1 min-w-0">
                   <Skeleton className="h-3 w-20 dark:bg-[#142038]" />
                   <Skeleton className="h-2.5 w-16 dark:bg-[#142038]" />
                 </div>
               </div>
-              <Skeleton className="w-28 h-3.5 dark:bg-[#142038]" />
+              {showDoctorColumn && <Skeleton className="w-28 h-3.5 dark:bg-[#142038]" />}
               <Skeleton className="w-12 h-3.5 dark:bg-[#142038]" />
               <Skeleton className="w-16 h-3.5 dark:bg-[#142038]" />
               <Skeleton className="w-24 h-3.5 dark:bg-[#142038]" />
@@ -342,31 +349,106 @@ export function DashboardSkeleton() {
 
 export function DoctorDetailSkeleton() {
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       {/* Back link */}
-      <Skeleton className="h-4 w-28 dark:bg-[#162544]" />
+      <div>
+        <Skeleton className="h-4 w-28 dark:bg-[#162544]" />
+      </div>
 
-      {/* Banner */}
-      <Card className="p-6 bg-white dark:bg-[#0c152a] border border-slate-100 dark:border-[#172545] rounded-xl flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Skeleton className="h-14 w-14 rounded-full dark:bg-[#16294a] shrink-0" />
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Skeleton className="h-5 w-36 dark:bg-[#162544]" />
-              <Skeleton className="h-4 w-20 rounded-md dark:bg-[#162544]" />
-            </div>
-            <div className="flex items-center gap-4 pt-1">
-              <Skeleton className="h-3 w-28 dark:bg-[#142038]" />
-              <Skeleton className="h-3 w-24 dark:bg-[#142038]" />
-              <Skeleton className="h-3 w-36 dark:bg-[#142038]" />
+      {/* 1. Top Doctor Profile Banner Card Skeleton */}
+      <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 sm:p-6 shadow-sm transition-colors">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          {/* Left: Avatar + Details */}
+          <div className="flex items-center gap-4 sm:gap-5">
+            <Skeleton className="h-16 w-16 sm:h-18 sm:w-18 rounded-full dark:bg-[#16294a] shrink-0" />
+            <div className="space-y-2 min-w-0">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <Skeleton className="h-6 sm:h-7 w-44 dark:bg-[#162544]" />
+                <Skeleton className="h-5 w-24 rounded-full dark:bg-[#162544]" />
+                <Skeleton className="h-5 w-16 rounded-full dark:bg-[#162544]" />
+              </div>
+              <div className="flex flex-wrap items-center gap-y-1 gap-x-4 pt-0.5">
+                <Skeleton className="h-3.5 w-28 dark:bg-[#142038]" />
+                <Skeleton className="h-3.5 w-24 dark:bg-[#142038]" />
+                <Skeleton className="h-3.5 w-36 dark:bg-[#142038]" />
+              </div>
             </div>
           </div>
+
+          {/* Right: Add Patient + Edit Profile buttons */}
+          <div className="flex items-center gap-2.5 shrink-0 self-start md:self-auto">
+            <Skeleton className="h-9 w-28 rounded-md dark:bg-[#162544]" />
+            <Skeleton className="h-9 w-28 rounded-md dark:bg-[#162544]" />
+          </div>
         </div>
-        <Skeleton className="h-10 w-24 rounded-lg dark:bg-[#162544] hidden md:block" />
       </Card>
 
-      {/* Table skeleton */}
-      <TableSkeleton columns={7} rows={5} />
+      {/* 2. Middle Row: Doctor Information (left) and Patients Summary (right) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Left: Doctor Information Card */}
+        <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-2 pb-3.5 border-b border-slate-100 dark:border-[#172545]">
+              <Skeleton className="h-4 w-4 rounded dark:bg-[#162544]" />
+              <Skeleton className="h-4 w-36 dark:bg-[#162544]" />
+            </div>
+
+            <div className="space-y-3 pt-3 text-xs">
+              <div className="flex items-center justify-between py-1 border-b border-slate-50 dark:border-[#142038]">
+                <Skeleton className="h-3 w-16 dark:bg-[#142038]" />
+                <Skeleton className="h-3.5 w-32 dark:bg-[#142038]" />
+              </div>
+              <div className="flex items-center justify-between py-1 border-b border-slate-50 dark:border-[#142038]">
+                <Skeleton className="h-3 w-14 dark:bg-[#142038]" />
+                <Skeleton className="h-5 w-24 rounded-md dark:bg-[#142038]" />
+              </div>
+              <div className="flex items-center justify-between py-1 border-b border-slate-50 dark:border-[#142038]">
+                <Skeleton className="h-3 w-12 dark:bg-[#142038]" />
+                <Skeleton className="h-3.5 w-36 dark:bg-[#142038]" />
+              </div>
+              <div className="flex items-center justify-between py-1 border-b border-slate-50 dark:border-[#142038]">
+                <Skeleton className="h-3 w-12 dark:bg-[#142038]" />
+                <Skeleton className="h-3.5 w-28 dark:bg-[#142038]" />
+              </div>
+              <div className="flex items-center justify-between py-1 border-b border-slate-50 dark:border-[#142038]">
+                <Skeleton className="h-3 w-16 dark:bg-[#142038]" />
+                <Skeleton className="h-3.5 w-32 dark:bg-[#142038]" />
+              </div>
+              <div className="flex items-center justify-between py-1">
+                <Skeleton className="h-3 w-20 dark:bg-[#142038]" />
+                <Skeleton className="h-3.5 w-20 dark:bg-[#142038]" />
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Right: Patients Summary Card */}
+        <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-2 pb-3.5 border-b border-slate-100 dark:border-[#172545]">
+              <Skeleton className="h-4 w-4 rounded dark:bg-[#162544]" />
+              <Skeleton className="h-4 w-32 dark:bg-[#162544]" />
+            </div>
+
+            <div className="space-y-3 pt-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="flex items-center justify-between p-2.5 sm:p-3">
+                  <div className="flex items-center gap-3.5">
+                    <Skeleton className="w-10 h-10 rounded-md dark:bg-[#162544] shrink-0" />
+                    <div className="space-y-1.5">
+                      <Skeleton className="h-2.5 w-24 dark:bg-[#142038]" />
+                      <Skeleton className="h-5 w-12 dark:bg-[#162544]" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      {/* 3. Patients Table Skeleton */}
+      <PatientsTableSkeleton rows={8} showDoctorColumn={false} />
     </div>
   );
 }

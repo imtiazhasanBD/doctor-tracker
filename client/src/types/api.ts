@@ -11,6 +11,8 @@ export interface Doctor {
   phone: string;
   email: string;
   patientCount: number;
+  activePatients?: number;
+  dischargedPatients?: number;
   createdAt: string;
   updatedAt: string;
 }

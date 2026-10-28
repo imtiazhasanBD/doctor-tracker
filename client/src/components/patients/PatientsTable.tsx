@@ -59,6 +59,8 @@ interface Props {
   onEditPatient?: (patient: Patient) => void;
   doctorIdContext?: string;
   doctors?: Doctor[];
+  actionButton?: React.ReactNode;
+  title?: string;
 }
 
 export function PatientsTable({
@@ -72,6 +74,8 @@ export function PatientsTable({
   onEditPatient,
   doctorIdContext,
   doctors = [],
+  actionButton,
+  title,
 }: Props) {
   const { deletePatient } = usePatientMutations();
   const [patientToDelete, setPatientToDelete] = useState<{ id: string; name: string } | null>(null);
@@ -166,26 +170,29 @@ export function PatientsTable({
 
   return (
     <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
-      {/* Table Header: Patients Count & Export CSV button */}
+      {/* Table Header: Patients Count & Action / Export buttons */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-md bg-[#eff6ff] dark:bg-[#122347] text-[#2563eb] dark:text-[#3b82f6] flex items-center justify-center">
             <Users className="h-4 w-4" />
           </div>
           <h2 className="text-base font-bold text-slate-800 dark:text-white">
-            Patients ({totalCount.toLocaleString()})
+            {title ? `${title}` : `Patients`}
           </h2>
         </div>
 
-        <Button
-          onClick={handleExportCSV}
-          variant="outline"
-          size="sm"
-          className="h-8 px-3 text-xs font-semibold rounded-md border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#152342] gap-1.5 shadow-none"
-        >
-          <FileDown className="h-3.5 w-3.5" />
-          Export
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={handleExportCSV}
+            variant="outline"
+            size="sm"
+            className="h-8 px-3 text-xs font-semibold rounded-md border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#152342] gap-1.5 shadow-none"
+          >
+            <FileDown className="h-3.5 w-3.5" />
+            Export
+          </Button>
+          {actionButton}
+        </div>
       </div>
 
       {/* Main Table */}
@@ -193,9 +200,6 @@ export function PatientsTable({
         <Table>
           <TableHeader className="bg-transparent">
             <TableRow className="border-b border-slate-100 dark:border-[#172545] hover:bg-transparent">
-              <TableHead className="w-12 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
-                #
-              </TableHead>
               <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
                 Name
               </TableHead>
@@ -243,16 +247,12 @@ export function PatientsTable({
                     key={patient._id}
                     className="hover:bg-slate-50/70 dark:hover:bg-[#111c38]/50 border-b border-slate-100/80 dark:border-[#172545]/60 transition-colors"
                   >
-                    {/* Index */}
-                    <TableCell className="text-xs text-slate-400 dark:text-slate-500 font-medium py-3.5">
-                      {startIndex + index + 1}
-                    </TableCell>
 
                     {/* Name with Avatar */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-3">
-                        <Avatar className="h-8 w-8 rounded-md shrink-0">
-                          <AvatarFallback className="rounded-md bg-blue-50 dark:bg-blue-950/60 text-[#2563eb] dark:text-[#3b82f6] text-xs font-semibold">
+                        <Avatar className="h-8 w-8 rounded-full shrink-0">
+                          <AvatarFallback className="rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#2563eb] dark:text-[#3b82f6] text-xs font-semibold">
                             {getInitials(patient.name)}
                           </AvatarFallback>
                         </Avatar>

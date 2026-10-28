@@ -40,7 +40,17 @@ export async function createDoctor(input: CreateDoctorInput) {
 export async function getDoctor(id: string) {
   const doctor = await Doctor.findById(id).select('-nameLower').lean();
   if (!doctor) throw new NotFoundError('Doctor not found');
-  return doctor;
+
+  const [activeCount, dischargedCount] = await Promise.all([
+    Patient.countDocuments({ doctorId: id, status: 'active' }),
+    Patient.countDocuments({ doctorId: id, status: 'discharged' }),
+  ]);
+
+  return {
+    ...doctor,
+    activePatients: activeCount,
+    dischargedPatients: dischargedCount,
+  };
 }
 
 export async function updateDoctor(id: string, input: UpdateDoctorInput) {
