@@ -39,12 +39,12 @@ import { cn } from '@/lib/utils';
 const HospitalBannerIllustration = () => (
   <>
     <img
-      src="/Modern Hospital Amidst Lush Greenery-Photoroom.png"
+      src="/Modern_Hospital_Amidst_Lush_Greenery-Photoroom.png"
       alt="Modern Hospital Amidst Lush Greenery"
       className="h-full w-auto object-contain object-right-bottom select-none pointer-events-none dark:hidden"
     />
     <img
-      src="/Starlit Modern Hospital at Night-Photoroom.png"
+      src="/Starlit_Modern_Hospital_at_Night-Photoroom.png"
       alt="Starlit Modern Hospital at Night"
       className="h-full w-auto object-contain object-right-bottom select-none pointer-events-none hidden dark:block"
     />

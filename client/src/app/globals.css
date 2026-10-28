@@ -144,10 +144,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans), sans-serif;
   }
+
   html {
     @apply font-sans;
     font-family: var(--font-sans), sans-serif;

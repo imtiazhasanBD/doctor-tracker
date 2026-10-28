@@ -267,12 +267,12 @@ export function DashboardSkeleton() {
       <div className="relative rounded-xl sm:rounded-2xl bg-gradient-to-r from-white via-white/80 to-primary/10 dark:from-card dark:via-card dark:to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
         <div className="hidden md:flex absolute top-0 right-0 h-[160px] items-end justify-end pointer-events-none z-0 opacity-95 dark:opacity-95">
           <img
-            src="/Modern Hospital Amidst Lush Greenery-Photoroom.png"
+            src="/Modern_Hospital_Amidst_Lush_Greenery-Photoroom.png"
             alt="Modern Hospital Amidst Lush Greenery"
             className="h-full w-auto object-contain object-right-bottom select-none pointer-events-none dark:hidden"
           />
           <img
-            src="/Starlit Modern Hospital at Night-Photoroom.png"
+            src="/Starlit_Modern_Hospital_at_Night-Photoroom.png"
             alt="Starlit Modern Hospital at Night"
             className="h-full w-auto object-contain object-right-bottom select-none pointer-events-none hidden dark:block"
           />

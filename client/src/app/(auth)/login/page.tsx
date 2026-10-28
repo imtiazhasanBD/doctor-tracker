@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, LoginFormData } from '@/schemas';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 const DocTrackHeartLogo = ({ size = 38 }: { size?: number }) => (
   <svg
@@ -103,11 +104,18 @@ const ClearInsightsFeatureIcon = () => (
 );
 
 const DoctorClinicIllustration = () => (
-  <img
-    src="/Cheerful Doctor in a Modern Clinic.png"
-    alt="Doctor Clinic - Better Care, Better Management"
-    className="w-full h-full object-contain object-right-bottom select-none pointer-events-none"
-  />
+  <>
+    <img
+      src="/Cheerful_Doctor_in_a_Modern_Clinic.png"
+      alt="Doctor Clinic - Better Care, Better Management"
+      className="w-full h-full object-contain object-right-bottom select-none pointer-events-none dark:hidden"
+    />
+    <img
+      src="/Night_Mode_Doctor_Dashboard-Photoroom.png"
+      alt="Night Mode Doctor Dashboard - Better Care, Better Management"
+      className="w-full h-full object-contain object-right-bottom select-none pointer-events-none hidden dark:block"
+    />
+  </>
 );
 
 export default function LoginPage() {
@@ -142,7 +150,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-background select-none">
+    <div className="relative h-screen w-screen overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-background select-none">
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
       <div className="hidden lg:flex lg:col-span-7 relative h-full overflow-hidden flex-col justify-between py-10 pl-12 pr-6">
         <div className="relative z-20 flex items-center gap-3 pt-10">
           <DocTrackHeartLogo size={42} />
