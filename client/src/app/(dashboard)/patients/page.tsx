@@ -140,7 +140,7 @@ export default function PatientsPage() {
 
           <Button
             onClick={handleAdd}
-            className="h-9 px-4 text-xs font-semibold rounded-md bg-primary hover:bg-primary/90 text-primary-foreground gap-1.5 shadow-sm self-start sm:self-auto shrink-0"
+            className="h-9 px-4 text-xs font-semibold rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground gap-1.5 shadow-sm self-start sm:self-auto shrink-0 cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             Add Patient
@@ -152,7 +152,7 @@ export default function PatientsPage() {
       {isStatsLoading ? (
         <StatCardsRowSkeleton count={4} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <StatCard
             title="Total Patients"
             value={totalPatients}

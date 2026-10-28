@@ -94,8 +94,34 @@ export function PatientsTableSkeleton({
       {/* Filters (Search & Dropdowns) */}
       {filters && <div className="pt-0.5">{filters}</div>}
 
-      {/* Main Table Headers */}
-      <div className="overflow-x-auto">
+      {/* Mobile Card Skeletons (lg:hidden) */}
+      <div className="space-y-3 lg:hidden">
+        {Array.from({ length: Math.min(rows, 4) }).map((_, r) => (
+          <div
+            key={r}
+            className="p-3.5 rounded-xl border border-border bg-card shadow-xs space-y-2.5"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex items-start gap-3 min-w-0 flex-1">
+                <Skeleton className="h-10 w-10 rounded-full shrink-0 mt-0.5" />
+                <div className="min-w-0 flex-1 space-y-2">
+                  <Skeleton className="h-4 w-32" />
+                  <Skeleton className="h-2.5 w-24" />
+                  <Skeleton className="h-3 w-36 mt-2" />
+                  <Skeleton className="h-3 w-28 mt-1" />
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <Skeleton className="h-5 w-14 rounded-md" />
+                <Skeleton className="h-7 w-7 rounded-md" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Main Table Headers (lg:block) */}
+      <div className="hidden lg:block overflow-x-auto">
         <div className="flex items-center gap-4 py-3.5 border-b border-border">
           <Skeleton className="w-36 h-3.5" />
           {showDoctorColumn && <Skeleton className="w-28 h-3.5" />}
@@ -135,8 +161,8 @@ export function PatientsTableSkeleton({
       </div>
 
       {/* Pagination Footer skeleton */}
-      <div className="flex flex-col sm:flex-row items-center justify-between pt-4 mt-2 border-t border-border gap-3">
-        <Skeleton className="h-4 w-44" />
+      <div className="flex items-center justify-between pt-3 px-1 border-t border-border gap-3 text-xs">
+        <Skeleton className="h-4 w-36" />
         <div className="flex items-center gap-1">
           <Skeleton className="w-7 h-7 rounded-md" />
           <Skeleton className="w-7 h-7 rounded-md" />

@@ -16,7 +16,7 @@ import {
   Mail,
   Stethoscope,
   Activity,
-  FileText,
+  MoreVertical,
 } from 'lucide-react';
 import { Patient, Doctor } from '@/types/api';
 import {
@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/table';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -45,8 +45,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
 import { usePatientMutations } from '@/hooks/usePatients';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
 interface Props {
   patients: Patient[];
@@ -171,14 +178,14 @@ export function PatientsTable({
   };
 
   return (
-    <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors space-y-4">
+    <Card className="border-border bg-card rounded-xl p-3.5 sm:p-5 shadow-sm transition-colors space-y-4">
       {/* Table Header: Patients Count & Action / Export buttons */}
       <div className="flex items-center justify-between pb-4 border-b border-border">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-md bg-primary/10 text-primary flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
             <Users className="h-4 w-4" />
           </div>
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-base sm:text-lg font-bold text-foreground">
             {title ? `${title}` : `Patients list`}
           </h2>
         </div>
@@ -188,7 +195,7 @@ export function PatientsTable({
             onClick={handleExportCSV}
             variant="outline"
             size="sm"
-            className="h-8 px-3 text-xs font-semibold rounded-md border-border bg-card text-foreground hover:bg-muted gap-1.5 shadow-none"
+            className="h-8 px-3 text-xs font-semibold rounded-lg border-border bg-card text-foreground hover:bg-muted gap-1.5 shadow-none cursor-pointer"
           >
             <FileDown className="h-3.5 w-3.5" />
             Export
@@ -200,8 +207,132 @@ export function PatientsTable({
       {/* Filters (Search & Dropdowns) */}
       {filters && <div className="pt-0.5">{filters}</div>}
 
-      {/* Main Table */}
-      <div className="overflow-x-auto">
+      {/* ===================== MOBILE CARD LIST (lg:hidden) ===================== */}
+      <div className="space-y-3 lg:hidden">
+        {patients.length === 0 ? (
+          <div className="text-center py-12 text-xs text-muted-foreground bg-muted/20 rounded-xl border border-dashed border-border">
+            No patients found matching the criteria
+          </div>
+        ) : (
+          patients.map((patient, index) => {
+            const isActive = patient.status === 'active';
+            const patCode = `PAT-2026-${String(startIndex + index + 1).padStart(3, '0')}`;
+            const doctorName = getDoctorName(patient);
+
+            return (
+              <div
+                key={patient._id}
+                className="p-3.5 rounded-xl border border-border bg-card hover:bg-muted/30 transition-colors shadow-xs"
+              >
+                <div className="flex items-start justify-between gap-2.5">
+                  {/* Left: Avatar + Patient Details */}
+                  <div className="flex items-start gap-3 min-w-0 flex-1">
+                    <Avatar className="h-10 w-10 rounded-full shrink-0 border border-border">
+                      <AvatarFallback className="text-xs font-bold bg-primary/10 text-primary">
+                        {getInitials(patient.name)}
+                      </AvatarFallback>
+                    </Avatar>
+
+                    <div className="min-w-0 flex-1 space-y-1">
+                      {/* Name */}
+                      <button
+                        type="button"
+                        onClick={() => setViewingPatient(patient)}
+                        className="text-xs font-bold text-foreground hover:underline text-left block truncate cursor-pointer"
+                      >
+                        {patient.name}
+                      </button>
+
+                      {/* Code / Demographics */}
+                      <p className="text-[11px] text-muted-foreground">
+                        {patCode} • {patient.age} yrs • <span className="capitalize">{patient.gender}</span>
+                      </p>
+
+                      {/* Doctor Row */}
+                      {showDoctorColumn && (
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground pt-0.5">
+                          <Stethoscope className="h-3.5 w-3.5 text-primary shrink-0" />
+                          <span className="truncate">{doctorName}</span>
+                        </div>
+                      )}
+
+                      {/* Condition Row */}
+                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                        <Activity className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                        <span className="truncate font-medium text-foreground">{patient.condition}</span>
+                      </div>
+
+                      {/* Visit Date Row */}
+                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                        <Calendar className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                        <span>Visit: {formatDate(patient.visitDate)}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Status badge & Actions dropdown */}
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span
+                      className={cn(
+                        'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold',
+                        isActive
+                          ? 'bg-success/10 text-success border border-success/20'
+                          : 'bg-muted text-muted-foreground border border-border'
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          'w-1.5 h-1.5 rounded-full',
+                          isActive ? 'bg-success' : 'bg-muted-foreground'
+                        )}
+                      />
+                      {isActive ? 'Active' : 'Discharged'}
+                    </span>
+
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        id={`patient-actions-btn-${index}`}
+                        aria-label="Open actions menu"
+                        className="h-8 w-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+                      >
+                        <MoreVertical className="h-4 w-4" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-36 bg-popover border border-border rounded-xl shadow-lg p-1 z-50">
+                        <DropdownMenuItem
+                          onClick={() => setViewingPatient(patient)}
+                          className="flex items-center gap-2.5 cursor-pointer text-xs px-2.5 py-2 rounded-lg"
+                        >
+                          <Eye className="h-3.5 w-3.5 text-muted-foreground" />
+                          <span>View Details</span>
+                        </DropdownMenuItem>
+                        {onEditPatient && (
+                          <DropdownMenuItem
+                            onClick={() => onEditPatient(patient)}
+                            className="flex items-center gap-2.5 cursor-pointer text-xs px-2.5 py-2 rounded-lg"
+                          >
+                            <Edit2 className="h-3.5 w-3.5 text-muted-foreground" />
+                            <span>Edit Patient</span>
+                          </DropdownMenuItem>
+                        )}
+                        <DropdownMenuItem
+                          onClick={(e) => handleDeleteClick(e, patient._id, patient.name)}
+                          className="flex items-center gap-2.5 cursor-pointer text-xs px-2.5 py-2 rounded-lg text-destructive focus:text-destructive focus:bg-destructive/10"
+                        >
+                          <Trash2 className="h-3.5 w-3.5 text-destructive" />
+                          <span>Delete Patient</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* ===================== DESKTOP TABLE (lg+) ===================== */}
+      <div className="hidden lg:block overflow-x-auto">
         <Table>
           <TableHeader className="bg-transparent">
             <TableRow className="border-b border-border hover:bg-transparent">
@@ -244,7 +375,7 @@ export function PatientsTable({
                 </TableCell>
               </TableRow>
             ) : (
-              patients.map((patient, index) => {
+              patients.map((patient) => {
                 const isActive = patient.status === 'active';
 
                 return (
@@ -252,7 +383,6 @@ export function PatientsTable({
                     key={patient._id}
                     className="hover:bg-muted/50 border-b border-border transition-colors"
                   >
-
                     {/* Name with Avatar */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-3">
@@ -324,7 +454,7 @@ export function PatientsTable({
                             e.stopPropagation();
                             setViewingPatient(patient);
                           }}
-                          className="p-1.5 text-muted-foreground hover:text-primary rounded-md hover:bg-primary/10 transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-primary rounded-md hover:bg-primary/10 transition-colors cursor-pointer"
                           title="View Patient Details"
                         >
                           <Eye className="h-3.5 w-3.5" />
@@ -338,7 +468,7 @@ export function PatientsTable({
                               e.stopPropagation();
                               onEditPatient(patient);
                             }}
-                            className="p-1.5 text-muted-foreground hover:text-primary rounded-md hover:bg-primary/10 transition-colors"
+                            className="p-1.5 text-muted-foreground hover:text-primary rounded-md hover:bg-primary/10 transition-colors cursor-pointer"
                             title="Edit Patient"
                           >
                             <Edit2 className="h-3.5 w-3.5" />
@@ -349,7 +479,7 @@ export function PatientsTable({
                         <button
                           type="button"
                           onClick={(e) => handleDeleteClick(e, patient._id, patient.name)}
-                          className="p-1.5 text-muted-foreground hover:text-destructive rounded-md hover:bg-destructive/10 transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-destructive rounded-md hover:bg-destructive/10 transition-colors cursor-pointer"
                           title="Delete Patient"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -364,30 +494,25 @@ export function PatientsTable({
         </Table>
       </div>
 
-      {/* Pagination Footer matching mockup */}
-      <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-muted-foreground pt-4 mt-2 border-t border-border gap-3">
-        <p>
+      {/* ===================== PAGINATION FOOTER ===================== */}
+      <div className="flex items-center justify-between gap-3 pt-3 px-1 border-t border-border text-xs">
+        <p className="text-muted-foreground whitespace-nowrap text-xs">
           Showing{' '}
           <span className="font-semibold text-foreground">
-            {totalCount === 0 ? 0 : startIndex + 1}
-          </span>{' '}
-          to{' '}
-          <span className="font-semibold text-foreground">
-            {Math.min(startIndex + patients.length, totalCount)}
+            {totalCount === 0 ? 0 : `${startIndex + 1}-${Math.min(startIndex + patients.length, totalCount)}`}
           </span>{' '}
           of{' '}
           <span className="font-semibold text-foreground">
             {totalCount.toLocaleString()}
-          </span>{' '}
-          patients
+          </span>
         </p>
 
         {totalPages > 1 && onPageChange && (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 shrink-0">
             <button
               onClick={() => onPageChange(Math.max(1, page - 1))}
               disabled={page <= 1}
-              className="p-1.5 border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors"
+              className="h-7 w-7 flex items-center justify-center border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors cursor-pointer"
               title="Previous Page"
             >
               <ChevronLeft className="h-3.5 w-3.5" />
@@ -397,9 +522,9 @@ export function PatientsTable({
               <button
                 key={pageNum}
                 onClick={() => onPageChange(pageNum)}
-                className={`h-7 w-7 text-xs font-semibold rounded-md border transition-colors ${
+                className={`h-7 w-7 text-xs font-semibold rounded-md border transition-colors cursor-pointer ${
                   pageNum === page
-                    ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                    ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                     : 'bg-card text-foreground border-border hover:bg-muted'
                 }`}
               >
@@ -412,9 +537,9 @@ export function PatientsTable({
                 <span className="px-1 text-muted-foreground select-none">...</span>
                 <button
                   onClick={() => onPageChange(totalPages)}
-                  className={`h-7 px-2 text-xs font-semibold rounded-md border transition-colors ${
+                  className={`h-7 px-2 text-xs font-semibold rounded-md border transition-colors cursor-pointer ${
                     totalPages === page
-                      ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                      ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                       : 'bg-card text-foreground border-border hover:bg-muted'
                   }`}
                 >
@@ -426,7 +551,7 @@ export function PatientsTable({
             <button
               onClick={() => onPageChange(Math.min(totalPages, page + 1))}
               disabled={page >= totalPages}
-              className="p-1.5 border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors"
+              className="h-7 w-7 flex items-center justify-center border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors cursor-pointer"
               title="Next Page"
             >
               <ChevronRight className="h-3.5 w-3.5" />
@@ -442,7 +567,7 @@ export function PatientsTable({
           if (!open && !isDeleting) setPatientToDelete(null);
         }}
       >
-        <AlertDialogContent className="rounded-md">
+        <AlertDialogContent className="rounded-xl">
           <AlertDialogHeader>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-destructive/15 text-destructive flex items-center justify-center shrink-0">
@@ -460,7 +585,7 @@ export function PatientsTable({
           <AlertDialogFooter className="flex items-center justify-end gap-2.5 mt-4">
             <AlertDialogCancel
               disabled={isDeleting}
-              className="h-9 px-4 text-xs font-semibold rounded-md border-border bg-card text-foreground hover:bg-muted"
+              className="h-9 px-4 text-xs font-semibold rounded-md border-border bg-card text-foreground hover:bg-muted cursor-pointer"
             >
               Cancel
             </AlertDialogCancel>
@@ -469,7 +594,7 @@ export function PatientsTable({
               size="sm"
               disabled={isDeleting}
               onClick={handleConfirmDelete}
-              className="h-9 px-4 text-xs font-semibold rounded-md bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-none"
+              className="h-9 px-4 text-xs font-semibold rounded-md bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-none cursor-pointer"
             >
               {isDeleting ? 'Deleting...' : 'Delete'}
             </Button>
@@ -479,11 +604,11 @@ export function PatientsTable({
 
       {/* Patient Details View Dialog */}
       <Dialog open={Boolean(viewingPatient)} onOpenChange={(open) => !open && setViewingPatient(null)}>
-        <DialogContent className="sm:max-w-md w-full p-6 rounded-md bg-card border-border">
+        <DialogContent className="sm:max-w-md w-full p-6 rounded-2xl bg-card border-border">
           <DialogHeader className="pb-3 border-b border-border">
             <div className="flex items-center gap-3">
-              <Avatar className="h-10 w-10 rounded-md">
-                <AvatarFallback className="rounded-md bg-primary/10 text-primary text-sm font-bold">
+              <Avatar className="h-10 w-10 rounded-full">
+                <AvatarFallback className="rounded-full bg-primary/10 text-primary text-sm font-bold">
                   {viewingPatient ? getInitials(viewingPatient.name) : ''}
                 </AvatarFallback>
               </Avatar>
@@ -507,13 +632,13 @@ export function PatientsTable({
           {viewingPatient && (
             <div className="space-y-3 pt-3 text-xs">
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-2.5 rounded-md bg-secondary border border-border">
+                <div className="p-2.5 rounded-xl bg-secondary border border-border">
                   <p className="text-[10px] font-semibold text-muted-foreground uppercase">Age / Gender</p>
                   <p className="font-semibold text-foreground mt-0.5 capitalize">
                     {viewingPatient.age} yrs • {viewingPatient.gender}
                   </p>
                 </div>
-                <div className="p-2.5 rounded-md bg-secondary border border-border">
+                <div className="p-2.5 rounded-xl bg-secondary border border-border">
                   <p className="text-[10px] font-semibold text-muted-foreground uppercase">Condition</p>
                   <p className="font-semibold text-foreground mt-0.5">
                     {viewingPatient.condition}
@@ -521,7 +646,7 @@ export function PatientsTable({
                 </div>
               </div>
 
-              <div className="p-2.5 rounded-md bg-secondary border border-border space-y-2">
+              <div className="p-2.5 rounded-xl bg-secondary border border-border space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground flex items-center gap-1.5">
                     <Stethoscope className="h-3.5 w-3.5 text-primary" />
@@ -565,7 +690,7 @@ export function PatientsTable({
               </div>
 
               {viewingPatient.notes && (
-                <div className="p-2.5 rounded-md bg-secondary border border-border">
+                <div className="p-2.5 rounded-xl bg-secondary border border-border">
                   <p className="text-[10px] font-semibold text-muted-foreground uppercase mb-1">Notes</p>
                   <p className="text-muted-foreground leading-relaxed">
                     {viewingPatient.notes}
