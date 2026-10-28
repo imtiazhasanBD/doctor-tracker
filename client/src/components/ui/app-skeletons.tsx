@@ -279,7 +279,7 @@ export function DashboardSkeleton() {
   return (
     <div className="space-y-5 pb-6">
       {/* 1. HERO WELCOME BANNER + 4 METRIC CARDS SKELETON */}
-      <div className="relative rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/10 via-accent to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
+      <div className="relative rounded-xl sm:rounded-2xl bg-gradient-to-r from-white via-white/80 to-primary/10 dark:from-card dark:via-card dark:to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
         {/* Top Right Hospital Illustration from public/ folder */}
         <div className="hidden md:flex absolute top-0 right-0 h-[160px] items-end justify-end pointer-events-none z-0 opacity-95 dark:opacity-95">
           <img

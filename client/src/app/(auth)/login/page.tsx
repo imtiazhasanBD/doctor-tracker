@@ -16,9 +16,7 @@ import { loginSchema, LoginFormData } from '@/schemas';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 
-// ============================================================================
 // 2. BRAND ASSETS & PIXEL-PERFECT SVG ILLUSTRATIONS
-// ============================================================================
 
 const DocTrackHeartLogo = ({ size = 38 }: { size?: number }) => (
   <svg
@@ -115,9 +113,7 @@ const DoctorClinicIllustration = () => (
   />
 );
 
-// ============================================================================
 // 3. MAIN PAGE COMPONENT
-// ============================================================================
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -153,10 +149,10 @@ export default function LoginPage() {
   return (
     <div className="h-screen w-screen overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-background select-none">
       {/* LEFT PANEL (~58.3% / 7 cols): HERO CONTENT + DOCTOR ILLUSTRATION */}
-      <div className="hidden lg:flex lg:col-span-7 relative h-full overflow-hidden flex-col justify-between py-10 pl-12 pr-6 bg-gradient-to-br from-background via-muted/20 to-muted/50">
+      <div className="hidden lg:flex lg:col-span-7 relative h-full overflow-hidden flex-col justify-between py-10 pl-12 pr-6">
 
         {/* 1. TOP LEFT LOGO HEADER */}
-        <div className="relative z-20 flex items-center gap-3">
+        <div className="relative z-20 flex items-center gap-3 pt-10">
           <DocTrackHeartLogo size={42} />
           <div>
             <div className="flex items-center text-[23px] font-bold tracking-tight leading-none">
@@ -170,7 +166,7 @@ export default function LoginPage() {
         </div>
 
         {/* 2. MAIN HERO COPY & STATIC FEATURE ITEMS */}
-        <div className="relative z-20 my-auto max-w-[350px]">
+        <div className="relative z-20 my-auto max-w-[360px]">
           <p className="text-[11px] font-semibold uppercase tracking-[0.1em] mb-2.5 text-muted-foreground">
             WELCOME TO DOCTRACK
           </p>
@@ -234,9 +230,6 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Bottom spacer to balance vertical alignment */}
-        <div className="h-4" />
-
         {/* DOCTOR ILLUSTRATION (Positioned cleanly on the right/bottom) */}
         <div className="absolute bottom-0 right-0 w-[64%] h-[92%] z-10 flex items-end justify-end pointer-events-none">
           <DoctorClinicIllustration />
@@ -274,10 +267,7 @@ export default function LoginPage() {
                 Please sign in to continue to your account
               </p>
             </div>
-
-            {/* ============================================================ */}
             {/* LOGIN FORM (React Hook Form + Zod Validation)                */}
-            {/* ============================================================ */}
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
               {/* EMAIL INPUT BOX */}
               <div>
