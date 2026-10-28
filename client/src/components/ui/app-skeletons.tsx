@@ -276,30 +276,30 @@ export function DoctorsTableSkeleton({
 
 export function DashboardSkeleton() {
   return (
-    <div className="space-y-6 pb-6">
+    <div className="space-y-5 pb-6">
       {/* 1. HERO WELCOME BANNER + 4 METRIC CARDS SKELETON */}
-      <div className="relative rounded-md bg-gradient-to-r from-primary/10 via-accent to-secondary pb-4 border border-border shadow-sm dark:shadow-none overflow-hidden transition-colors">
+      <div className="relative rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/10 via-accent to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
         {/* Top Banner Text Skeleton */}
-        <div className="relative z-10 flex items-center justify-between pb-6 p-4">
+        <div className="relative z-10 flex items-center justify-between p-3.5 sm:p-5 pb-3 sm:pb-5">
           <div className="space-y-2">
             <Skeleton className="h-3 w-28" />
             <Skeleton className="h-7 w-64" />
-            <Skeleton className="h-3.5 w-80" />
+            <Skeleton className="h-3.5 w-72" />
           </div>
         </div>
 
-        {/* 4 Metric Cards Row */}
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 px-4">
+        {/* 4 Metric Cards Row (2x2 on mobile) */}
+        <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 px-3 sm:px-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Card
               key={i}
-              className="border-border bg-card rounded-md shadow-sm p-5 transition-colors"
+              className="border-border bg-card rounded-xl shadow-xs p-3.5 sm:p-5 transition-colors"
             >
-              <div className="flex items-start gap-3.5">
-                <Skeleton className="w-11 h-11 rounded-md shrink-0" />
+              <div className="flex items-start gap-2.5 sm:gap-3.5">
+                <Skeleton className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg shrink-0" />
                 <div className="min-w-0 flex-1 space-y-2">
-                  <Skeleton className="h-3 w-24" />
-                  <Skeleton className="h-7 w-16" />
+                  <Skeleton className="h-3 w-20 sm:w-24" />
+                  <Skeleton className="h-6 sm:h-7 w-12 sm:w-16" />
                 </div>
               </div>
             </Card>
@@ -310,7 +310,7 @@ export function DashboardSkeleton() {
       {/* 2. MIDDLE ROW: 2 CHARTS SKELETON */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Patients Per Doctor Bar Chart (7 cols) */}
-        <Card className="lg:col-span-7 border-border bg-card rounded-xl shadow-sm p-5 space-y-4">
+        <Card className="lg:col-span-7 border-border bg-card rounded-xl shadow-xs p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Skeleton className="w-4 h-4 rounded" />
@@ -319,19 +319,19 @@ export function DashboardSkeleton() {
             <Skeleton className="h-7 w-24 rounded-lg" />
           </div>
 
-          <div className="h-[225px] flex items-end justify-between gap-4 pt-6 px-4">
-            <Skeleton className="w-8 h-[80%] rounded-t" />
-            <Skeleton className="w-8 h-[60%] rounded-t" />
-            <Skeleton className="w-8 h-[55%] rounded-t" />
-            <Skeleton className="w-8 h-[50%] rounded-t" />
-            <Skeleton className="w-8 h-[38%] rounded-t" />
-            <Skeleton className="w-8 h-[32%] rounded-t" />
-            <Skeleton className="w-8 h-[28%] rounded-t" />
+          <div className="h-[210px] sm:h-[225px] flex items-end justify-between gap-3 sm:gap-4 pt-6 px-2 sm:px-4">
+            <Skeleton className="w-7 sm:w-8 h-[80%] rounded-t" />
+            <Skeleton className="w-7 sm:w-8 h-[60%] rounded-t" />
+            <Skeleton className="w-7 sm:w-8 h-[55%] rounded-t" />
+            <Skeleton className="w-7 sm:w-8 h-[50%] rounded-t" />
+            <Skeleton className="w-7 sm:w-8 h-[38%] rounded-t" />
+            <Skeleton className="w-7 sm:w-8 h-[32%] rounded-t" />
+            <Skeleton className="w-7 sm:w-8 h-[28%] rounded-t" />
           </div>
         </Card>
 
         {/* Patients by Condition Donut Chart (5 cols) */}
-        <Card className="lg:col-span-5 border-border bg-card rounded-xl shadow-sm p-5 space-y-4">
+        <Card className="lg:col-span-5 border-border bg-card rounded-xl shadow-xs p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Skeleton className="w-4 h-4 rounded" />
@@ -340,9 +340,9 @@ export function DashboardSkeleton() {
             <Skeleton className="h-7 w-24 rounded-lg" />
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 h-[220px] px-2">
-            <Skeleton className="h-[175px] w-[175px] rounded-full shrink-0 border-[16px] border-muted bg-transparent" />
-            <div className="flex-1 w-full space-y-3 pl-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4 px-2">
+            <Skeleton className="h-[160px] w-[160px] sm:h-[175px] sm:w-[175px] rounded-full shrink-0 border-[16px] border-muted bg-transparent my-1 sm:my-0" />
+            <div className="flex-1 w-full space-y-3 sm:pl-2">
               {Array.from({ length: 6 }).map((_, idx) => (
                 <div key={idx} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -363,8 +363,8 @@ export function DashboardSkeleton() {
       {/* 3. BOTTOM ROW: RECENT PATIENTS & DOCTOR DIRECTORY TABLES SKELETON */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Recent Patients Table (7 cols) */}
-        <Card className="lg:col-span-7 border-border bg-card rounded-xl p-5 sm:p-6 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
+        <Card className="lg:col-span-7 border-border bg-card rounded-xl p-4 sm:p-6 shadow-xs">
+          <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-border">
             <div className="flex items-center gap-2">
               <Skeleton className="w-4 h-4 rounded" />
               <Skeleton className="h-4 w-28" />
@@ -372,8 +372,24 @@ export function DashboardSkeleton() {
             <Skeleton className="h-7 w-16 rounded-lg" />
           </div>
 
-          <div className="space-y-3 pt-1">
-            {/* Table header */}
+          {/* Mobile list skeleton */}
+          <div className="space-y-2.5 md:hidden pt-3">
+            {Array.from({ length: 4 }).map((_, r) => (
+              <div key={r} className="p-3 rounded-xl border border-border bg-card/60 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                  <Skeleton className="w-9 h-9 rounded-full shrink-0" />
+                  <div className="space-y-1.5 flex-1">
+                    <Skeleton className="h-3.5 w-28" />
+                    <Skeleton className="h-2.5 w-36" />
+                  </div>
+                </div>
+                <Skeleton className="h-5 w-14 rounded-full shrink-0" />
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop table skeleton */}
+          <div className="hidden md:block space-y-3 pt-3">
             <div className="flex items-center gap-3 pb-2 border-b border-border">
               <Skeleton className="h-3 w-6" />
               <Skeleton className="h-3 w-24" />
@@ -384,7 +400,6 @@ export function DashboardSkeleton() {
               <Skeleton className="h-3 w-14" />
               <Skeleton className="h-3 w-8 ml-auto" />
             </div>
-            {/* Table rows */}
             {Array.from({ length: 5 }).map((_, r) => (
               <div
                 key={r}
@@ -404,8 +419,8 @@ export function DashboardSkeleton() {
         </Card>
 
         {/* Doctor Directory Table (5 cols) */}
-        <Card className="lg:col-span-5 border-border bg-card rounded-xl p-5 sm:p-6 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
+        <Card className="lg:col-span-5 border-border bg-card rounded-xl p-4 sm:p-6 shadow-xs">
+          <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-border">
             <div className="flex items-center gap-2">
               <Skeleton className="w-4 h-4 rounded" />
               <Skeleton className="h-4 w-28" />
@@ -413,8 +428,24 @@ export function DashboardSkeleton() {
             <Skeleton className="h-7 w-16 rounded-lg" />
           </div>
 
-          <div className="space-y-3 pt-1">
-            {/* Table header */}
+          {/* Mobile list skeleton */}
+          <div className="space-y-2.5 md:hidden pt-3">
+            {Array.from({ length: 4 }).map((_, r) => (
+              <div key={r} className="p-3 rounded-xl border border-border bg-card/60 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                  <Skeleton className="w-9 h-9 rounded-full shrink-0" />
+                  <div className="space-y-1.5 flex-1">
+                    <Skeleton className="h-3.5 w-24" />
+                    <Skeleton className="h-2.5 w-28" />
+                  </div>
+                </div>
+                <Skeleton className="h-5 w-14 rounded-full shrink-0" />
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop table skeleton */}
+          <div className="hidden md:block space-y-3 pt-3">
             <div className="flex items-center gap-3 pb-2 border-b border-border">
               <Skeleton className="h-3 w-6" />
               <Skeleton className="h-3 w-24" />
@@ -422,7 +453,6 @@ export function DashboardSkeleton() {
               <Skeleton className="h-3 w-12 text-center" />
               <Skeleton className="h-3 w-14 ml-auto" />
             </div>
-            {/* Table rows */}
             {Array.from({ length: 5 }).map((_, r) => (
               <div
                 key={r}

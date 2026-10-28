@@ -93,23 +93,23 @@ export function PatientsByConditionChart({
         </Select>
       </CardHeader>
 
-      <CardContent className={cn('px-5 pb-4 pt-2 transition-opacity duration-200', isFetching && 'opacity-60')}>
+      <CardContent className={cn('px-3 sm:px-5 pb-4 pt-2 transition-opacity duration-200', isFetching && 'opacity-60')}>
         {chartData.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-[220px] text-center text-muted-foreground">
+          <div className="flex flex-col items-center justify-center h-[200px] sm:h-[220px] text-center text-muted-foreground">
             <p className="text-[13px] font-medium">No patient condition data for this timeframe</p>
           </div>
         ) : (
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 h-[220px]">
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4 sm:h-[220px]">
             {/* Donut Chart */}
-            <div className="relative h-[185px] w-[185px] shrink-0">
+            <div className="relative h-[160px] w-[160px] sm:h-[185px] sm:w-[185px] shrink-0 my-1 sm:my-0">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={chartData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={56}
-                    outerRadius={82}
+                    innerRadius={48}
+                    outerRadius={72}
                     paddingAngle={2}
                     dataKey="value"
                     strokeWidth={0}
@@ -135,17 +135,17 @@ export function PatientsByConditionChart({
 
               {/* Center label */}
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="text-[19px] font-bold text-foreground leading-none">
+                <span className="text-[17px] sm:text-[19px] font-bold text-foreground leading-none">
                   {displayTotal.toLocaleString()}
                 </span>
-                <span className="text-[11px] text-muted-foreground font-medium mt-1">
+                <span className="text-[10px] sm:text-[11px] text-muted-foreground font-medium mt-0.5 sm:mt-1">
                   Patients
                 </span>
               </div>
             </div>
 
             {/* Condition Legend list with Count + Percentage */}
-            <div className="flex-1 w-full space-y-2.5 pl-1">
+            <div className="flex-1 w-full space-y-2 sm:space-y-2.5 sm:pl-1">
               {chartData.map((item) => (
                 <div
                   key={item.name}
