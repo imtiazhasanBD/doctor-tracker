@@ -2,9 +2,10 @@
 
 > **A secure, high-performance admin portal for managing doctors and patients, built with Next.js 16, Express 5, and MongoDB.**
 
-**Live demo:** _add your deployed URL here_  
-**GitHub:** _https://github.com/your-org/doctor-tracker_  
-**Reviewer credentials:** email `admin@doctortracker.dev` · password `Admin@12345`
+- **Live Frontend Website:** [https://doctor-tracker-jade.vercel.app](https://doctor-tracker-jade.vercel.app/)
+- **Live Backend API URL:** [https://doctor-tracker-api-k99z.onrender.com](https://doctor-tracker-api-k99z.onrender.com/) (Health: [/health](https://doctor-tracker-api-k99z.onrender.com/health))
+- **Frontend & Backend Repository:** [https://github.com/imtiazhasanBD/doctor-tracker](https://github.com/imtiazhasanBD/doctor-tracker)
+- **Reviewer Credentials:** Email: `admin@doctortracker.dev` · Password: `Admin@12345`
 
 ---
 
@@ -60,7 +61,7 @@ Doctor Tracker is a secure administrative web application designed for healthcar
 ### 1 — Clone the repository
 
 ```bash
-git clone https://github.com/your-org/doctor-tracker.git
+git clone https://github.com/imtiazhasanBD/doctor-tracker.git
 cd doctor-tracker
 ```
 
@@ -455,14 +456,22 @@ doctor-tracker/
 2. The API is served over HTTPS (required for `Secure` cookies)
 3. The frontend `NEXT_PUBLIC_API_URL` points to the deployed API URL
 
-**Environment variables to update for production:**
+**Environment variables configured in production:**
 
-| Variable | Production value |
+**Backend (Render):**
+| Variable | Production Value |
 |---|---|
 | `NODE_ENV` | `production` |
-| `MONGODB_URI` | Atlas connection string with replica set |
-| `JWT_SECRET` | 48-char+ random secret |
-| `CLIENT_ORIGIN` | Your Vercel domain, e.g. `https://doctor-tracker.vercel.app` |
+| `PORT` | `10000` |
+| `MONGODB_URI` | `mongodb+srv://...` (MongoDB Atlas cluster) |
+| `JWT_SECRET` | 48-char+ secure random secret |
+| `CLIENT_ORIGIN` | `https://doctor-tracker-jade.vercel.app` |
+| `STATS_TIMEZONE` | `UTC` |
+
+**Frontend (Vercel):**
+| Variable | Production Value |
+|---|---|
+| `NEXT_PUBLIC_API_URL` | `https://doctor-tracker-api-k99z.onrender.com/api` |
 
 ---
 
