@@ -122,9 +122,9 @@ export function AddDoctorModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-xl w-full p-6 rounded-md bg-white dark:bg-[#0c152a] border border-slate-200 dark:border-[#1c2a47] shadow-xl">
+      <DialogContent className="sm:max-w-xl w-full p-6 rounded-md bg-card border border-border shadow-xl">
         <DialogHeader className="pb-2">
-          <DialogTitle className="text-base font-bold text-slate-800 dark:text-white">
+          <DialogTitle className="text-base font-bold text-foreground">
             {isEdit ? 'Update Doctor' : 'Add New Doctor'}
           </DialogTitle>
         </DialogHeader>
@@ -133,23 +133,23 @@ export function AddDoctorModal({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Name */}
             <div>
-              <Label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                Name <span className="text-red-500">*</span>
+              <Label className="text-xs font-semibold text-foreground">
+                Name <span className="text-destructive">*</span>
               </Label>
               <Input
                 {...register('name')}
                 placeholder="Enter doctor's name"
-                className="mt-1.5 h-9 text-xs rounded-md bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="mt-1.5 h-9 text-xs rounded-md bg-secondary border-input text-foreground placeholder:text-muted-foreground"
               />
               {errors.name && (
-                <p className="mt-1 text-[11px] text-red-500">{errors.name.message}</p>
+                <p className="mt-1 text-[11px] text-destructive">{errors.name.message}</p>
               )}
             </div>
 
             {/* Specialization */}
             <div>
-              <Label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                Specialization <span className="text-red-500">*</span>
+              <Label className="text-xs font-semibold text-foreground">
+                Specialization <span className="text-destructive">*</span>
               </Label>
               <Select
                 value={selectedSpec}
@@ -157,12 +157,12 @@ export function AddDoctorModal({
                   if (val) setValue('specialization', val, { shouldValidate: true });
                 }}
               >
-                <SelectTrigger className="mt-1.5 h-9 text-xs rounded-md bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-slate-900 dark:text-white w-full">
+                <SelectTrigger className="mt-1.5 h-9 text-xs rounded-md bg-secondary border-input text-foreground w-full">
                   <SelectValue placeholder="Select specialization">
                     {selectedSpec || 'Select specialization'}
                   </SelectValue>
                 </SelectTrigger>
-                <SelectContent className="rounded-md bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#1c2a47]">
+                <SelectContent className="rounded-md bg-popover border-border">
                   {specList.map((spec) => (
                     <SelectItem key={spec} value={spec} className="text-xs">
                       {spec}
@@ -171,71 +171,71 @@ export function AddDoctorModal({
                 </SelectContent>
               </Select>
               {errors.specialization && (
-                <p className="mt-1 text-[11px] text-red-500">{errors.specialization.message}</p>
+                <p className="mt-1 text-[11px] text-destructive">{errors.specialization.message}</p>
               )}
             </div>
 
             {/* Hospital */}
             <div>
-              <Label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-semibold text-foreground">
                 Hospital
               </Label>
               <Input
                 {...register('hospital')}
                 placeholder="Enter hospital name"
-                className="mt-1.5 h-9 text-xs rounded-md bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="mt-1.5 h-9 text-xs rounded-md bg-secondary border-input text-foreground placeholder:text-muted-foreground"
               />
               {errors.hospital && (
-                <p className="mt-1 text-[11px] text-red-500">{errors.hospital.message}</p>
+                <p className="mt-1 text-[11px] text-destructive">{errors.hospital.message}</p>
               )}
             </div>
 
             {/* Phone */}
             <div>
-              <Label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-semibold text-foreground">
                 Phone
               </Label>
               <Input
                 {...register('phone')}
                 placeholder="Enter phone number"
-                className="mt-1.5 h-9 text-xs rounded-md bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="mt-1.5 h-9 text-xs rounded-md bg-secondary border-input text-foreground placeholder:text-muted-foreground"
               />
               {errors.phone && (
-                <p className="mt-1 text-[11px] text-red-500">{errors.phone.message}</p>
+                <p className="mt-1 text-[11px] text-destructive">{errors.phone.message}</p>
               )}
             </div>
           </div>
 
           {/* Email */}
           <div>
-            <Label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-              Email <span className="text-red-500">*</span>
+            <Label className="text-xs font-semibold text-foreground">
+              Email <span className="text-destructive">*</span>
             </Label>
             <Input
               {...register('email')}
               type="email"
               placeholder="Enter email address"
-              className="mt-1.5 h-9 text-xs rounded-md bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-slate-900 dark:text-white placeholder:text-slate-400"
+              className="mt-1.5 h-9 text-xs rounded-md bg-secondary border-input text-foreground placeholder:text-muted-foreground"
             />
             {errors.email && (
-              <p className="mt-1 text-[11px] text-red-500">{errors.email.message}</p>
+              <p className="mt-1 text-[11px] text-destructive">{errors.email.message}</p>
             )}
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-[#1c2a47]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Button
               type="button"
               variant="outline"
               onClick={handleClose}
-              className="h-9 px-4 text-xs font-medium rounded-md border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#152342]"
+              className="h-9 px-4 text-xs font-medium rounded-md border-border bg-card text-foreground hover:bg-muted"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={isPending}
-              className="h-9 px-5 text-xs font-medium bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-md shadow-sm"
+              className="h-9 px-5 text-xs font-medium bg-primary hover:bg-primary/90 text-primary-foreground rounded-md shadow-sm"
             >
               {isPending
                 ? isEdit

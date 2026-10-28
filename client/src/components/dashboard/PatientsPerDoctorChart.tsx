@@ -66,25 +66,25 @@ export function PatientsPerDoctorChart({ data: initialData = [] }: Props) {
   const activeOption = TIMEFRAME_OPTIONS.find((opt) => opt.value === timeframe);
 
   return (
-    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] h-full transition-colors">
+    <Card className="border-border bg-card rounded-xl shadow-xs h-full transition-colors">
       <CardHeader className="flex flex-row items-center justify-between py-2 px-4">
         <div className="flex items-center gap-2">
-          <BarChart3 className="w-4 h-4 text-[#2584ff] dark:text-[#38bdf8]" />
-          <CardTitle className="text-[14.5px] font-bold text-[#0f172a] dark:text-white">
+          <BarChart3 className="w-4 h-4 text-chart-1" />
+          <CardTitle className="text-[14.5px] font-bold text-foreground">
             Patients Per Doctor
           </CardTitle>
         </div>
 
         <Select value={timeframe} onValueChange={(val) => val && setTimeframe(val)}>
-          <SelectTrigger className="h-7 text-[11px] font-medium bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2d54] text-[#475569] dark:text-[#8fa1be] px-2.5 rounded-lg shadow-none gap-1 focus-visible:ring-1 focus-visible:ring-[#2584ff]">
+          <SelectTrigger className="h-7 text-[11px] font-medium bg-secondary border-border text-foreground px-2.5 rounded-lg shadow-none gap-1 focus-visible:ring-1 focus-visible:ring-ring">
             <span>{activeOption?.label || 'This Month'}</span>
           </SelectTrigger>
-          <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#1c2a47] min-w-[120px]">
+          <SelectContent className="bg-popover border-border min-w-[120px]">
             {TIMEFRAME_OPTIONS.map((opt) => (
               <SelectItem
                 key={opt.value}
                 value={opt.value}
-                className="text-xs text-[#0f172a] dark:text-slate-200 cursor-pointer"
+                className="text-xs text-foreground cursor-pointer"
               >
                 {opt.label}
               </SelectItem>
@@ -95,7 +95,7 @@ export function PatientsPerDoctorChart({ data: initialData = [] }: Props) {
 
       <CardContent className={cn('px-3 pb-4 pt-2 transition-opacity duration-200', isFetching && 'opacity-60')}>
         {chartData.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-[225px] text-center text-[#64748b] dark:text-[#6b7f9e]">
+          <div className="flex flex-col items-center justify-center h-[225px] text-center text-muted-foreground">
             <p className="text-[13px] font-medium">No doctor patient data for this timeframe</p>
           </div>
         ) : (
@@ -108,28 +108,28 @@ export function PatientsPerDoctorChart({ data: initialData = [] }: Props) {
                 <CartesianGrid
                   strokeDasharray="3 3"
                   vertical={false}
-                  stroke={isDark ? '#162444' : '#f1f5f9'}
+                  stroke="var(--border)"
                 />
                 <XAxis
                   dataKey="name"
                   tickLine={false}
                   axisLine={false}
                   interval={0}
-                  tick={{ fontSize: 9.5, fill: isDark ? '#6b7f9e' : '#64748b' }}
+                  tick={{ fontSize: 9.5, fill: 'var(--muted-foreground)' }}
                 />
                 <YAxis
                   tickLine={false}
                   axisLine={false}
-                  tick={{ fontSize: 10.5, fill: isDark ? '#6b7f9e' : '#94a3b8' }}
+                  tick={{ fontSize: 10.5, fill: 'var(--muted-foreground)' }}
                   domain={yDomain}
                   ticks={yTicks}
                 />
                 <Tooltip
-                  cursor={{ fill: isDark ? '#10192e' : '#f8fafc' }}
+                  cursor={{ fill: 'var(--accent)' }}
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                       return (
-                        <div className="bg-[#0f172a] dark:bg-[#10192e] border border-transparent dark:border-[#1c2d54] text-white text-[11px] px-2.5 py-1 rounded-md shadow-md font-semibold">
+                        <div className="bg-popover border border-border text-popover-foreground text-[11px] px-2.5 py-1 rounded-md shadow-md font-semibold">
                           {payload[0].value} Patients
                         </div>
                       );
@@ -139,7 +139,7 @@ export function PatientsPerDoctorChart({ data: initialData = [] }: Props) {
                 />
                 <Bar
                   dataKey="count"
-                  fill="#2584ff"
+                  fill="var(--chart-1)"
                   radius={[4, 4, 0, 0]}
                   maxBarSize={30}
                 />

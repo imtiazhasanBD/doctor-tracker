@@ -87,21 +87,21 @@ export default function DoctorsPage() {
       {/* Top Header matching mockup */}
       <div className="space-y-1">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium">
-          <Link href="/dashboard" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
+          <Link href="/dashboard" className="hover:text-foreground transition-colors">
             Home
           </Link>
-          <ChevronRight className="h-3 w-3 text-slate-400" />
-          <span className="text-slate-700 dark:text-slate-200 font-semibold">Doctors</span>
+          <ChevronRight className="h-3 w-3 text-muted-foreground" />
+          <span className="text-foreground font-semibold">Doctors</span>
         </div>
 
         {/* Title + Add Doctor Button */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-0.5">
           <div>
-            <h1 className="text-2xl sm:text-[28px] font-bold text-slate-900 dark:text-white tracking-tight">
+            <h1 className="text-2xl sm:text-[28px] font-bold text-foreground tracking-tight">
               Manage Doctors
             </h1>
-            <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs sm:text-[13px] text-muted-foreground mt-0.5">
               Add, update and organize your healthcare professionals.
             </p>
           </div>
@@ -111,7 +111,7 @@ export default function DoctorsPage() {
               setDoctorToEdit(null);
               setAddModalOpen(true);
             }}
-            className="h-9 px-4 text-xs font-semibold rounded-md bg-[#2563eb] hover:bg-[#1d4ed8] text-white gap-1.5 shadow-sm self-start sm:self-auto shrink-0"
+            className="h-9 px-4 text-xs font-semibold rounded-md bg-primary hover:bg-primary/90 text-primary-foreground gap-1.5 shadow-sm self-start sm:self-auto shrink-0"
           >
             <Plus className="h-4 w-4" />
             Add Doctor
@@ -128,35 +128,35 @@ export default function DoctorsPage() {
             title="Total Doctors"
             value={totalDoctors}
             icon={User}
-            iconColor="text-[#2563eb] dark:text-[#3b82f6]"
-            iconBg="bg-[#eff6ff] dark:bg-[#122347]"
+            iconColor="text-primary"
+            iconBg="bg-primary/10"
           />
           <StatCard
             title="Active Doctors"
             value={activeDoctors}
             icon={Stethoscope}
-            iconColor="text-[#9333ea] dark:text-[#a855f7]"
-            iconBg="bg-[#faf5ff] dark:bg-[#251642]"
+            iconColor="text-chart-5"
+            iconBg="bg-chart-5/10"
           />
           <StatCard
             title="Hospitals"
             value={totalHospitals}
             icon={Building2}
-            iconColor="text-[#0284c7] dark:text-[#38bdf8]"
-            iconBg="bg-[#f0f9ff] dark:bg-[#0c283f]"
+            iconColor="text-info"
+            iconBg="bg-info/10"
           />
           <StatCard
             title="Avg. Patients per Doctor"
             value={avgPatients}
             icon={Users}
-            iconColor="text-[#ea580c] dark:text-[#fb923c]"
-            iconBg="bg-[#fff7ed] dark:bg-[#331c10]"
+            iconColor="text-warning"
+            iconBg="bg-warning/10"
           />
         </div>
       )}
 
       {/* Combined Section Card: 1st Doctors List + Export, then All Filters, then Table */}
-      <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors">
+      <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors">
         {isLoading ? (
           <DoctorsTableSkeleton
             rows={limit}

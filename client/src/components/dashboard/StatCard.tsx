@@ -25,7 +25,7 @@ export function StatCard({
   return (
     <Card
       className={cn(
-        'border-slate-100/90 dark:border-[#1c2d54] bg-white dark:bg-[#0e1933] rounded-md shadow-[0_4px_15px_-3px_rgba(15,23,42,0.03)] p-5 flex flex-col justify-between transition-colors',
+        'border border-border bg-card rounded-md shadow-xs p-5 flex flex-col justify-between transition-colors',
         className
       )}
     >
@@ -39,10 +39,10 @@ export function StatCard({
           <Icon className={cn('w-5 h-5', iconColor)} />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] font-medium text-[#64748b] dark:text-[#7a8da8] truncate">
+          <p className="text-[12px] font-medium text-muted-foreground truncate">
             {title}
           </p>
-          <h3 className="text-[24px] sm:text-[26px] font-bold text-[#0f172a] dark:text-white leading-tight mt-0.5">
+          <h3 className="text-[24px] sm:text-[26px] font-bold text-foreground leading-tight mt-0.5">
             {value}
           </h3>
         </div>

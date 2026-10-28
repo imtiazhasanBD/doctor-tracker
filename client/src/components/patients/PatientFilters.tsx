@@ -49,12 +49,12 @@ export function PatientFilters({
         {/* Left: Search Input Field */}
         <div className="w-full xl:max-w-xs 2xl:max-w-sm flex-1">
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#94a3b8] dark:text-[#5a6d8c]" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search patients by name, doctor, or condition..."
-              className="pl-9 h-9 text-xs bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md placeholder:text-[#94a3b8] dark:placeholder:text-[#5a6d8c] focus-visible:ring-1 focus-visible:ring-[#2584ff]"
+              className="pl-9 h-9 text-xs bg-secondary border-input text-foreground rounded-md placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
             />
           </div>
         </div>
@@ -63,7 +63,7 @@ export function PatientFilters({
         <div className="flex flex-wrap items-end gap-1.5 w-full xl:w-auto justify-end">
           {/* Doctor Filter */}
           <div className="w-32 sm:w-36 min-w-0">
-            <label className="text-[11px] font-semibold text-[#64748b] dark:text-[#8fa1be] block mb-1">
+            <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Doctor
             </label>
             <Select
@@ -72,7 +72,7 @@ export function PatientFilters({
                 if (val !== null) onDoctorIdChange(val === 'all' ? '' : val);
               }}
             >
-              <SelectTrigger className="w-full h-9 text-xs bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md px-2.5 min-w-0">
+              <SelectTrigger className="w-full h-9 text-xs bg-secondary border-input text-foreground rounded-md px-2.5 min-w-0">
                 <SelectValue placeholder="All Doctors" className="truncate min-w-0">
                   <span
                     className="truncate block"
@@ -88,7 +88,7 @@ export function PatientFilters({
                   </span>
                 </SelectValue>
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#172545] rounded-md max-h-60">
+              <SelectContent className="bg-popover border-border rounded-md max-h-60">
                 <SelectItem value="all" className="text-xs">
                   All Doctors
                 </SelectItem>
@@ -103,7 +103,7 @@ export function PatientFilters({
 
           {/* Condition Filter */}
           <div className="w-32 sm:w-36 min-w-0">
-            <label className="text-[11px] font-semibold text-[#64748b] dark:text-[#8fa1be] block mb-1">
+            <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Condition
             </label>
             <Select
@@ -112,14 +112,14 @@ export function PatientFilters({
                 if (val !== null) onConditionChange(val === 'all' ? '' : val);
               }}
             >
-              <SelectTrigger className="w-full h-9 text-xs bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md px-2.5 min-w-0">
+              <SelectTrigger className="w-full h-9 text-xs bg-secondary border-input text-foreground rounded-md px-2.5 min-w-0">
                 <SelectValue placeholder="All Conditions" className="truncate min-w-0">
                   <span className="truncate block" title={condition || 'All Conditions'}>
                     {condition || 'All Conditions'}
                   </span>
                 </SelectValue>
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#172545] rounded-md max-h-60">
+              <SelectContent className="bg-popover border-border rounded-md max-h-60">
                 <SelectItem value="all" className="text-xs">
                   All Conditions
                 </SelectItem>
@@ -134,7 +134,7 @@ export function PatientFilters({
 
           {/* Status Filter */}
           <div className="w-28 min-w-0">
-            <label className="text-[11px] font-semibold text-[#64748b] dark:text-[#8fa1be] block mb-1">
+            <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Status
             </label>
             <Select
@@ -143,7 +143,7 @@ export function PatientFilters({
                 if (val !== null) onStatusChange(val === 'all' ? '' : val);
               }}
             >
-              <SelectTrigger className="w-full h-9 text-xs bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md px-2.5 min-w-0">
+              <SelectTrigger className="w-full h-9 text-xs bg-secondary border-input text-foreground rounded-md px-2.5 min-w-0">
                 <SelectValue placeholder="All Status" className="truncate min-w-0">
                   <span className="truncate block">
                     {status === 'active'
@@ -154,7 +154,7 @@ export function PatientFilters({
                   </span>
                 </SelectValue>
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#172545] rounded-md">
+              <SelectContent className="bg-popover border-border rounded-md">
                 <SelectItem value="all" className="text-xs">
                   All Status
                 </SelectItem>
@@ -170,7 +170,7 @@ export function PatientFilters({
 
           {/* Visit Date Single Filter */}
           <div className="w-36 min-w-0">
-            <label className="text-[11px] font-semibold text-[#64748b] dark:text-[#8fa1be] block mb-1">
+            <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Visit Date
             </label>
             <div className="relative">
@@ -178,7 +178,7 @@ export function PatientFilters({
                 type="date"
                 value={date}
                 onChange={(e) => onDateChange(e.target.value)}
-                className="w-full h-9 px-2.5 text-xs bg-[#f8fafc] dark:bg-[#10192e] border border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md outline-none focus:ring-1 focus:ring-[#2584ff] transition-colors [color-scheme:light] dark:[color-scheme:dark]"
+                className="w-full h-9 px-2.5 text-xs bg-secondary border border-input text-foreground rounded-md outline-none focus:ring-1 focus:ring-ring transition-colors [color-scheme:light] dark:[color-scheme:dark]"
                 title="Filter by Visit Date"
               />
             </div>
@@ -193,7 +193,7 @@ export function PatientFilters({
               type="button"
               variant="outline"
               onClick={onReset}
-              className="h-9 px-3 text-xs font-semibold rounded-md border-slate-200/80 dark:border-[#1c2a47] bg-[#f8fafc] dark:bg-[#10192e] text-[#64748b] dark:text-[#8fa1be] hover:bg-slate-100 dark:hover:bg-[#16223d] hover:text-slate-900 dark:hover:text-white transition-colors"
+              className="h-9 px-3 text-xs font-semibold rounded-md border-border bg-secondary text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
               title="Reset all filters"
             >
               <RotateCcw className="h-3.5 w-3.5 mr-1" />

@@ -119,28 +119,28 @@ export default function PatientsPage() {
       {/* Top Header matching mockup */}
       <div className="space-y-1">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium">
-          <Link href="/dashboard" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
+          <Link href="/dashboard" className="hover:text-foreground transition-colors">
             Home
           </Link>
-          <ChevronRight className="h-3 w-3 text-slate-400" />
-          <span className="text-slate-700 dark:text-slate-200 font-semibold">Patients</span>
+          <ChevronRight className="h-3 w-3 text-muted-foreground" />
+          <span className="text-foreground font-semibold">Patients</span>
         </div>
 
         {/* Title + Add Patient Button */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-0.5">
           <div>
-            <h1 className="text-2xl sm:text-[28px] font-bold text-slate-900 dark:text-white tracking-tight">
+            <h1 className="text-2xl sm:text-[28px] font-bold text-foreground tracking-tight">
               Manage Patients
             </h1>
-            <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs sm:text-[13px] text-muted-foreground mt-0.5">
               View, add and manage patient records efficiently.
             </p>
           </div>
 
           <Button
             onClick={handleAdd}
-            className="h-9 px-4 text-xs font-semibold rounded-md bg-[#2563eb] hover:bg-[#1d4ed8] text-white gap-1.5 shadow-sm self-start sm:self-auto shrink-0"
+            className="h-9 px-4 text-xs font-semibold rounded-md bg-primary hover:bg-primary/90 text-primary-foreground gap-1.5 shadow-sm self-start sm:self-auto shrink-0"
           >
             <Plus className="h-4 w-4" />
             Add Patient
@@ -157,29 +157,29 @@ export default function PatientsPage() {
             title="Total Patients"
             value={totalPatients}
             icon={Users}
-            iconColor="text-[#2563eb] dark:text-[#3b82f6]"
-            iconBg="bg-[#eff6ff] dark:bg-[#122347]"
+            iconColor="text-primary"
+            iconBg="bg-primary/10"
           />
           <StatCard
             title="Active Patients"
             value={activePatients}
             icon={Activity}
-            iconColor="text-[#10b981] dark:text-[#34d399]"
-            iconBg="bg-[#ecfdf5] dark:bg-[#0c2a23]"
+            iconColor="text-success"
+            iconBg="bg-success/10"
           />
           <StatCard
             title="Discharged Patients"
             value={dischargedPatients}
             icon={UserCheck}
-            iconColor="text-[#9333ea] dark:text-[#a855f7]"
-            iconBg="bg-[#faf5ff] dark:bg-[#251642]"
+            iconColor="text-chart-5"
+            iconBg="bg-chart-5/10"
           />
           <StatCard
             title="Today's Patients"
             value={todayPatients}
             icon={Calendar}
-            iconColor="text-[#ea580c] dark:text-[#fb923c]"
-            iconBg="bg-[#fff7ed] dark:bg-[#331c10]"
+            iconColor="text-warning"
+            iconBg="bg-warning/10"
           />
         </div>
       )}

@@ -69,40 +69,11 @@ export default function DashboardPage() {
 
   const recentPatients = data?.recentPatients || [];
   const doctorDirectory = data?.doctorDirectory || [];
-  //   {
-  //     label: 'Add Doctor',
-  //     href: '/doctors?action=new',
-  //     icon: User,
-  //     iconBg: 'bg-[#ebf4ff] dark:bg-[#132c54]',
-  //     iconColor: 'text-[#2584ff] dark:text-[#38bdf8]',
-  //   },
-  //   {
-  //     label: 'Add Patient',
-  //     href: '/patients?action=new',
-  //     icon: UserPlus,
-  //     iconBg: 'bg-[#f4ebff] dark:bg-[#261c4a]',
-  //     iconColor: 'text-[#9333ea] dark:text-[#c084fc]',
-  //   },
-  //   {
-  //     label: 'View Doctors',
-  //     href: '/doctors',
-  //     icon: Stethoscope,
-  //     iconBg: 'bg-[#ecfdf5] dark:bg-[#12332e]',
-  //     iconColor: 'text-[#10b981] dark:text-[#34d399]',
-  //   },
-  //   {
-  //     label: 'View Patients',
-  //     href: '/patients',
-  //     icon: Users,
-  //     iconBg: 'bg-[#fff7ed] dark:bg-[#3a2518]',
-  //     iconColor: 'text-[#f97316] dark:text-[#fb923c]',
-  //   },
-  // ];
 
   return (
     <div className="space-y-6 pb-6">
       {/* 1. HERO WELCOME BANNER + 4 METRIC CARDS CONTAINER                  */}
-      <div className="relative rounded-md bg-gradient-to-r from-[#f3f9ff] via-[#eef6ff] to-[#e4f1fe] dark:from-[#0b1428] dark:via-[#0d172e] dark:to-[#101b36] pb-4 border border-white/80 dark:border-[#19284a] shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] dark:shadow-none overflow-hidden transition-colors">
+      <div className="relative rounded-md bg-gradient-to-r from-primary/10 via-accent to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
 
         {/* Top Right Hospital Illustration from public/ folder */}
         <div className="hidden md:flex absolute top-0 right-0 h-[160px] items-end justify-end pointer-events-none z-0 opacity-95 dark:opacity-95">
@@ -112,13 +83,13 @@ export default function DashboardPage() {
         {/* Top Banner Text */}
         <div className="relative z-10 flex items-center justify-between pb-6 p-4">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#64748b] dark:text-[#5e7191]">
+            <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
               WELCOME BACK
             </p>
-            <h1 className="text-[22px] sm:text-[26px] font-bold tracking-tight text-[#0f172a] dark:text-white mt-0.5">
+            <h1 className="text-[22px] sm:text-[26px] font-bold tracking-tight text-foreground mt-0.5">
               Here’s what’s happening today
             </h1>
-            <p className="text-[13px] text-[#64748b] dark:text-[#7e91b0] mt-0.5">
+            <p className="text-[13px] text-muted-foreground mt-0.5">
               Overview of your doctors and patients data.
             </p>
           </div>
@@ -130,29 +101,29 @@ export default function DashboardPage() {
             title="Total Doctors"
             value={(totals.doctors ?? 0).toLocaleString()}
             icon={User}
-            iconBg="bg-[#ebf4ff] dark:bg-[#132c54]"
-            iconColor="text-[#2584ff] dark:text-[#38bdf8]"
+            iconBg="bg-primary/10"
+            iconColor="text-primary"
           />
           <StatCard
             title="Total Patients"
             value={(totals.patients ?? 0).toLocaleString()}
             icon={Users}
-            iconBg="bg-[#f4ebff] dark:bg-[#261c4a]"
-            iconColor="text-[#9333ea] dark:text-[#c084fc]"
+            iconBg="bg-chart-5/10"
+            iconColor="text-chart-5"
           />
           <StatCard
             title="Patients Added This Month"
             value={(totals.thisMonthPatients ?? 0).toLocaleString()}
             icon={UserPlus}
-            iconBg="bg-[#ecfdf5] dark:bg-[#12332e]"
-            iconColor="text-[#10b981] dark:text-[#34d399]"
+            iconBg="bg-success/10"
+            iconColor="text-success"
           />
           <StatCard
             title="Patient Conditions"
             value={conditionsCount.toString()}
             icon={Activity}
-            iconBg="bg-[#fff7ed] dark:bg-[#3a2518]"
-            iconColor="text-[#f97316] dark:text-[#fb923c]"
+            iconBg="bg-warning/10"
+            iconColor="text-warning"
           />
         </div>
       </div>
@@ -176,10 +147,10 @@ export default function DashboardPage() {
       {/* 3. BOTTOM ROW: RECENT PATIENTS & DOCTOR DIRECTORY TABLES           */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Recent Patients Table (7 cols) */}
-        <Card className="lg:col-span-7 border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl p-5 sm:p-6 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] transition-colors">
+        <Card className="lg:col-span-7 border-border bg-card rounded-xl p-5 sm:p-6 shadow-xs transition-colors">
           <CardHeader className="p-0 pb-4 flex flex-row items-center justify-between">
-            <CardTitle className="text-[14.5px] font-bold text-[#0f172a] dark:text-white flex items-center gap-2">
-              <User className="w-4 h-4 text-[#2584ff] dark:text-[#38bdf8]" />
+            <CardTitle className="text-[14.5px] font-bold text-foreground flex items-center gap-2">
+              <User className="w-4 h-4 text-primary" />
               Recent Patients
             </CardTitle>
             <Link
@@ -188,7 +159,7 @@ export default function DashboardPage() {
                 variant: 'ghost',
                 size: 'sm',
                 className:
-                  'text-[11.5px] font-semibold text-[#2584ff] dark:text-[#38bdf8] bg-[#eef6ff] dark:bg-[#13254c] hover:bg-[#dbeafe] dark:hover:bg-[#1a3266] px-3 h-7 rounded-lg',
+                  'text-[11.5px] font-semibold text-primary bg-primary/10 hover:bg-primary/20 px-3 h-7 rounded-lg',
               })}
             >
               View All
@@ -198,37 +169,37 @@ export default function DashboardPage() {
           <CardContent className="p-0 overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <Table>
               <TableHeader>
-                <TableRow className="border-b border-slate-100 dark:border-[#162444] hover:bg-transparent">
-                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto w-8 text-center">
+                <TableRow className="border-b border-border hover:bg-transparent">
+                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-muted-foreground h-auto w-8 text-center">
                     #
                   </TableHead>
-                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto">
+                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto">
                     Name
                   </TableHead>
-                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto">
+                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-muted-foreground h-auto">
                     Doctor
                   </TableHead>
-                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto text-center">
+                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-muted-foreground h-auto text-center">
                     Age
                   </TableHead>
-                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto">
+                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-muted-foreground h-auto">
                     Condition
                   </TableHead>
-                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto">
+                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-muted-foreground h-auto">
                     Added Date
                   </TableHead>
-                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto text-center">
+                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-muted-foreground h-auto text-center">
                     Status
                   </TableHead>
-                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto text-center">
+                  <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-muted-foreground h-auto text-center">
                     Actions
                   </TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody className="divide-y divide-slate-100 dark:divide-[#14203a] text-[12px]">
+              <TableBody className="divide-y divide-border text-[12px]">
                 {recentPatients.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={8} className="py-8 text-center text-slate-500 dark:text-[#7e91b0]">
+                    <TableCell colSpan={8} className="py-8 text-center text-muted-foreground">
                       No recent patients recorded yet.
                     </TableCell>
                   </TableRow>
@@ -252,35 +223,30 @@ export default function DashboardPage() {
                     return (
                       <TableRow
                         key={p._id || p.id || idx}
-                        className="hover:bg-slate-50/70 dark:hover:bg-[#10192e] border-b border-slate-100 dark:border-[#14203a] transition-colors"
+                        className="hover:bg-muted/50 border-b border-border transition-colors"
                       >
-                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#5e7191] font-normal text-center">
+                        <TableCell className="py-2.5 px-2 text-muted-foreground font-normal text-center">
                           {idx + 1}
                         </TableCell>
-                        <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white whitespace-nowrap">
+                        <TableCell className="py-2.5 px-2.5 font-bold text-foreground whitespace-nowrap">
                           {p.name}
                         </TableCell>
-                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
+                        <TableCell className="py-2.5 px-2 text-muted-foreground whitespace-nowrap">
                           {doctorName}
                         </TableCell>
-                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] text-center">
+                        <TableCell className="py-2.5 px-2 text-muted-foreground text-center">
                           {p.age ?? '-'}
                         </TableCell>
-                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
+                        <TableCell className="py-2.5 px-2 text-muted-foreground whitespace-nowrap">
                           {p.condition}
                         </TableCell>
-                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
+                        <TableCell className="py-2.5 px-2 text-muted-foreground whitespace-nowrap">
                           {addedDate}
                         </TableCell>
                         <TableCell className="py-2.5 px-2 text-center">
                           <Badge
-                            variant={isActive ? 'secondary' : 'destructive'}
-                            className={cn(
-                              'rounded-md text-[11px] font-semibold border-0 py-0.5 px-2',
-                              isActive
-                                ? 'bg-[#e6f9f1] dark:bg-[#0e352b] text-[#10b981] dark:text-[#34d399] hover:bg-[#e6f9f1] dark:hover:bg-[#0e352b]'
-                                : 'bg-[#fff1f2] dark:bg-[#3d1a1c] text-[#f43f5e] dark:text-[#f87171] hover:bg-[#fff1f2] dark:hover:bg-[#3d1a1c]'
-                            )}
+                            variant={isActive ? 'success' : 'destructive'}
+                            className="rounded-md text-[11px] font-semibold py-0.5 px-2"
                           >
                             {statusLabel}
                           </Badge>
@@ -292,7 +258,7 @@ export default function DashboardPage() {
                               variant: 'ghost',
                               size: 'icon-xs',
                               className:
-                                'text-[#94a3b8] dark:text-[#5e7191] hover:text-[#2584ff] dark:hover:text-[#38bdf8] hover:bg-slate-50 dark:hover:bg-[#121e38] inline-flex',
+                                'text-muted-foreground hover:text-primary hover:bg-muted inline-flex',
                             })}
                             aria-label="View patient"
                           >
@@ -308,10 +274,10 @@ export default function DashboardPage() {
         </Card>
 
         {/* Doctor Directory Table (5 cols) */}
-        <Card className="lg:col-span-5 border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl p-5 sm:p-6 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] transition-colors">
+        <Card className="lg:col-span-5 border-border bg-card rounded-xl p-5 sm:p-6 shadow-xs transition-colors">
           <CardHeader className="p-0 pb-4 flex flex-row items-center justify-between">
-            <CardTitle className="text-[14.5px] font-bold text-[#0f172a] dark:text-white flex items-center gap-2">
-              <Stethoscope className="w-4 h-4 text-[#2584ff] dark:text-[#38bdf8]" />
+            <CardTitle className="text-[14.5px] font-bold text-foreground flex items-center gap-2">
+              <Stethoscope className="w-4 h-4 text-primary" />
               Doctor Directory
             </CardTitle>
             <Link
@@ -320,7 +286,7 @@ export default function DashboardPage() {
                 variant: 'ghost',
                 size: 'sm',
                 className:
-                  'text-[11.5px] font-semibold text-[#2584ff] dark:text-[#38bdf8] bg-[#eef6ff] dark:bg-[#13254c] hover:bg-[#dbeafe] dark:hover:bg-[#1a3266] px-3 h-7 rounded-lg',
+                  'text-[11.5px] font-semibold text-primary bg-primary/10 hover:bg-primary/20 px-3 h-7 rounded-lg',
               })}
             >
               View All
@@ -330,28 +296,28 @@ export default function DashboardPage() {
           <CardContent className="p-0 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <Table>
               <TableHeader>
-                <TableRow className="border-b border-slate-100 dark:border-[#162444] hover:bg-transparent">
-                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto w-8 text-center">
+                <TableRow className="border-b border-border hover:bg-transparent">
+                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto w-8 text-center">
                     #
                   </TableHead>
-                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto">
+                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto">
                     Name
                   </TableHead>
-                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto">
+                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto">
                     Specialization
                   </TableHead>
-                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto text-center">
+                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto text-center">
                     Patients
                   </TableHead>
-                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-[#64748b] dark:text-[#5e7191] h-auto text-center">
+                  <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto text-center">
                     Status
                   </TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody className="divide-y divide-slate-100 dark:divide-[#14203a] text-[12px]">
+              <TableBody className="divide-y divide-border text-[12px]">
                 {doctorDirectory.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="py-8 text-center text-slate-500 dark:text-[#7e91b0]">
+                    <TableCell colSpan={5} className="py-8 text-center text-muted-foreground">
                       No doctors available yet.
                     </TableCell>
                   </TableRow>
@@ -365,24 +331,24 @@ export default function DashboardPage() {
                     return (
                       <TableRow
                         key={doc.id || doc._id || idx}
-                        className="hover:bg-slate-50/70 dark:hover:bg-[#10192e] border-b border-slate-100 dark:border-[#14203a] transition-colors"
+                        className="hover:bg-muted/50 border-b border-border transition-colors"
                       >
-                        <TableCell className="py-2.5 px-2.5 text-[#64748b] dark:text-[#5e7191] font-normal text-center">
+                        <TableCell className="py-2.5 px-2.5 text-muted-foreground font-normal text-center">
                           {idx + 1}
                         </TableCell>
-                        <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white whitespace-nowrap">
+                        <TableCell className="py-2.5 px-2.5 font-bold text-foreground whitespace-nowrap">
                           {docName}
                         </TableCell>
-                        <TableCell className="py-2.5 px-2.5 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
+                        <TableCell className="py-2.5 px-2.5 text-muted-foreground whitespace-nowrap">
                           {doc.specialization || '-'}
                         </TableCell>
-                        <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white text-center">
+                        <TableCell className="py-2.5 px-2.5 font-bold text-foreground text-center">
                           {doc.patients ?? doc.count ?? 0}
                         </TableCell>
                         <TableCell className="py-2.5 px-2.5 text-center">
                           <Badge
-                            variant="secondary"
-                            className="rounded-md text-[11px] font-semibold border-0 py-0.5 px-2.5 bg-[#e6f9f1] dark:bg-[#0e352b] text-[#10b981] dark:text-[#34d399] hover:bg-[#e6f9f1] dark:hover:bg-[#0e352b]"
+                            variant="success"
+                            className="rounded-md text-[11px] font-semibold py-0.5 px-2.5"
                           >
                             {doc.status || 'Active'}
                           </Badge>

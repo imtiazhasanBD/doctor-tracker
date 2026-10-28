@@ -44,7 +44,7 @@ function AlertDialogContent({
       <DialogPrimitive.Popup
         data-slot="alert-dialog-content"
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 grid w-full max-w-md -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#0c152a] p-6 shadow-lg duration-150 outline-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          "fixed top-1/2 left-1/2 z-50 grid w-full max-w-md -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-card text-card-foreground p-6 shadow-lg duration-150 outline-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
           className
         )}
         {...props}
@@ -91,7 +91,7 @@ function AlertDialogTitle({
   return (
     <DialogPrimitive.Title
       data-slot="alert-dialog-title"
-      className={cn("text-base font-bold text-slate-900 dark:text-white", className)}
+      className={cn("text-base font-bold text-foreground", className)}
       {...props}
     />
   )
@@ -104,7 +104,7 @@ function AlertDialogDescription({
   return (
     <DialogPrimitive.Description
       data-slot="alert-dialog-description"
-      className={cn("text-xs text-slate-500 dark:text-slate-400 leading-relaxed", className)}
+      className={cn("text-xs text-muted-foreground leading-relaxed", className)}
       {...props}
     />
   )
@@ -134,7 +134,7 @@ function AlertDialogCancel({
     <DialogPrimitive.Close
       className={cn(
         buttonVariants({ variant: "outline", size: "sm" }),
-        "rounded-md text-xs font-semibold border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#152342]",
+        "rounded-md text-xs font-semibold border border-border bg-card text-foreground hover:bg-muted",
         className
       )}
       {...props}

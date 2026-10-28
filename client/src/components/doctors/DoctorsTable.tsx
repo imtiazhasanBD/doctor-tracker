@@ -62,49 +62,49 @@ const getSpecializationMeta = (spec: string) => {
   if (s.includes('pediatric')) {
     return {
       Icon: Baby,
-      color: 'text-rose-500 dark:text-rose-400',
-      bg: 'bg-rose-50 dark:bg-rose-950/40 text-rose-500',
+      color: 'text-destructive',
+      bg: 'bg-destructive/15 text-destructive',
     };
   }
   if (s.includes('cardio')) {
     return {
       Icon: Heart,
-      color: 'text-red-500 dark:text-red-400',
-      bg: 'bg-red-50 dark:bg-red-950/40 text-red-500',
+      color: 'text-destructive',
+      bg: 'bg-destructive/15 text-destructive',
     };
   }
   if (s.includes('ortho')) {
     return {
       Icon: Bone,
-      color: 'text-emerald-500 dark:text-emerald-400',
-      bg: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500',
+      color: 'text-success',
+      bg: 'bg-success/15 text-success',
     };
   }
   if (s.includes('neuro')) {
     return {
       Icon: Brain,
-      color: 'text-purple-500 dark:text-purple-400',
-      bg: 'bg-purple-50 dark:bg-purple-950/40 text-purple-500',
+      color: 'text-chart-5',
+      bg: 'bg-chart-5/15 text-chart-5',
     };
   }
   if (s.includes('ophthal') || s.includes('eye')) {
     return {
       Icon: Eye,
-      color: 'text-sky-500 dark:text-sky-400',
-      bg: 'bg-sky-50 dark:bg-sky-950/40 text-sky-500',
+      color: 'text-info',
+      bg: 'bg-info/15 text-info',
     };
   }
   if (s.includes('general') || s.includes('medicine')) {
     return {
       Icon: Pill,
-      color: 'text-amber-500 dark:text-amber-400',
-      bg: 'bg-amber-50 dark:bg-amber-950/40 text-amber-500',
+      color: 'text-warning',
+      bg: 'bg-warning/15 text-warning',
     };
   }
   return {
     Icon: Stethoscope,
-    color: 'text-blue-500 dark:text-blue-400',
-    bg: 'bg-blue-50 dark:bg-blue-950/40 text-blue-500',
+    color: 'text-primary',
+    bg: 'bg-primary/15 text-primary',
   };
 };
 
@@ -177,12 +177,12 @@ export function DoctorsTable({
   return (
     <div className="space-y-4">
       {/* Card Header matching mockup */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
+      <div className="flex items-center justify-between pb-4 border-b border-border">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-md bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-md bg-primary/10 text-primary flex items-center justify-center">
             <Users className="h-4 w-4" />
           </div>
-          <h2 className="text-lg font-bold text-slate-800 dark:text-white">
+          <h2 className="text-lg font-bold text-foreground">
             Doctors list
           </h2>
         </div>
@@ -190,7 +190,7 @@ export function DoctorsTable({
         <Button
           variant="outline"
           onClick={handleExportCSV}
-          className="h-8 px-3 text-xs font-semibold rounded-md gap-1.5 border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-[#64748b] dark:text-[#8fa1be] hover:bg-slate-50 dark:hover:bg-[#152342]"
+          className="h-8 px-3 text-xs font-semibold rounded-md gap-1.5 border border-border bg-card text-foreground hover:bg-muted cursor-pointer"
         >
           <FileDown className="h-3.5 w-3.5" />
           Export
@@ -204,20 +204,20 @@ export function DoctorsTable({
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="border-b border-slate-100 dark:border-[#172545] hover:bg-transparent">
-              <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">Name</TableHead>
-              <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">Specialization</TableHead>
-              <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">Hospital</TableHead>
-              <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">Phone</TableHead>
-              <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3 text-center">Patients</TableHead>
-              <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">Status</TableHead>
-              <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3 text-right pr-4">Actions</TableHead>
+            <TableRow className="border-b border-border hover:bg-transparent">
+              <TableHead className="text-xs font-semibold text-muted-foreground py-3">Name</TableHead>
+              <TableHead className="text-xs font-semibold text-muted-foreground py-3">Specialization</TableHead>
+              <TableHead className="text-xs font-semibold text-muted-foreground py-3">Hospital</TableHead>
+              <TableHead className="text-xs font-semibold text-muted-foreground py-3">Phone</TableHead>
+              <TableHead className="text-xs font-semibold text-muted-foreground py-3 text-center">Patients</TableHead>
+              <TableHead className="text-xs font-semibold text-muted-foreground py-3">Status</TableHead>
+              <TableHead className="text-xs font-semibold text-muted-foreground py-3 text-right pr-4">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {doctors.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={8} className="text-center py-10 text-xs text-slate-400">
+                <TableCell colSpan={8} className="text-center py-10 text-xs text-muted-foreground">
                   No doctors found matching the criteria
                 </TableCell>
               </TableRow>
@@ -230,13 +230,13 @@ export function DoctorsTable({
                 return (
                   <TableRow
                     key={doctor._id}
-                    className="hover:bg-slate-50/70 dark:hover:bg-[#101b33] border-b border-slate-100/80 dark:border-[#14213d] transition-colors group"
+                    className="hover:bg-muted/50 border-b border-border transition-colors group"
                   >
                     {/* Name + Avatar + Doc ID */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-3">
-                        <Avatar className="h-8 w-8 rounded-full border border-slate-100 dark:border-slate-800">
-                          <AvatarFallback className="text-[11px] font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300">
+                        <Avatar className="h-8 w-8 rounded-full border border-border">
+                          <AvatarFallback className="text-[11px] font-bold bg-primary/10 text-primary">
                             {doctor.name
                               .replace('Dr. ', '')
                               .split(' ')
@@ -249,11 +249,11 @@ export function DoctorsTable({
                         <div>
                           <Link
                             href={`/doctors/${doctor._id}`}
-                            className="text-xs font-bold text-slate-800 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors block leading-tight"
+                            className="text-xs font-bold text-foreground hover:text-primary transition-colors block leading-tight"
                           >
                             {doctor.name}
                           </Link>
-                          <span className="text-[11px] text-slate-400 dark:text-slate-500 leading-tight">
+                          <span className="text-[11px] text-muted-foreground leading-tight">
                             {docId}
                           </span>
                         </div>
@@ -268,7 +268,7 @@ export function DoctorsTable({
                         >
                           <SpecIcon className="w-3.5 h-3.5" />
                         </div>
-                        <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
+                        <span className="text-xs font-medium text-foreground">
                           {doctor.specialization}
                         </span>
                       </div>
@@ -276,29 +276,29 @@ export function DoctorsTable({
 
                     {/* Hospital with Icon */}
                     <TableCell className="py-3.5">
-                      <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
-                        <Building2 className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                        <span className="truncate max-w-[160px]">{doctor.hospital}</span>
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <Building2 className="w-3.5 h-3.5 text-primary shrink-0" />
+                        <span className="truncate max-w-[160px] text-foreground">{doctor.hospital}</span>
                       </div>
                     </TableCell>
 
                     {/* Phone with Icon */}
                     <TableCell className="py-3.5">
-                      <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
-                        <Phone className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                        <span>{doctor.phone}</span>
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <Phone className="w-3.5 h-3.5 text-primary shrink-0" />
+                        <span className="text-foreground">{doctor.phone}</span>
                       </div>
                     </TableCell>
 
                     {/* Patients Count */}
-                    <TableCell className="text-xs font-semibold text-slate-700 dark:text-slate-200 text-center py-3.5">
+                    <TableCell className="text-xs font-semibold text-foreground text-center py-3.5">
                       {doctor.patientCount || 0}
                     </TableCell>
 
                     {/* Status Badge */}
                     <TableCell className="py-3.5">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-success/15 text-success">
+                        <span className="w-1.5 h-1.5 rounded-full bg-success" />
                         Active
                       </span>
                     </TableCell>
@@ -313,14 +313,14 @@ export function DoctorsTable({
                             e.preventDefault();
                             onEditDoctor?.(doctor);
                           }}
-                          className="p-1.5 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-md hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-primary rounded-md hover:bg-primary/10 transition-colors cursor-pointer"
                           title="Edit Doctor"
                         >
                           <Edit2 className="h-3.5 w-3.5" />
                         </button>
                         <button
                           onClick={(e) => handleDeleteClick(e, doctor._id, doctor.name)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded-md hover:bg-rose-50 dark:hover:bg-rose-950/50 transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-destructive rounded-md hover:bg-destructive/10 transition-colors cursor-pointer"
                           title="Delete Doctor"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -336,18 +336,18 @@ export function DoctorsTable({
       </div>
 
       {/* Pagination Footer matching mockup */}
-      <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-4 mt-2 border-t border-slate-100 dark:border-[#172545] gap-3">
+      <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-muted-foreground pt-4 mt-2 border-t border-border gap-3">
         <p>
           Showing{' '}
-          <span className="font-semibold text-slate-700 dark:text-slate-200">
+          <span className="font-semibold text-foreground">
             {totalCount === 0 ? 0 : startIndex + 1}
           </span>{' '}
           to{' '}
-          <span className="font-semibold text-slate-700 dark:text-slate-200">
+          <span className="font-semibold text-foreground">
             {Math.min(startIndex + doctors.length, totalCount)}
           </span>{' '}
           of{' '}
-          <span className="font-semibold text-slate-700 dark:text-slate-200">
+          <span className="font-semibold text-foreground">
             {totalCount}
           </span>{' '}
           doctors
@@ -358,7 +358,7 @@ export function DoctorsTable({
             <button
               onClick={() => onPageChange(Math.max(1, page - 1))}
               disabled={page <= 1}
-              className="p-1.5 border border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#152342] disabled:opacity-40 transition-colors"
+              className="p-1.5 border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors cursor-pointer"
               title="Previous Page"
             >
               <ChevronLeft className="h-3.5 w-3.5" />
@@ -368,10 +368,10 @@ export function DoctorsTable({
               <button
                 key={pageNum}
                 onClick={() => onPageChange(pageNum)}
-                className={`h-7 w-7 text-xs font-semibold rounded-md border transition-colors ${
+                className={`h-7 w-7 text-xs font-semibold rounded-md border transition-colors cursor-pointer ${
                   pageNum === page
-                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                    : 'bg-white dark:bg-[#10192e] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1c2a47] hover:bg-slate-50 dark:hover:bg-[#152342]'
+                    ? 'bg-primary text-primary-foreground border-primary shadow-xs'
+                    : 'bg-card text-foreground border-border hover:bg-muted'
                 }`}
               >
                 {pageNum}
@@ -381,7 +381,7 @@ export function DoctorsTable({
             <button
               onClick={() => onPageChange(Math.min(totalPages, page + 1))}
               disabled={page >= totalPages}
-              className="p-1.5 border border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#152342] disabled:opacity-40 transition-colors"
+              className="p-1.5 border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors cursor-pointer"
               title="Next Page"
             >
               <ChevronRight className="h-3.5 w-3.5" />
@@ -400,21 +400,21 @@ export function DoctorsTable({
         <AlertDialogContent>
           <AlertDialogHeader>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#fde8e8] dark:bg-[#3d1419] text-[#e02424] dark:text-[#f87171] flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-full bg-destructive/15 text-destructive flex items-center justify-center shrink-0">
                 <AlertTriangle className="h-5 w-5 stroke-[2.2]" />
               </div>
-              <AlertDialogTitle className="text-lg font-bold text-slate-900 dark:text-white">
+              <AlertDialogTitle className="text-lg font-bold text-foreground">
                 Delete Doctor
               </AlertDialogTitle>
             </div>
-            <AlertDialogDescription className="text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+            <AlertDialogDescription className="text-sm text-muted-foreground mt-2 leading-relaxed">
               Are you sure you want to delete the doctor &quot;{doctorToDelete?.name}&quot;? This action cannot be undone and will permanently remove all records associated with this doctor.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex items-center justify-end gap-2.5 mt-4">
             <AlertDialogCancel
               disabled={isDeleting}
-              className="h-9 px-4 text-xs font-semibold rounded-md border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#152342]"
+              className="h-9 px-4 text-xs font-semibold rounded-md border border-border bg-card text-foreground hover:bg-muted cursor-pointer"
             >
               Cancel
             </AlertDialogCancel>
@@ -423,7 +423,7 @@ export function DoctorsTable({
               size="sm"
               disabled={isDeleting}
               onClick={handleConfirmDelete}
-              className="h-9 px-4 text-xs font-semibold rounded-md bg-[#dc2626] hover:bg-[#b91c1c] text-white shadow-none"
+              className="h-9 px-4 text-xs font-semibold rounded-md bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-none cursor-pointer"
             >
               {isDeleting ? 'Deleting...' : 'Delete'}
             </Button>

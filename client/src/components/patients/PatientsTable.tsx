@@ -171,14 +171,14 @@ export function PatientsTable({
   };
 
   return (
-    <Card className="border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-md p-5 shadow-sm transition-colors space-y-4">
+    <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors space-y-4">
       {/* Table Header: Patients Count & Action / Export buttons */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[#172545]">
+      <div className="flex items-center justify-between pb-4 border-b border-border">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-md bg-[#eff6ff] dark:bg-[#122347] text-[#2563eb] dark:text-[#3b82f6] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-md bg-primary/10 text-primary flex items-center justify-center">
             <Users className="h-4 w-4" />
           </div>
-          <h2 className="text-lg font-bold text-slate-800 dark:text-white">
+          <h2 className="text-lg font-bold text-foreground">
             {title ? `${title}` : `Patients list`}
           </h2>
         </div>
@@ -188,7 +188,7 @@ export function PatientsTable({
             onClick={handleExportCSV}
             variant="outline"
             size="sm"
-            className="h-8 px-3 text-xs font-semibold rounded-md border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#152342] gap-1.5 shadow-none"
+            className="h-8 px-3 text-xs font-semibold rounded-md border-border bg-card text-foreground hover:bg-muted gap-1.5 shadow-none"
           >
             <FileDown className="h-3.5 w-3.5" />
             Export
@@ -204,31 +204,31 @@ export function PatientsTable({
       <div className="overflow-x-auto">
         <Table>
           <TableHeader className="bg-transparent">
-            <TableRow className="border-b border-slate-100 dark:border-[#172545] hover:bg-transparent">
-              <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
+            <TableRow className="border-b border-border hover:bg-transparent">
+              <TableHead className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider py-3.5">
                 Name
               </TableHead>
               {showDoctorColumn && (
-                <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
+                <TableHead className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider py-3.5">
                   Doctor
                 </TableHead>
               )}
-              <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
+              <TableHead className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider py-3.5">
                 Age
               </TableHead>
-              <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
+              <TableHead className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider py-3.5">
                 Gender
               </TableHead>
-              <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
+              <TableHead className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider py-3.5">
                 Condition
               </TableHead>
-              <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
+              <TableHead className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider py-3.5">
                 Visit Date
               </TableHead>
-              <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider py-3.5">
+              <TableHead className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider py-3.5">
                 Status
               </TableHead>
-              <TableHead className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-right pr-4 py-3.5">
+              <TableHead className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider text-right pr-4 py-3.5">
                 Actions
               </TableHead>
             </TableRow>
@@ -238,7 +238,7 @@ export function PatientsTable({
               <TableRow>
                 <TableCell
                   colSpan={showDoctorColumn ? 9 : 8}
-                  className="text-center py-12 text-xs text-slate-400 dark:text-slate-500"
+                  className="text-center py-12 text-xs text-muted-foreground"
                 >
                   No patients found
                 </TableCell>
@@ -250,23 +250,23 @@ export function PatientsTable({
                 return (
                   <TableRow
                     key={patient._id}
-                    className="hover:bg-slate-50/70 dark:hover:bg-[#111c38]/50 border-b border-slate-100/80 dark:border-[#172545]/60 transition-colors"
+                    className="hover:bg-muted/50 border-b border-border transition-colors"
                   >
 
                     {/* Name with Avatar */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8 rounded-full shrink-0">
-                          <AvatarFallback className="rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#2563eb] dark:text-[#3b82f6] text-xs font-semibold">
+                          <AvatarFallback className="rounded-full bg-primary/10 text-primary text-xs font-semibold">
                             {getInitials(patient.name)}
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="text-xs font-bold text-slate-800 dark:text-white leading-tight">
+                          <p className="text-xs font-bold text-foreground leading-tight">
                             {patient.name}
                           </p>
                           {patient.phone && (
-                            <p className="text-[11px] text-slate-400 dark:text-slate-500">
+                            <p className="text-[11px] text-muted-foreground">
                               {patient.phone}
                             </p>
                           )}
@@ -276,28 +276,28 @@ export function PatientsTable({
 
                     {/* Doctor */}
                     {showDoctorColumn && (
-                      <TableCell className="text-xs text-slate-600 dark:text-slate-300 py-3.5">
+                      <TableCell className="text-xs text-muted-foreground py-3.5">
                         {getDoctorName(patient)}
                       </TableCell>
                     )}
 
                     {/* Age */}
-                    <TableCell className="text-xs text-slate-600 dark:text-slate-300 py-3.5">
+                    <TableCell className="text-xs text-muted-foreground py-3.5">
                       {patient.age}
                     </TableCell>
 
                     {/* Gender */}
-                    <TableCell className="text-xs text-slate-600 dark:text-slate-300 capitalize py-3.5">
+                    <TableCell className="text-xs text-muted-foreground capitalize py-3.5">
                       {patient.gender}
                     </TableCell>
 
                     {/* Condition */}
-                    <TableCell className="text-xs font-medium text-slate-700 dark:text-slate-200 py-3.5">
+                    <TableCell className="text-xs font-medium text-foreground py-3.5">
                       {patient.condition}
                     </TableCell>
 
                     {/* Visit Date */}
-                    <TableCell className="text-xs text-slate-500 dark:text-slate-400 py-3.5 whitespace-nowrap">
+                    <TableCell className="text-xs text-muted-foreground py-3.5 whitespace-nowrap">
                       {formatDate(patient.visitDate)}
                     </TableCell>
 
@@ -306,8 +306,8 @@ export function PatientsTable({
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-colors ${
                           isActive
-                            ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/40'
-                            : 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200/50 dark:border-rose-800/40'
+                            ? 'bg-success/15 text-success border border-success/30'
+                            : 'bg-destructive/15 text-destructive border border-destructive/30'
                         }`}
                       >
                         {isActive ? 'Active' : 'Discharged'}
@@ -324,7 +324,7 @@ export function PatientsTable({
                             e.stopPropagation();
                             setViewingPatient(patient);
                           }}
-                          className="p-1.5 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-md hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-primary rounded-md hover:bg-primary/10 transition-colors"
                           title="View Patient Details"
                         >
                           <Eye className="h-3.5 w-3.5" />
@@ -338,7 +338,7 @@ export function PatientsTable({
                               e.stopPropagation();
                               onEditPatient(patient);
                             }}
-                            className="p-1.5 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-md hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors"
+                            className="p-1.5 text-muted-foreground hover:text-primary rounded-md hover:bg-primary/10 transition-colors"
                             title="Edit Patient"
                           >
                             <Edit2 className="h-3.5 w-3.5" />
@@ -349,7 +349,7 @@ export function PatientsTable({
                         <button
                           type="button"
                           onClick={(e) => handleDeleteClick(e, patient._id, patient.name)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded-md hover:bg-rose-50 dark:hover:bg-rose-950/50 transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-destructive rounded-md hover:bg-destructive/10 transition-colors"
                           title="Delete Patient"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -365,18 +365,18 @@ export function PatientsTable({
       </div>
 
       {/* Pagination Footer matching mockup */}
-      <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-4 mt-2 border-t border-slate-100 dark:border-[#172545] gap-3">
+      <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-muted-foreground pt-4 mt-2 border-t border-border gap-3">
         <p>
           Showing{' '}
-          <span className="font-semibold text-slate-700 dark:text-slate-200">
+          <span className="font-semibold text-foreground">
             {totalCount === 0 ? 0 : startIndex + 1}
           </span>{' '}
           to{' '}
-          <span className="font-semibold text-slate-700 dark:text-slate-200">
+          <span className="font-semibold text-foreground">
             {Math.min(startIndex + patients.length, totalCount)}
           </span>{' '}
           of{' '}
-          <span className="font-semibold text-slate-700 dark:text-slate-200">
+          <span className="font-semibold text-foreground">
             {totalCount.toLocaleString()}
           </span>{' '}
           patients
@@ -387,7 +387,7 @@ export function PatientsTable({
             <button
               onClick={() => onPageChange(Math.max(1, page - 1))}
               disabled={page <= 1}
-              className="p-1.5 border border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#152342] disabled:opacity-40 transition-colors"
+              className="p-1.5 border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors"
               title="Previous Page"
             >
               <ChevronLeft className="h-3.5 w-3.5" />
@@ -399,8 +399,8 @@ export function PatientsTable({
                 onClick={() => onPageChange(pageNum)}
                 className={`h-7 w-7 text-xs font-semibold rounded-md border transition-colors ${
                   pageNum === page
-                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                    : 'bg-white dark:bg-[#10192e] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1c2a47] hover:bg-slate-50 dark:hover:bg-[#152342]'
+                    ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                    : 'bg-card text-foreground border-border hover:bg-muted'
                 }`}
               >
                 {pageNum}
@@ -409,13 +409,13 @@ export function PatientsTable({
 
             {totalPages > 5 && (
               <>
-                <span className="px-1 text-slate-400 select-none">...</span>
+                <span className="px-1 text-muted-foreground select-none">...</span>
                 <button
                   onClick={() => onPageChange(totalPages)}
                   className={`h-7 px-2 text-xs font-semibold rounded-md border transition-colors ${
                     totalPages === page
-                      ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                      : 'bg-white dark:bg-[#10192e] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1c2a47] hover:bg-slate-50 dark:hover:bg-[#152342]'
+                      ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                      : 'bg-card text-foreground border-border hover:bg-muted'
                   }`}
                 >
                   {totalPages}
@@ -426,7 +426,7 @@ export function PatientsTable({
             <button
               onClick={() => onPageChange(Math.min(totalPages, page + 1))}
               disabled={page >= totalPages}
-              className="p-1.5 border border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#152342] disabled:opacity-40 transition-colors"
+              className="p-1.5 border border-border bg-card rounded-md text-muted-foreground hover:bg-muted disabled:opacity-40 transition-colors"
               title="Next Page"
             >
               <ChevronRight className="h-3.5 w-3.5" />
@@ -445,14 +445,14 @@ export function PatientsTable({
         <AlertDialogContent className="rounded-md">
           <AlertDialogHeader>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#fde8e8] dark:bg-[#3d1419] text-[#e02424] dark:text-[#f87171] flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-full bg-destructive/15 text-destructive flex items-center justify-center shrink-0">
                 <AlertTriangle className="h-5 w-5 stroke-[2.2]" />
               </div>
-              <AlertDialogTitle className="text-lg font-bold text-slate-900 dark:text-white">
+              <AlertDialogTitle className="text-lg font-bold text-foreground">
                 Delete Patient
               </AlertDialogTitle>
             </div>
-            <AlertDialogDescription className="text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+            <AlertDialogDescription className="text-sm text-muted-foreground mt-2 leading-relaxed">
               Are you sure you want to delete the patient &quot;{patientToDelete?.name}&quot;? This
               action cannot be undone and will permanently remove all medical records for this patient.
             </AlertDialogDescription>
@@ -460,7 +460,7 @@ export function PatientsTable({
           <AlertDialogFooter className="flex items-center justify-end gap-2.5 mt-4">
             <AlertDialogCancel
               disabled={isDeleting}
-              className="h-9 px-4 text-xs font-semibold rounded-md border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#152342]"
+              className="h-9 px-4 text-xs font-semibold rounded-md border-border bg-card text-foreground hover:bg-muted"
             >
               Cancel
             </AlertDialogCancel>
@@ -469,7 +469,7 @@ export function PatientsTable({
               size="sm"
               disabled={isDeleting}
               onClick={handleConfirmDelete}
-              className="h-9 px-4 text-xs font-semibold rounded-md bg-[#dc2626] hover:bg-[#b91c1c] text-white shadow-none"
+              className="h-9 px-4 text-xs font-semibold rounded-md bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-none"
             >
               {isDeleting ? 'Deleting...' : 'Delete'}
             </Button>
@@ -479,23 +479,23 @@ export function PatientsTable({
 
       {/* Patient Details View Dialog */}
       <Dialog open={Boolean(viewingPatient)} onOpenChange={(open) => !open && setViewingPatient(null)}>
-        <DialogContent className="sm:max-w-md w-full p-6 rounded-md bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#172545]">
-          <DialogHeader className="pb-3 border-b border-slate-100 dark:border-[#172545]">
+        <DialogContent className="sm:max-w-md w-full p-6 rounded-md bg-card border-border">
+          <DialogHeader className="pb-3 border-b border-border">
             <div className="flex items-center gap-3">
               <Avatar className="h-10 w-10 rounded-md">
-                <AvatarFallback className="rounded-md bg-blue-50 dark:bg-blue-950/60 text-[#2563eb] dark:text-[#3b82f6] text-sm font-bold">
+                <AvatarFallback className="rounded-md bg-primary/10 text-primary text-sm font-bold">
                   {viewingPatient ? getInitials(viewingPatient.name) : ''}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <DialogTitle className="text-base font-bold text-slate-900 dark:text-white">
+                <DialogTitle className="text-base font-bold text-foreground">
                   {viewingPatient?.name}
                 </DialogTitle>
                 <span
                   className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold mt-0.5 ${
                     viewingPatient?.status === 'active'
-                      ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
-                      : 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400'
+                      ? 'bg-success/15 text-success'
+                      : 'bg-destructive/15 text-destructive'
                   }`}
                 >
                   {viewingPatient?.status === 'active' ? 'Active' : 'Discharged'}
@@ -507,57 +507,57 @@ export function PatientsTable({
           {viewingPatient && (
             <div className="space-y-3 pt-3 text-xs">
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-2.5 rounded-md bg-[#f8fafc] dark:bg-[#10192e] border border-slate-100 dark:border-[#172545]">
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase">Age / Gender</p>
-                  <p className="font-semibold text-slate-800 dark:text-slate-100 mt-0.5 capitalize">
+                <div className="p-2.5 rounded-md bg-secondary border border-border">
+                  <p className="text-[10px] font-semibold text-muted-foreground uppercase">Age / Gender</p>
+                  <p className="font-semibold text-foreground mt-0.5 capitalize">
                     {viewingPatient.age} yrs • {viewingPatient.gender}
                   </p>
                 </div>
-                <div className="p-2.5 rounded-md bg-[#f8fafc] dark:bg-[#10192e] border border-slate-100 dark:border-[#172545]">
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase">Condition</p>
-                  <p className="font-semibold text-slate-800 dark:text-slate-100 mt-0.5">
+                <div className="p-2.5 rounded-md bg-secondary border border-border">
+                  <p className="text-[10px] font-semibold text-muted-foreground uppercase">Condition</p>
+                  <p className="font-semibold text-foreground mt-0.5">
                     {viewingPatient.condition}
                   </p>
                 </div>
               </div>
 
-              <div className="p-2.5 rounded-md bg-[#f8fafc] dark:bg-[#10192e] border border-slate-100 dark:border-[#172545] space-y-2">
+              <div className="p-2.5 rounded-md bg-secondary border border-border space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400 flex items-center gap-1.5">
-                    <Stethoscope className="h-3.5 w-3.5 text-blue-500" />
+                  <span className="text-muted-foreground flex items-center gap-1.5">
+                    <Stethoscope className="h-3.5 w-3.5 text-primary" />
                     Doctor
                   </span>
-                  <span className="font-semibold text-slate-700 dark:text-slate-200">
+                  <span className="font-semibold text-foreground">
                     {getDoctorName(viewingPatient)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400 flex items-center gap-1.5">
-                    <Calendar className="h-3.5 w-3.5 text-blue-500" />
+                  <span className="text-muted-foreground flex items-center gap-1.5">
+                    <Calendar className="h-3.5 w-3.5 text-primary" />
                     Visit Date
                   </span>
-                  <span className="font-semibold text-slate-700 dark:text-slate-200">
+                  <span className="font-semibold text-foreground">
                     {formatDate(viewingPatient.visitDate)}
                   </span>
                 </div>
                 {viewingPatient.phone && (
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Phone className="h-3.5 w-3.5 text-blue-500" />
+                    <span className="text-muted-foreground flex items-center gap-1.5">
+                      <Phone className="h-3.5 w-3.5 text-primary" />
                       Phone
                     </span>
-                    <span className="font-semibold text-slate-700 dark:text-slate-200">
+                    <span className="font-semibold text-foreground">
                       {viewingPatient.phone}
                     </span>
                   </div>
                 )}
                 {viewingPatient.email && (
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Mail className="h-3.5 w-3.5 text-blue-500" />
+                    <span className="text-muted-foreground flex items-center gap-1.5">
+                      <Mail className="h-3.5 w-3.5 text-primary" />
                       Email
                     </span>
-                    <span className="font-semibold text-slate-700 dark:text-slate-200 truncate max-w-[180px]">
+                    <span className="font-semibold text-foreground truncate max-w-[180px]">
                       {viewingPatient.email}
                     </span>
                   </div>
@@ -565,9 +565,9 @@ export function PatientsTable({
               </div>
 
               {viewingPatient.notes && (
-                <div className="p-2.5 rounded-md bg-[#f8fafc] dark:bg-[#10192e] border border-slate-100 dark:border-[#172545]">
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase mb-1">Notes</p>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                <div className="p-2.5 rounded-md bg-secondary border border-border">
+                  <p className="text-[10px] font-semibold text-muted-foreground uppercase mb-1">Notes</p>
+                  <p className="text-muted-foreground leading-relaxed">
                     {viewingPatient.notes}
                   </p>
                 </div>

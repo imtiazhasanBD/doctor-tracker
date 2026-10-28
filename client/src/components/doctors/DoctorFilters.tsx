@@ -46,7 +46,7 @@ export function DoctorFilters({
         {/* Left: Search Input Field */}
         <div className="w-full lg:max-w-xs xl:max-w-sm flex-1">
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#94a3b8] dark:text-[#5a6d8c]" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
@@ -54,7 +54,7 @@ export function DoctorFilters({
                 if (e.key === 'Enter') onSearch?.();
               }}
               placeholder="Search doctors by name, specialization..."
-              className="pl-9 h-9 text-xs bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md placeholder:text-[#94a3b8] dark:placeholder:text-[#5a6d8c] focus-visible:ring-1 focus-visible:ring-[#2584ff]"
+              className="pl-9 h-9 text-xs bg-secondary border border-input text-foreground rounded-md placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
             />
           </div>
         </div>
@@ -63,7 +63,7 @@ export function DoctorFilters({
         <div className="flex items-end gap-1 w-full lg:w-auto justify-end">
           {/* Specialization Filter */}
           <div className="w-36 min-w-0">
-            <label className="text-[11px] font-semibold text-[#64748b] dark:text-[#8fa1be] block mb-1">
+            <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Specialization
             </label>
             <Select
@@ -72,14 +72,14 @@ export function DoctorFilters({
                 if (val !== null) onSpecializationChange(val === 'all' ? '' : val);
               }}
             >
-              <SelectTrigger className="w-full h-9 text-xs bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md px-2.5 min-w-0">
+              <SelectTrigger className="w-full h-9 text-xs bg-secondary border border-input text-foreground rounded-md px-2.5 min-w-0">
                 <SelectValue placeholder="All Specializations" className="truncate min-w-0">
                   <span className="truncate block" title={specialization || 'All Specializations'}>
                     {specialization || 'All Specializations'}
                   </span>
                 </SelectValue>
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#172545] rounded-md">
+              <SelectContent className="bg-popover border border-border rounded-md">
                 <SelectItem value="all" className="text-xs">
                   All Specializations
                 </SelectItem>
@@ -94,7 +94,7 @@ export function DoctorFilters({
 
           {/* Hospital Filter */}
           <div className="w-32 min-w-0">
-            <label className="text-[11px] font-semibold text-[#64748b] dark:text-[#8fa1be] block mb-1">
+            <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Hospital
             </label>
             <Select
@@ -103,14 +103,14 @@ export function DoctorFilters({
                 if (val !== null) onHospitalChange(val === 'all' ? '' : val);
               }}
             >
-              <SelectTrigger className="w-full h-9 text-xs bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md px-2.5 min-w-0">
+              <SelectTrigger className="w-full h-9 text-xs bg-secondary border border-input text-foreground rounded-md px-2.5 min-w-0">
                 <SelectValue placeholder="All Hospitals" className="truncate min-w-0">
                   <span className="truncate block" title={hospital || 'All Hospitals'}>
                     {hospital || 'All Hospitals'}
                   </span>
                 </SelectValue>
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#172545] rounded-md">
+              <SelectContent className="bg-popover border border-border rounded-md">
                 <SelectItem value="all" className="text-xs">
                   All Hospitals
                 </SelectItem>
@@ -125,7 +125,7 @@ export function DoctorFilters({
 
           {/* Status Filter */}
           <div className="w-28 min-w-0">
-            <label className="text-[11px] font-semibold text-[#64748b] dark:text-[#8fa1be] block mb-1">
+            <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Status
             </label>
             <Select
@@ -134,14 +134,14 @@ export function DoctorFilters({
                 if (val !== null) onStatusChange?.(val === 'all' ? '' : val);
               }}
             >
-              <SelectTrigger className="w-full h-9 text-xs bg-[#f8fafc] dark:bg-[#10192e] border-slate-200/80 dark:border-[#1c2a47] text-[#0f172a] dark:text-white rounded-md px-2.5 min-w-0">
+              <SelectTrigger className="w-full h-9 text-xs bg-secondary border border-input text-foreground rounded-md px-2.5 min-w-0">
                 <SelectValue placeholder="All Status" className="truncate min-w-0">
                   <span className="truncate block" title={status ? (status === 'active' ? 'Active' : 'Inactive') : 'All Status'}>
                     {status ? (status === 'active' ? 'Active' : 'Inactive') : 'All Status'}
                   </span>
                 </SelectValue>
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-[#0c152a] border-slate-200 dark:border-[#172545] rounded-md">
+              <SelectContent className="bg-popover border border-border rounded-md">
                 <SelectItem value="all" className="text-xs">
                   All Status
                 </SelectItem>
@@ -161,7 +161,7 @@ export function DoctorFilters({
               type="button"
               variant="outline"
               onClick={onReset}
-              className="h-9 px-3 text-xs font-semibold rounded-md border-slate-200 dark:border-[#1c2a47] bg-white dark:bg-[#10192e] text-[#64748b] dark:text-[#8fa1be] hover:bg-slate-50 dark:hover:bg-[#152342] shrink-0"
+              className="h-9 px-3 text-xs font-semibold rounded-md border border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground shrink-0 cursor-pointer"
             >
               Reset
             </Button>

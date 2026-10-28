@@ -74,7 +74,7 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'relative flex flex-col border-r border-slate-100 dark:border-[#131f38] bg-white dark:bg-[#0b1325] transition-all duration-300 z-30 shrink-0 select-none h-screen',
+        'relative flex flex-col border-r border-sidebar-border bg-sidebar transition-all duration-300 z-30 shrink-0 select-none h-screen',
         sidebarOpen ? 'w-[235px]' : 'w-[72px]'
       )}
     >
@@ -98,10 +98,10 @@ export function Sidebar() {
           <DocTrackLogo />
           {sidebarOpen && (
             <div className="flex flex-col min-w-0">
-              <span className="font-bold text-[18px] text-[#0f172a] dark:text-white tracking-tight leading-tight truncate">
-                Doc<span className="text-[#38bdf8]">Track</span>
+              <span className="font-bold text-[18px] text-sidebar-foreground tracking-tight leading-tight truncate">
+                Doc<span className="text-sidebar-primary">Track</span>
               </span>
-              <span className="text-[9.5px] text-[#94a3b8] dark:text-[#5a6d8c] font-medium tracking-tight truncate">
+              <span className="text-[9.5px] text-muted-foreground font-medium tracking-tight truncate">
                 Doctor Management System
               </span>
             </div>
@@ -112,7 +112,7 @@ export function Sidebar() {
         <button
           type="button"
           onClick={toggleSidebar}
-          className="p-1.5 text-slate-400 hover:text-[#0f172a] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#121e38] rounded-lg transition-colors shrink-0"
+          className="p-1.5 text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent rounded-lg transition-colors shrink-0 cursor-pointer"
           title={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
           aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
         >
@@ -141,14 +141,14 @@ export function Sidebar() {
                 'flex items-center text-[13px] font-semibold rounded-xl transition-all',
                 sidebarOpen ? 'gap-3 px-3.5 py-2.5' : 'justify-center p-2.5',
                 isActive
-                  ? 'bg-[#eef6ff] dark:bg-[#16284f] text-[#2584ff] dark:text-[#38bdf8]'
-                  : 'text-[#64748b] dark:text-[#8596b3] hover:bg-[#f8fafc] dark:hover:bg-[#121e38] hover:text-[#0f172a] dark:hover:text-white'
+                  ? 'bg-sidebar-accent text-sidebar-accent-foreground font-bold shadow-xs'
+                  : 'text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
               )}
             >
               <Icon
                 className={cn(
                   'h-4 w-4 shrink-0',
-                  isActive ? 'text-[#2584ff] dark:text-[#38bdf8]' : 'text-[#64748b] dark:text-[#8596b3]'
+                  isActive ? 'text-sidebar-primary' : 'text-muted-foreground'
                 )}
               />
               {sidebarOpen && <span className="truncate">{item.title}</span>}
@@ -159,23 +159,23 @@ export function Sidebar() {
         {/* OTHER SECTION */}
         {sidebarOpen ? (
           <div className="pt-4 pb-1 px-3.5">
-            <span className="text-[10px] font-bold text-[#94a3b8] dark:text-[#506380] tracking-wider uppercase">
+            <span className="text-[10px] font-bold text-muted-foreground/80 tracking-wider uppercase">
               OTHER
             </span>
           </div>
         ) : (
-          <div className="my-3 h-px w-7 bg-slate-100 dark:bg-[#131f38] mx-auto" />
+          <div className="my-3 h-px w-7 bg-sidebar-border mx-auto" />
         )}
 
         <Link
           href="/dashboard"
           title={!sidebarOpen ? 'Settings' : undefined}
           className={cn(
-            'flex items-center text-[13px] font-medium text-[#64748b] dark:text-[#8596b3] hover:bg-[#f8fafc] dark:hover:bg-[#121e38] hover:text-[#0f172a] dark:hover:text-white rounded-xl transition-all',
+            'flex items-center text-[13px] font-medium text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground rounded-xl transition-all',
             sidebarOpen ? 'gap-3 px-3.5 py-2.5' : 'justify-center p-2.5'
           )}
         >
-          <Settings className="h-4 w-4 text-[#64748b] dark:text-[#8596b3] shrink-0" />
+          <Settings className="h-4 w-4 text-muted-foreground shrink-0" />
           {sidebarOpen && <span>Settings</span>}
         </Link>
 
@@ -185,17 +185,17 @@ export function Sidebar() {
           disabled={isLoggingOut}
           title={!sidebarOpen ? 'Logout' : undefined}
           className={cn(
-            'flex w-full items-center text-[13px] font-medium text-[#64748b] dark:text-[#8596b3] hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl transition-all',
+            'flex w-full items-center text-[13px] font-medium text-sidebar-foreground/80 hover:bg-destructive/10 hover:text-destructive rounded-xl transition-all cursor-pointer',
             sidebarOpen ? 'gap-3 px-3.5 py-2.5' : 'justify-center p-2.5'
           )}
         >
-          <LogOut className="h-4 w-4 text-[#64748b] dark:text-[#8596b3] shrink-0" />
+          <LogOut className="h-4 w-4 text-muted-foreground shrink-0" />
           {sidebarOpen && <span>Logout</span>}
         </button>
 
         {/* Bottom Promo Card (Matching Mockup) */}
         {sidebarOpen && (
-          <div className="mt-auto mb-4 rounded-2xl bg-gradient-to-b from-[#f0f7ff] to-[#e4f0fe] dark:from-[#111e3b] dark:to-[#0c162c] border border-blue-100 dark:border-[#172648] p-3 text-left relative overflow-hidden shadow-sm dark:shadow-lg transition-colors">
+          <div className="mt-auto mb-4 rounded-2xl bg-gradient-to-b from-sidebar-accent/60 to-sidebar-accent/30 border border-sidebar-border p-3 text-left relative overflow-hidden shadow-xs transition-colors">
             <div className="relative w-full h-24 mb-2 rounded-xl overflow-hidden flex items-center justify-center">
               <Image
                 src="/Better_Care,_Better_Management.png"
@@ -210,14 +210,14 @@ export function Sidebar() {
                 className="object-cover hidden dark:block rounded-lg"
               />
             </div>
-            <h4 className="text-[13px] font-bold text-[#0f172a] dark:text-white leading-snug">
+            <h4 className="text-[13px] font-bold text-sidebar-foreground leading-snug">
               Better Care<br />Better Management
             </h4>
-            <p className="text-[10.5px] text-[#64748b] dark:text-[#7e91b0] leading-tight mt-1.5 pr-6">
+            <p className="text-[10.5px] text-muted-foreground leading-tight mt-1.5 pr-6">
               Keep your doctors and patients organized in one place.
             </p>
             <div className="flex justify-end mt-2">
-              <span className="w-7 h-7 rounded-full bg-[#eef6ff] dark:bg-[#162952] border border-blue-200 dark:border-[#22396e] flex items-center justify-center text-[#2584ff] dark:text-[#38bdf8] hover:bg-blue-100 dark:hover:bg-[#1c356b] transition-colors cursor-pointer">
+              <span className="w-7 h-7 rounded-full bg-sidebar-accent border border-sidebar-border flex items-center justify-center text-sidebar-primary hover:bg-sidebar-accent/80 transition-colors cursor-pointer">
                 <ChevronRight className="w-4 h-4" />
               </span>
             </div>
