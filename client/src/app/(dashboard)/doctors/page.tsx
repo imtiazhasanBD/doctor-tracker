@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useQueryState, parseAsInteger, parseAsString } from 'nuqs';
-import { Plus, User, Stethoscope, Building2, Users } from 'lucide-react';
+import { Plus, User, Stethoscope, Building2, Users, ChevronRight } from 'lucide-react';
 import { useDoctors, useDoctorFilters } from '@/hooks/useDoctors';
 import { useDashboardStats } from '@/hooks/useDashboardStats';
 import { DoctorsTable } from '@/components/doctors/DoctorsTable';
@@ -82,17 +83,24 @@ export default function DoctorsPage() {
 
   return (
     <div className="space-y-4">
-      {/* Top Hero Banner matching mockup with team illustration */}
-      <div className="relative overflow-hidden rounded-md border border-[#cbe1fb] dark:border-[#152545] bg-gradient-to-r from-[#eef7ff] via-[#e5f1fe] to-[#ddedff] dark:from-[#09152b] dark:via-[#0c1a35] dark:to-[#0f2042] px-7 py-7 sm:py-8 shadow-sm transition-colors">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+      {/* Top Header matching mockup */}
+      <div className="space-y-1">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium">
+          <Link href="/dashboard" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="h-3 w-3 text-slate-400" />
+          <span className="text-slate-700 dark:text-slate-200 font-semibold">Doctors</span>
+        </div>
+
+        {/* Title + Add Doctor Button */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-0.5">
           <div>
-            <p className="text-[11px] font-bold tracking-wider text-slate-400 dark:text-slate-400 uppercase">
-              DOCTORS
-            </p>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
+            <h1 className="text-2xl sm:text-[28px] font-extrabold text-slate-900 dark:text-white tracking-tight">
               Manage Doctors
             </h1>
-            <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 mt-1.5 max-w-md">
+            <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 mt-0.5">
               Add, update and organize your healthcare professionals.
             </p>
           </div>
@@ -107,20 +115,6 @@ export default function DoctorsPage() {
             <Plus className="h-4 w-4" />
             Add Doctor
           </Button>
-        </div>
-
-        {/* Center-Right Illustration: Light & Dark theme responsive team images */}
-        <div className="absolute right-36 lg:right-48 -bottom-5 hidden md:flex items-end pointer-events-none select-none z-0">
-          <img
-            src="/Friendly Healthcare Team with Medical Icons-Photoroom.png"
-            alt="Healthcare Team"
-            className="h-[145px] lg:h-[165px] w-auto object-contain dark:hidden drop-shadow-sm"
-          />
-          <img
-            src="/Smiling Medical Team with Blue Accents-Photoroom.png"
-            alt="Healthcare Team"
-            className="h-[145px] lg:h-[165px] w-auto object-contain hidden dark:block drop-shadow-sm"
-          />
         </div>
       </div>
 
