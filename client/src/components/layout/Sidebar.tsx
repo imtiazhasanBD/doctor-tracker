@@ -98,7 +98,7 @@ export function Sidebar() {
           <DocTrackLogo />
           {sidebarOpen && (
             <div className="flex flex-col min-w-0">
-              <span className="font-extrabold text-[18px] text-[#0f172a] dark:text-white tracking-tight leading-tight truncate">
+              <span className="font-bold text-[18px] text-[#0f172a] dark:text-white tracking-tight leading-tight truncate">
                 Doc<span className="text-[#38bdf8]">Track</span>
               </span>
               <span className="text-[9.5px] text-[#94a3b8] dark:text-[#5a6d8c] font-medium tracking-tight truncate">

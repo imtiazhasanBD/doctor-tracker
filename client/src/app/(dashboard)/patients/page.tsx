@@ -130,7 +130,7 @@ export default function PatientsPage() {
         {/* Title + Add Patient Button */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-0.5">
           <div>
-            <h1 className="text-2xl sm:text-[28px] font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <h1 className="text-2xl sm:text-[28px] font-bold text-slate-900 dark:text-white tracking-tight">
               Manage Patients
             </h1>
             <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 mt-0.5">

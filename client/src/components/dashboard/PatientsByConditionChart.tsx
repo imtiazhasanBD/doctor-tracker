@@ -69,80 +69,80 @@ export function PatientsByConditionChart({
           </div>
         ) : (
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 h-[220px]">
-          {/* Donut Chart */}
-          <div className="relative h-[185px] w-[185px] shrink-0">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={56}
-                  outerRadius={82}
-                  paddingAngle={2}
-                  dataKey="value"
-                  strokeWidth={0}
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="bg-[#0f172a] dark:bg-[#10192e] border border-transparent dark:border-[#1c2d54] text-white text-[11px] px-2.5 py-1 rounded-md shadow-md font-semibold">
-                          {payload[0].name}: {payload[0].value?.toLocaleString()}
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            {/* Donut Chart */}
+            <div className="relative h-[185px] w-[185px] shrink-0">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={chartData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={56}
+                    outerRadius={82}
+                    paddingAngle={2}
+                    dataKey="value"
+                    strokeWidth={0}
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="bg-[#0f172a] dark:bg-[#10192e] border border-transparent dark:border-[#1c2d54] text-white text-[11px] px-2.5 py-1 rounded-md shadow-md font-semibold">
+                            {payload[0].name}: {payload[0].value?.toLocaleString()}
+                          </div>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
 
-            {/* Center label */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[19px] font-extrabold text-[#0f172a] dark:text-white leading-none">
-                {displayTotal.toLocaleString()}
-              </span>
-              <span className="text-[11px] text-[#64748b] dark:text-[#6b7f9e] font-medium mt-1">
-                Patients
-              </span>
+              {/* Center label */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <span className="text-[19px] font-bold text-[#0f172a] dark:text-white leading-none">
+                  {displayTotal.toLocaleString()}
+                </span>
+                <span className="text-[11px] text-[#64748b] dark:text-[#6b7f9e] font-medium mt-1">
+                  Patients
+                </span>
+              </div>
+            </div>
+
+            {/* Condition Legend list with Count + Percentage */}
+            <div className="flex-1 w-full space-y-2.5 pl-1">
+              {chartData.map((item) => (
+                <div
+                  key={item.name}
+                  className="flex items-center justify-between text-[12px]"
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span
+                      className="h-2.5 w-2.5 rounded-full shrink-0"
+                      style={{ backgroundColor: item.color }}
+                    />
+                    <span className="text-[#475569] dark:text-[#8fa1be] font-medium truncate">
+                      {item.name}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="font-bold text-[#0f172a] dark:text-white">
+                      {item.value.toLocaleString()}
+                    </span>
+                    <span className="text-[#94a3b8] dark:text-[#5a6d8c] text-[11px] w-7 text-right">
+                      {item.pct}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* Condition Legend list with Count + Percentage */}
-          <div className="flex-1 w-full space-y-2.5 pl-1">
-            {chartData.map((item) => (
-              <div
-                key={item.name}
-                className="flex items-center justify-between text-[12px]"
-              >
-                <div className="flex items-center gap-2 min-w-0">
-                  <span
-                    className="h-2.5 w-2.5 rounded-full shrink-0"
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className="text-[#475569] dark:text-[#8fa1be] font-medium truncate">
-                    {item.name}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3 shrink-0">
-                  <span className="font-bold text-[#0f172a] dark:text-white">
-                    {item.value.toLocaleString()}
-                  </span>
-                  <span className="text-[#94a3b8] dark:text-[#5a6d8c] text-[11px] w-7 text-right">
-                    {item.pct}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+        )}
       </CardContent>
     </Card>
   );

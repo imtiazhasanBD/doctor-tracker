@@ -69,37 +69,35 @@ export default function DashboardPage() {
 
   const recentPatients = data?.recentPatients || [];
   const doctorDirectory = data?.doctorDirectory || [];
-
-  const quickActions = [
-    {
-      label: 'Add Doctor',
-      href: '/doctors?action=new',
-      icon: User,
-      iconBg: 'bg-[#ebf4ff] dark:bg-[#132c54]',
-      iconColor: 'text-[#2584ff] dark:text-[#38bdf8]',
-    },
-    {
-      label: 'Add Patient',
-      href: '/patients?action=new',
-      icon: UserPlus,
-      iconBg: 'bg-[#f4ebff] dark:bg-[#261c4a]',
-      iconColor: 'text-[#9333ea] dark:text-[#c084fc]',
-    },
-    {
-      label: 'View Doctors',
-      href: '/doctors',
-      icon: Stethoscope,
-      iconBg: 'bg-[#ecfdf5] dark:bg-[#12332e]',
-      iconColor: 'text-[#10b981] dark:text-[#34d399]',
-    },
-    {
-      label: 'View Patients',
-      href: '/patients',
-      icon: Users,
-      iconBg: 'bg-[#fff7ed] dark:bg-[#3a2518]',
-      iconColor: 'text-[#f97316] dark:text-[#fb923c]',
-    },
-  ];
+  //   {
+  //     label: 'Add Doctor',
+  //     href: '/doctors?action=new',
+  //     icon: User,
+  //     iconBg: 'bg-[#ebf4ff] dark:bg-[#132c54]',
+  //     iconColor: 'text-[#2584ff] dark:text-[#38bdf8]',
+  //   },
+  //   {
+  //     label: 'Add Patient',
+  //     href: '/patients?action=new',
+  //     icon: UserPlus,
+  //     iconBg: 'bg-[#f4ebff] dark:bg-[#261c4a]',
+  //     iconColor: 'text-[#9333ea] dark:text-[#c084fc]',
+  //   },
+  //   {
+  //     label: 'View Doctors',
+  //     href: '/doctors',
+  //     icon: Stethoscope,
+  //     iconBg: 'bg-[#ecfdf5] dark:bg-[#12332e]',
+  //     iconColor: 'text-[#10b981] dark:text-[#34d399]',
+  //   },
+  //   {
+  //     label: 'View Patients',
+  //     href: '/patients',
+  //     icon: Users,
+  //     iconBg: 'bg-[#fff7ed] dark:bg-[#3a2518]',
+  //     iconColor: 'text-[#f97316] dark:text-[#fb923c]',
+  //   },
+  // ];
 
   return (
     <div className="space-y-6 pb-6">
@@ -117,7 +115,7 @@ export default function DashboardPage() {
             <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#64748b] dark:text-[#5e7191]">
               WELCOME BACK
             </p>
-            <h1 className="text-[22px] sm:text-[26px] font-extrabold tracking-tight text-[#0f172a] dark:text-white mt-0.5">
+            <h1 className="text-[22px] sm:text-[26px] font-bold tracking-tight text-[#0f172a] dark:text-white mt-0.5">
               Here’s what’s happening today
             </h1>
             <p className="text-[13px] text-[#64748b] dark:text-[#7e91b0] mt-0.5">
@@ -159,59 +157,20 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* 2. MIDDLE ROW: 2 CHARTS + QUICK ACTIONS                            */}
+      {/* 2. MIDDLE ROW: 2 CHARTS                          */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Bar Chart (5 cols) */}
-        <div className="lg:col-span-5">
+        {/* Bar Chart (6 cols) */}
+        <div className="lg:col-span-7">
           <PatientsPerDoctorChart data={data?.patientsPerDoctor} />
         </div>
 
-        {/* Donut Chart (5 cols) */}
+        {/* Donut Chart (6 cols) */}
         <div className="lg:col-span-5">
           <PatientsByConditionChart
             data={data?.conditions}
             totalPatients={totals.patients}
           />
         </div>
-
-        {/* Quick Actions Card (2 cols) */}
-        <Card className="lg:col-span-2 border-slate-100 dark:border-[#172545] bg-white dark:bg-[#0c152a] rounded-xl p-5 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] flex flex-col justify-between transition-colors ">
-          <CardHeader className="p-0 pb-3">
-            <CardTitle className="text-[14.5px] font-bold text-[#0f172a] dark:text-white flex items-center gap-2">
-              <Zap className="w-4 h-4 text-[#2584ff] dark:text-[#38bdf8] fill-[#2584ff] dark:fill-[#38bdf8]" />
-              Quick Actions
-            </CardTitle>
-          </CardHeader>
-
-          <CardContent className="p-0 flex-1 flex flex-col justify-center">
-            <div className="grid grid-cols-2 gap-2.5 pt-1">
-              {quickActions.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="group rounded-xl bg-[#f8fafc] dark:bg-[#10192e] hover:bg-[#f1f6fd] dark:hover:bg-[#152342] border border-slate-100/90 dark:border-[#18284c] py-3.5 px-2 flex flex-col items-center justify-center text-center transition-all h-[105px]"
-                  >
-                    <div
-                      className={`w-10 h-10 rounded-full ${item.iconBg} flex items-center justify-center mb-2 transition-transform group-hover:scale-105`}
-                    >
-                      <Icon className={`w-4 h-4 ${item.iconColor}`} />
-                    </div>
-                    <div className="flex items-center justify-center gap-1">
-                      <span className="text-[11.5px] font-semibold text-[#1e293b] dark:text-[#cbd5e1]">
-                        {item.label}
-                      </span>
-                      <span className="text-[11px] text-slate-400 dark:text-[#5a6d8c] group-hover:translate-x-0.5 transition-transform">
-                        &gt;
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       {/* 3. BOTTOM ROW: RECENT PATIENTS & DOCTOR DIRECTORY TABLES           */}
@@ -275,74 +234,74 @@ export default function DashboardPage() {
                   </TableRow>
                 ) : (
                   recentPatients.map((p: any, idx: number) => {
-                  const doctorName =
-                    typeof p.doctor === 'object' && p.doctor !== null
-                      ? p.doctor.name || 'Unassigned'
-                      : typeof p.doctor === 'string'
-                        ? p.doctor
-                        : 'Unassigned';
+                    const doctorName =
+                      typeof p.doctor === 'object' && p.doctor !== null
+                        ? p.doctor.name || 'Unassigned'
+                        : typeof p.doctor === 'string'
+                          ? p.doctor
+                          : 'Unassigned';
 
-                  const addedDate =
-                    p.addedDate ||
-                    (p.createdAt ? new Date(p.createdAt).toISOString().split('T')[0] : '-');
-                  const rawStatus = (p.status || 'Active').toString();
-                  const statusLabel =
-                    rawStatus.charAt(0).toUpperCase() + rawStatus.slice(1).toLowerCase();
-                  const isActive = statusLabel.toLowerCase() === 'active';
+                    const addedDate =
+                      p.addedDate ||
+                      (p.createdAt ? new Date(p.createdAt).toISOString().split('T')[0] : '-');
+                    const rawStatus = (p.status || 'Active').toString();
+                    const statusLabel =
+                      rawStatus.charAt(0).toUpperCase() + rawStatus.slice(1).toLowerCase();
+                    const isActive = statusLabel.toLowerCase() === 'active';
 
-                  return (
-                    <TableRow
-                      key={p._id || p.id || idx}
-                      className="hover:bg-slate-50/70 dark:hover:bg-[#10192e] border-b border-slate-100 dark:border-[#14203a] transition-colors"
-                    >
-                      <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#5e7191] font-normal text-center">
-                        {idx + 1}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white whitespace-nowrap">
-                        {p.name}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
-                        {doctorName}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] text-center">
-                        {p.age ?? '-'}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
-                        {p.condition}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
-                        {addedDate}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2 text-center">
-                        <Badge
-                          variant={isActive ? 'secondary' : 'destructive'}
-                          className={cn(
-                            'rounded-md text-[11px] font-semibold border-0 py-0.5 px-2',
-                            isActive
-                              ? 'bg-[#e6f9f1] dark:bg-[#0e352b] text-[#10b981] dark:text-[#34d399] hover:bg-[#e6f9f1] dark:hover:bg-[#0e352b]'
-                              : 'bg-[#fff1f2] dark:bg-[#3d1a1c] text-[#f43f5e] dark:text-[#f87171] hover:bg-[#fff1f2] dark:hover:bg-[#3d1a1c]'
-                          )}
-                        >
-                          {statusLabel}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2 text-center">
-                        <Link
-                          href="/patients"
-                          className={buttonVariants({
-                            variant: 'ghost',
-                            size: 'icon-xs',
-                            className:
-                              'text-[#94a3b8] dark:text-[#5e7191] hover:text-[#2584ff] dark:hover:text-[#38bdf8] hover:bg-slate-50 dark:hover:bg-[#121e38] inline-flex',
-                          })}
-                          aria-label="View patient"
-                        >
-                          <Eye className="w-4 h-4" />
-                        </Link>
-                      </TableCell>
-                    </TableRow>
-                  );
-                }))}
+                    return (
+                      <TableRow
+                        key={p._id || p.id || idx}
+                        className="hover:bg-slate-50/70 dark:hover:bg-[#10192e] border-b border-slate-100 dark:border-[#14203a] transition-colors"
+                      >
+                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#5e7191] font-normal text-center">
+                          {idx + 1}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white whitespace-nowrap">
+                          {p.name}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
+                          {doctorName}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] text-center">
+                          {p.age ?? '-'}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
+                          {p.condition}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
+                          {addedDate}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2 text-center">
+                          <Badge
+                            variant={isActive ? 'secondary' : 'destructive'}
+                            className={cn(
+                              'rounded-md text-[11px] font-semibold border-0 py-0.5 px-2',
+                              isActive
+                                ? 'bg-[#e6f9f1] dark:bg-[#0e352b] text-[#10b981] dark:text-[#34d399] hover:bg-[#e6f9f1] dark:hover:bg-[#0e352b]'
+                                : 'bg-[#fff1f2] dark:bg-[#3d1a1c] text-[#f43f5e] dark:text-[#f87171] hover:bg-[#fff1f2] dark:hover:bg-[#3d1a1c]'
+                            )}
+                          >
+                            {statusLabel}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2 text-center">
+                          <Link
+                            href="/patients"
+                            className={buttonVariants({
+                              variant: 'ghost',
+                              size: 'icon-xs',
+                              className:
+                                'text-[#94a3b8] dark:text-[#5e7191] hover:text-[#2584ff] dark:hover:text-[#38bdf8] hover:bg-slate-50 dark:hover:bg-[#121e38] inline-flex',
+                            })}
+                            aria-label="View patient"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Link>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  }))}
               </TableBody>
             </Table>
           </CardContent>
@@ -398,39 +357,39 @@ export default function DashboardPage() {
                   </TableRow>
                 ) : (
                   doctorDirectory.map((doc: any, idx: number) => {
-                  const docName =
-                    typeof doc.name === 'string'
-                      ? doc.name
-                      : doc.name?.name || 'Dr. Doctor';
+                    const docName =
+                      typeof doc.name === 'string'
+                        ? doc.name
+                        : doc.name?.name || 'Dr. Doctor';
 
-                  return (
-                    <TableRow
-                      key={doc.id || doc._id || idx}
-                      className="hover:bg-slate-50/70 dark:hover:bg-[#10192e] border-b border-slate-100 dark:border-[#14203a] transition-colors"
-                    >
-                      <TableCell className="py-2.5 px-2.5 text-[#64748b] dark:text-[#5e7191] font-normal text-center">
-                        {idx + 1}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white whitespace-nowrap">
-                        {docName}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2.5 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
-                        {doc.specialization || '-'}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white text-center">
-                        {doc.patients ?? doc.count ?? 0}
-                      </TableCell>
-                      <TableCell className="py-2.5 px-2.5 text-center">
-                        <Badge
-                          variant="secondary"
-                          className="rounded-md text-[11px] font-semibold border-0 py-0.5 px-2.5 bg-[#e6f9f1] dark:bg-[#0e352b] text-[#10b981] dark:text-[#34d399] hover:bg-[#e6f9f1] dark:hover:bg-[#0e352b]"
-                        >
-                          {doc.status || 'Active'}
-                        </Badge>
-                      </TableCell>
-                    </TableRow>
-                  );
-                }))}
+                    return (
+                      <TableRow
+                        key={doc.id || doc._id || idx}
+                        className="hover:bg-slate-50/70 dark:hover:bg-[#10192e] border-b border-slate-100 dark:border-[#14203a] transition-colors"
+                      >
+                        <TableCell className="py-2.5 px-2.5 text-[#64748b] dark:text-[#5e7191] font-normal text-center">
+                          {idx + 1}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white whitespace-nowrap">
+                          {docName}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2.5 text-[#64748b] dark:text-[#8fa1be] whitespace-nowrap">
+                          {doc.specialization || '-'}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2.5 font-bold text-[#0f172a] dark:text-white text-center">
+                          {doc.patients ?? doc.count ?? 0}
+                        </TableCell>
+                        <TableCell className="py-2.5 px-2.5 text-center">
+                          <Badge
+                            variant="secondary"
+                            className="rounded-md text-[11px] font-semibold border-0 py-0.5 px-2.5 bg-[#e6f9f1] dark:bg-[#0e352b] text-[#10b981] dark:text-[#34d399] hover:bg-[#e6f9f1] dark:hover:bg-[#0e352b]"
+                          >
+                            {doc.status || 'Active'}
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  }))}
               </TableBody>
             </Table>
           </CardContent>

@@ -154,12 +154,12 @@ export default function LoginPage() {
     <div className="h-screen w-screen overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-white select-none">
       {/* LEFT PANEL (~58.3% / 7 cols): HERO CONTENT + DOCTOR ILLUSTRATION */}
       <div className="hidden lg:flex lg:col-span-7 relative h-full overflow-hidden flex-col justify-between py-10 pl-12 pr-6 bg-gradient-to-br from-[#f8fcff] via-[#f1f8fe] to-[#e6f2fc]">
-        
+
         {/* 1. TOP LEFT LOGO HEADER */}
         <div className="relative z-20 flex items-center gap-3">
           <DocTrackHeartLogo size={42} />
           <div>
-            <div className="flex items-center text-[23px] font-extrabold tracking-tight leading-none">
+            <div className="flex items-center text-[23px] font-bold tracking-tight leading-none">
               <span className="text-[#0f172a]">Doc</span>
               <span className="text-[#0b76e5]">Track</span>
             </div>
@@ -175,7 +175,7 @@ export default function LoginPage() {
             WELCOME TO DOCTRACK
           </p>
 
-          <h1 className="text-[32px] xl:text-[36px] font-extrabold leading-[1.18] tracking-tight text-[#0f172a]">
+          <h1 className="text-[32px] xl:text-[36px] font-bold leading-[1.18] tracking-tight text-[#0f172a]">
             Manage Doctors
             Patients and Care
             in <span className="text-[#0b76e5]">One Place</span>
@@ -248,7 +248,7 @@ export default function LoginPage() {
         {/* CENTER LOGIN CARD CONTAINER */}
         <div className="w-full max-w-[420px] pt-6">
           <div className="relative rounded-md px-7 sm:px-9 pt-12 pb-9 bg-white border border-slate-100 shadow-[0_15px_50px_-12px_rgba(15,23,42,0.07)]">
-            
+
             {/* Floating Top Center Heart Badge */}
             <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-[56px] h-[56px] rounded-[18px] flex items-center justify-center bg-gradient-to-b from-white to-[#f5fafe] border border-slate-100 shadow-[0_8px_22px_-4px_rgba(14,116,144,0.15)]">
               <DocTrackHeartLogo size={28} />
@@ -256,7 +256,7 @@ export default function LoginPage() {
 
             {/* Brand Name & Admin Portal Subtitle */}
             <div className="text-center">
-              <div className="inline-flex items-center text-[22px] font-extrabold tracking-tight leading-none">
+              <div className="inline-flex items-center text-[22px] font-bold tracking-tight leading-none">
                 <span className="text-[#0f172a]">Doc</span>
                 <span className="text-[#0b76e5]">Track</span>
               </div>
@@ -267,7 +267,7 @@ export default function LoginPage() {
 
             {/* Welcome Back Heading */}
             <div className="text-center mt-5 mb-6">
-              <h2 className="text-[21px] font-extrabold tracking-tight text-[#0f172a]">
+              <h2 className="text-[21px] font-bold tracking-tight text-[#0f172a]">
                 Welcome Back
               </h2>
               <p className="text-[12px] mt-1 font-normal text-[#94a3b8]">
@@ -283,11 +283,10 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="email-input"
-                  className={`group flex items-center gap-3.5 px-4 py-2.5 rounded-[14px] border transition-all cursor-text ${
-                    errors.email
+                  className={`group flex items-center gap-3.5 px-4 py-2.5 rounded-[14px] border transition-all cursor-text ${errors.email
                       ? 'border-rose-400 bg-rose-50/20'
                       : 'border-[#e8eef5] bg-[#fbfdff] focus-within:border-[#3b82f6] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(59,130,246,0.08)]'
-                  }`}
+                    }`}
                 >
                   <Mail className="w-[17px] h-[17px] shrink-0 text-[#64748b]" />
                   <div className="flex flex-col flex-1 min-w-0">
@@ -314,11 +313,10 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="password-input"
-                  className={`group flex items-center gap-3.5 px-4 py-2.5 rounded-[14px] border transition-all cursor-text ${
-                    errors.password
+                  className={`group flex items-center gap-3.5 px-4 py-2.5 rounded-[14px] border transition-all cursor-text ${errors.password
                       ? 'border-rose-400 bg-rose-50/20'
                       : 'border-[#e8eef5] bg-[#fbfdff] focus-within:border-[#3b82f6] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(59,130,246,0.08)]'
-                  }`}
+                    }`}
                 >
                   <Lock className="w-[17px] h-[17px] shrink-0 text-[#64748b]" />
                   <div className="flex flex-col flex-1 min-w-0">
@@ -365,11 +363,10 @@ export default function LoginPage() {
                     role="checkbox"
                     aria-checked={rememberMe}
                     onClick={() => setValue('rememberMe', !rememberMe)}
-                    className={`w-[16px] h-[16px] rounded-[5px] flex items-center justify-center transition-colors cursor-pointer ${
-                      rememberMe
+                    className={`w-[16px] h-[16px] rounded-[5px] flex items-center justify-center transition-colors cursor-pointer ${rememberMe
                         ? 'bg-[#1a68e8] text-white shadow-xs'
                         : 'border border-slate-300 bg-white'
-                    }`}
+                      }`}
                   >
                     {rememberMe && <Check className="w-3 h-3 stroke-[3]" />}
                   </button>

@@ -248,7 +248,7 @@ export default function DoctorDetailPage({
                   <div>
                     <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-400">Total Patients</p>
                     <div className="flex items-baseline gap-2 mt-0.5">
-                      <span className="text-xl font-extrabold text-slate-900 dark:text-white">{totalPatients}</span>
+                      <span className="text-xl font-bold text-slate-900 dark:text-white">{totalPatients}</span>
                     </div>
                   </div>
                 </div>
@@ -263,7 +263,7 @@ export default function DoctorDetailPage({
                   <div>
                     <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-400">Active Patients</p>
                     <div className="flex items-baseline gap-2 mt-0.5">
-                      <span className="text-xl font-extrabold text-slate-900 dark:text-white">{activePatientsCount}</span>
+                      <span className="text-xl font-bold text-slate-900 dark:text-white">{activePatientsCount}</span>
                     </div>
                   </div>
                 </div>
@@ -278,7 +278,7 @@ export default function DoctorDetailPage({
                   <div>
                     <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-400">Discharged Patients</p>
                     <div className="flex items-baseline gap-2 mt-0.5">
-                      <span className="text-xl font-extrabold text-slate-900 dark:text-white">{dischargedPatientsCount}</span>
+                      <span className="text-xl font-bold text-slate-900 dark:text-white">{dischargedPatientsCount}</span>
                     </div>
                   </div>
                 </div>
