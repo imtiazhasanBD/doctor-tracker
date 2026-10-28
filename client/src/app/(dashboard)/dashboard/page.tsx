@@ -36,7 +36,6 @@ import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-// HOSPITAL BANNER ILLUSTRATION
 const HospitalBannerIllustration = () => (
   <>
     <img
@@ -72,15 +71,11 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-5 pb-6">
-      {/* 1. HERO WELCOME BANNER + 4 METRIC CARDS CONTAINER                  */}
-      <div className="relative rounded-xl sm:rounded-2xl bg-gradient-to-r from-white via-white/80 to-primary/10 dark:from-card dark:via-card dark:to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
-
-        {/* Top Right Hospital Illustration from public/ folder */}
+      <div className="relative rounded-xl sm:rounded-md bg-gradient-to-r from-white via-white/80 to-primary/10 dark:from-card dark:via-card dark:to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
         <div className="hidden md:flex absolute top-0 right-0 h-[160px] items-end justify-end pointer-events-none z-0 opacity-95 dark:opacity-95">
           <HospitalBannerIllustration />
         </div>
 
-        {/* Top Banner Text */}
         <div className="relative z-10 flex items-center justify-between p-3.5 sm:p-5 pb-3 sm:pb-5">
           <div>
             <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
@@ -95,7 +90,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* 4 Metric Cards Row (2x2 on mobile matching Doctors/Patients) */}
         <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 px-3 sm:px-4">
           <StatCard
             title="Total Doctors"
@@ -128,14 +122,11 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* 2. MIDDLE ROW: 2 CHARTS                          */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Bar Chart (7 cols) */}
         <div className="lg:col-span-7">
           <PatientsPerDoctorChart data={data?.patientsPerDoctor} />
         </div>
 
-        {/* Donut Chart (5 cols) */}
         <div className="lg:col-span-5">
           <PatientsByConditionChart
             data={data?.conditions}
@@ -144,9 +135,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* 3. BOTTOM ROW: RECENT PATIENTS & DOCTOR DIRECTORY TABLES           */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Recent Patients Table (7 cols) */}
         <Card className="lg:col-span-7 border-border bg-card rounded-xl p-4 sm:p-6 shadow-xs transition-colors">
           <CardHeader className="p-0 pb-3 sm:pb-4 flex flex-row items-center justify-between">
             <CardTitle className="text-sm sm:text-[14.5px] font-bold text-foreground flex items-center gap-2">
@@ -167,7 +156,6 @@ export default function DashboardPage() {
           </CardHeader>
 
           <CardContent className="p-0">
-            {/* Mobile Cards List (md:hidden) */}
             <div className="space-y-2.5 md:hidden">
               {recentPatients.length === 0 ? (
                 <div className="py-8 text-center text-xs text-muted-foreground bg-muted/20 rounded-xl border border-dashed border-border">
@@ -257,14 +245,10 @@ export default function DashboardPage() {
               )}
             </div>
 
-            {/* Desktop Table (hidden md:block) */}
             <div className="hidden md:block overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               <Table>
                 <TableHeader>
                   <TableRow className="border-b border-border hover:bg-transparent">
-                    <TableHead className="py-2.5 px-2 text-[11px] font-semibold text-muted-foreground h-auto w-8 text-center">
-                      #
-                    </TableHead>
                     <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto">
                       Name
                     </TableHead>
@@ -317,9 +301,6 @@ export default function DashboardPage() {
                           key={p._id || p.id || idx}
                           className="hover:bg-muted/50 border-b border-border transition-colors"
                         >
-                          <TableCell className="py-2.5 px-2 text-muted-foreground font-normal text-center">
-                            {idx + 1}
-                          </TableCell>
                           <TableCell className="py-2.5 px-2.5 font-bold text-foreground whitespace-nowrap">
                             {p.name}
                           </TableCell>
@@ -367,7 +348,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Doctor Directory Table (5 cols) */}
         <Card className="lg:col-span-5 border-border bg-card rounded-xl p-4 sm:p-6 shadow-xs transition-colors">
           <CardHeader className="p-0 pb-3 sm:pb-4 flex flex-row items-center justify-between">
             <CardTitle className="text-sm sm:text-[14.5px] font-bold text-foreground flex items-center gap-2">
@@ -388,7 +368,6 @@ export default function DashboardPage() {
           </CardHeader>
 
           <CardContent className="p-0">
-            {/* Mobile Cards List (md:hidden) */}
             <div className="space-y-2.5 md:hidden">
               {doctorDirectory.length === 0 ? (
                 <div className="py-8 text-center text-xs text-muted-foreground bg-muted/20 rounded-xl border border-dashed border-border">
@@ -443,14 +422,10 @@ export default function DashboardPage() {
               )}
             </div>
 
-            {/* Desktop Table (hidden md:block) */}
             <div className="hidden md:block overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               <Table>
                 <TableHeader>
                   <TableRow className="border-b border-border hover:bg-transparent">
-                    <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto w-8 text-center">
-                      #
-                    </TableHead>
                     <TableHead className="py-2.5 px-2.5 text-[11px] font-semibold text-muted-foreground h-auto">
                       Name
                     </TableHead>
@@ -484,9 +459,6 @@ export default function DashboardPage() {
                           key={doc.id || doc._id || idx}
                           className="hover:bg-muted/50 border-b border-border transition-colors"
                         >
-                          <TableCell className="py-2.5 px-2.5 text-muted-foreground font-normal text-center">
-                            {idx + 1}
-                          </TableCell>
                           <TableCell className="py-2.5 px-2.5 font-bold text-foreground whitespace-nowrap">
                             {docName}
                           </TableCell>

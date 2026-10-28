@@ -72,7 +72,6 @@ export function AddDoctorModal({
 
   const selectedSpec = watch('specialization');
 
-  // Pre-fill form when editing, or reset when adding
   useEffect(() => {
     if (open) {
       if (doctorToEdit) {
@@ -131,7 +130,6 @@ export function AddDoctorModal({
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Name */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Name <span className="text-destructive">*</span>
@@ -146,7 +144,6 @@ export function AddDoctorModal({
               )}
             </div>
 
-            {/* Specialization */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Specialization <span className="text-destructive">*</span>
@@ -175,7 +172,6 @@ export function AddDoctorModal({
               )}
             </div>
 
-            {/* Hospital */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Hospital
@@ -190,7 +186,6 @@ export function AddDoctorModal({
               )}
             </div>
 
-            {/* Phone */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Phone
@@ -206,7 +201,6 @@ export function AddDoctorModal({
             </div>
           </div>
 
-          {/* Email */}
           <div>
             <Label className="text-xs font-semibold text-foreground">
               Email <span className="text-destructive">*</span>
@@ -222,7 +216,6 @@ export function AddDoctorModal({
             )}
           </div>
 
-          {/* Action buttons */}
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Button
               type="button"

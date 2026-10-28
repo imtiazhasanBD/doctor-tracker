@@ -19,7 +19,6 @@ export default function PatientsPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingPatient, setEditingPatient] = useState<Patient | null>(null);
 
-  // URL state via nuqs
   const [q, setQ] = useQueryState('q', parseAsString.withDefault(''));
   const [doctorId, setDoctorId] = useQueryState('doctorId', parseAsString.withDefault(''));
   const [condition, setCondition] = useQueryState('condition', parseAsString.withDefault(''));
@@ -29,7 +28,6 @@ export default function PatientsPage() {
 
   const limit = 10;
 
-  // Server state via TanStack Query
   const { data: patientsData, isLoading } = usePatients({
     page,
     limit,
@@ -75,7 +73,6 @@ export default function PatientsPage() {
     setPage(1);
   };
 
-  // Stat metrics with fallback to live API data
   const totalPatients = statsData?.totals?.patients ?? (total > 0 ? total : 5000);
   const activePatients = statsData?.totals?.activePatients ?? Math.max(0, totalPatients - 680);
   const dischargedPatients = statsData?.totals?.dischargedPatients ?? 680;
@@ -116,9 +113,7 @@ export default function PatientsPage() {
 
   return (
     <div className="space-y-4">
-      {/* Top Header matching mockup */}
       <div className="space-y-1">
-        {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
           <Link href="/dashboard" className="hover:text-foreground transition-colors">
             Home
@@ -127,7 +122,6 @@ export default function PatientsPage() {
           <span className="text-foreground font-semibold">Patients</span>
         </div>
 
-        {/* Title + Add Patient Button */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-0.5">
           <div>
             <h1 className="text-2xl sm:text-[28px] font-bold text-foreground tracking-tight">
@@ -148,7 +142,6 @@ export default function PatientsPage() {
         </div>
       </div>
 
-      {/* 4 Metric Cards Row matching mockup */}
       {isStatsLoading ? (
         <StatCardsRowSkeleton count={4} />
       ) : (
@@ -184,7 +177,6 @@ export default function PatientsPage() {
         </div>
       )}
 
-      {/* Combined Section Card: 1st Patients list + Export, then All Filters, then Table */}
       {isLoading ? (
         <PatientsTableSkeleton rows={limit} filters={filtersComponent} />
       ) : (
@@ -202,7 +194,6 @@ export default function PatientsPage() {
         />
       )}
 
-      {/* Add / Edit Patient Modal */}
       <AddPatientModal
         open={modalOpen}
         onOpenChange={setModalOpen}

@@ -75,7 +75,6 @@ export function PatientFilters({
     };
   }, [drawerOpen]);
 
-  // Local draft state for bottom sheet
   const [draftDoc, setDraftDoc] = useState(doctorId);
   const [draftCondition, setDraftCondition] = useState(condition);
   const [draftStatus, setDraftStatus] = useState(status);
@@ -133,9 +132,7 @@ export function PatientFilters({
 
   return (
     <>
-      {/* ===================== MOBILE VIEW (< lg) ===================== */}
       <div className="flex flex-col gap-2.5 w-full lg:hidden">
-        {/* Full-width Search Input */}
         <div className="relative w-full">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
@@ -146,7 +143,6 @@ export function PatientFilters({
           />
         </div>
 
-        {/* Filter Trigger Button */}
         <button
           type="button"
           id="mobile-patient-filter-btn"
@@ -169,7 +165,6 @@ export function PatientFilters({
           )}
         </button>
 
-        {/* Active Filter Chips */}
         {activeCount > 0 && (
           <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
             {activeFilters.map((chip) => (
@@ -192,7 +187,6 @@ export function PatientFilters({
         )}
       </div>
 
-      {/* ===================== MOBILE FILTER DRAWER (BOTTOM SHEET) ===================== */}
       {mounted &&
         createPortal(
           <>
@@ -210,10 +204,8 @@ export function PatientFilters({
                 drawerOpen ? 'translate-y-0' : 'translate-y-full pointer-events-none'
               )}
             >
-              {/* Pull Handle */}
               <div className="w-10 h-1 bg-muted-foreground/30 rounded-full mx-auto mb-4" />
 
-              {/* Drawer Header */}
               <div className="flex items-center justify-between pb-3.5 border-b border-border">
                 <h3 className="text-base font-bold text-foreground">Filters</h3>
                 <button
@@ -227,9 +219,7 @@ export function PatientFilters({
                 </button>
               </div>
 
-              {/* Filters Form */}
               <div className="space-y-4 py-4">
-                {/* Doctor Filter */}
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
                     <Stethoscope className="h-4 w-4 text-primary" />
@@ -263,7 +253,6 @@ export function PatientFilters({
                   </Select>
                 </div>
 
-                {/* Condition Filter */}
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
                     <Activity className="h-4 w-4 text-primary" />
@@ -295,7 +284,6 @@ export function PatientFilters({
                   </Select>
                 </div>
 
-                {/* Status Filter */}
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
                     <Users className="h-4 w-4 text-primary" />
@@ -332,7 +320,6 @@ export function PatientFilters({
                   </Select>
                 </div>
 
-                {/* Visit Date Filter */}
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
                     <Calendar className="h-4 w-4 text-primary" />
@@ -347,7 +334,6 @@ export function PatientFilters({
                 </div>
               </div>
 
-              {/* Bottom Drawer Actions */}
               <div className="flex items-center gap-3 pt-3 border-t border-border">
                 <Button
                   type="button"
@@ -372,9 +358,7 @@ export function PatientFilters({
           document.body
         )}
 
-      {/* ===================== DESKTOP VIEW (lg+) ===================== */}
       <div className="hidden lg:flex flex-col xl:flex-row items-end justify-between gap-3 w-full">
-        {/* Left: Search Input Field */}
         <div className="w-full xl:max-w-xs 2xl:max-w-sm flex-1">
           <div className="relative">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -387,9 +371,7 @@ export function PatientFilters({
           </div>
         </div>
 
-        {/* Right: Filters, Single Date Picker & Reset button */}
         <div className="flex flex-wrap items-end gap-1.5 w-full xl:w-auto justify-end">
-          {/* Doctor Filter */}
           <div className="w-32 sm:w-36 min-w-0">
             <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Doctor
@@ -429,7 +411,6 @@ export function PatientFilters({
             </Select>
           </div>
 
-          {/* Condition Filter */}
           <div className="w-32 sm:w-36 min-w-0">
             <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Condition
@@ -460,7 +441,6 @@ export function PatientFilters({
             </Select>
           </div>
 
-          {/* Status Filter */}
           <div className="w-28 min-w-0">
             <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Status
@@ -496,7 +476,6 @@ export function PatientFilters({
             </Select>
           </div>
 
-          {/* Visit Date Single Filter */}
           <div className="w-36 min-w-0">
             <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Visit Date
@@ -512,7 +491,6 @@ export function PatientFilters({
             </div>
           </div>
 
-          {/* Reset Button */}
           <div>
             <label className="text-[11px] font-semibold opacity-0 block mb-1 select-none">
               Reset

@@ -44,7 +44,7 @@ export function usePatientFilters() {
       const res = await api.get('/patients/filters');
       return res.data.data;
     },
-    staleTime: 1000 * 60 * 30, // 30 mins
+    staleTime: 1000 * 60 * 30,
   });
 }
 

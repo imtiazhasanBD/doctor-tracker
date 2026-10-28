@@ -19,7 +19,6 @@ export default function DoctorsPage() {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [doctorToEdit, setDoctorToEdit] = useState<Doctor | null>(null);
 
-  // URL State management via nuqs
   const [q, setQ] = useQueryState('q', parseAsString.withDefault(''));
   const [specialization, setSpecialization] = useQueryState(
     'specialization',
@@ -29,9 +28,8 @@ export default function DoctorsPage() {
   const [status, setStatus] = useQueryState('status', parseAsString.withDefault(''));
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
 
-  const limit = 8; // Matching the 8 rows in the mockup
+  const limit = 8;
 
-  // Server state via TanStack Query
   const { data: doctorsData, isLoading } = useDoctors({
     page,
     limit,
@@ -76,7 +74,6 @@ export default function DoctorsPage() {
     setPage(1);
   };
 
-  // Stat values matching mockup with fallback to live API stats
   const totalDoctors = statsData?.totals?.doctors || total || 25;
   const activeDoctors = Math.max(1, totalDoctors - 3);
   const totalHospitals = filtersData?.hospitals?.length || 8;
@@ -84,9 +81,7 @@ export default function DoctorsPage() {
 
   return (
     <div className="space-y-4">
-      {/* Top Header matching mockup */}
       <div className="space-y-1">
-        {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
           <Link href="/dashboard" className="hover:text-foreground transition-colors">
             Home
@@ -95,7 +90,6 @@ export default function DoctorsPage() {
           <span className="text-foreground font-semibold">Doctors</span>
         </div>
 
-        {/* Title + Add Doctor Button */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-0.5">
           <div>
             <h1 className="text-2xl sm:text-[28px] font-bold text-foreground tracking-tight">
@@ -119,7 +113,6 @@ export default function DoctorsPage() {
         </div>
       </div>
 
-      {/* 4 Metric Cards Row matching mockup */}
       {statsLoading ? (
         <StatCardsRowSkeleton count={4} />
       ) : (
@@ -155,7 +148,6 @@ export default function DoctorsPage() {
         </div>
       )}
 
-      {/* Combined Section Card: 1st Doctors List + Export, then All Filters, then Table */}
       <Card className="border-border bg-card rounded-xl p-3.5 sm:p-5 shadow-sm transition-colors">
         {isLoading ? (
           <DoctorsTableSkeleton
@@ -209,7 +201,6 @@ export default function DoctorsPage() {
         )}
       </Card>
 
-      {/* Add / Edit Doctor Modal */}
       <AddDoctorModal
         open={addModalOpen}
         onOpenChange={(open) => {

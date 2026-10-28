@@ -11,7 +11,6 @@ interface TableSkeletonProps {
 export function TableSkeleton({ columns = 7, rows = 6 }: TableSkeletonProps) {
   return (
     <div className="border border-border bg-card rounded-md overflow-hidden">
-      {/* Table Header skeleton */}
       <div className="h-10 bg-muted/50 border-b border-border flex items-center px-4 gap-4">
         {Array.from({ length: columns }).map((_, i) => (
           <Skeleton
@@ -21,7 +20,6 @@ export function TableSkeleton({ columns = 7, rows = 6 }: TableSkeletonProps) {
         ))}
       </div>
 
-      {/* Table Rows skeleton */}
       <div className="divide-y divide-border">
         {Array.from({ length: rows }).map((_, r) => (
           <div key={r} className="h-12 flex items-center px-4 gap-4">
@@ -78,7 +76,6 @@ export function PatientsTableSkeleton({
 }) {
   return (
     <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors space-y-4">
-      {/* Table Header: Patients Count & Action / Export buttons */}
       <div className="flex items-center justify-between pb-4 border-b border-border">
         <div className="flex items-center gap-2.5">
           <Skeleton className="w-8 h-8 rounded-md" />
@@ -92,10 +89,8 @@ export function PatientsTableSkeleton({
         </div>
       </div>
 
-      {/* Filters (Search & Dropdowns) */}
       {filters && <div className="pt-0.5">{filters}</div>}
 
-      {/* Mobile Card Skeletons (lg:hidden) */}
       <div className="space-y-3 lg:hidden">
         {Array.from({ length: Math.min(rows, 4) }).map((_, r) => (
           <div
@@ -121,7 +116,6 @@ export function PatientsTableSkeleton({
         ))}
       </div>
 
-      {/* Main Table Headers (lg:block) */}
       <div className="hidden lg:block overflow-x-auto">
         <div className="flex items-center gap-4 py-3.5 border-b border-border">
           <Skeleton className="w-36 h-3.5" />
@@ -134,7 +128,6 @@ export function PatientsTableSkeleton({
           <Skeleton className="w-16 h-3.5 ml-auto" />
         </div>
 
-        {/* Table Rows */}
         <div className="divide-y divide-border">
           {Array.from({ length: rows }).map((_, r) => (
             <div key={r} className="flex items-center gap-4 py-3.5">
@@ -161,7 +154,6 @@ export function PatientsTableSkeleton({
         </div>
       </div>
 
-      {/* Pagination Footer skeleton */}
       <div className="flex items-center justify-between pt-3 px-1 border-t border-border gap-3 text-xs">
         <Skeleton className="h-4 w-36" />
         <div className="flex items-center gap-1">
@@ -185,7 +177,6 @@ export function DoctorsTableSkeleton({
 }) {
   return (
     <div className="space-y-4">
-      {/* Card Header: Doctors list & Export CSV button */}
       <div className="flex items-center justify-between pb-4 border-b border-border">
         <div className="flex items-center gap-2">
           <Skeleton className="w-8 h-8 rounded-md" />
@@ -194,10 +185,8 @@ export function DoctorsTableSkeleton({
         <Skeleton className="h-8 w-20 rounded-md" />
       </div>
 
-      {/* Filters (Search & Dropdowns) */}
       {filters && <div className="pt-0.5">{filters}</div>}
 
-      {/* Mobile Card Skeletons (lg:hidden) */}
       <div className="space-y-3 lg:hidden">
         {Array.from({ length: Math.min(rows, 4) }).map((_, r) => (
           <div
@@ -223,7 +212,6 @@ export function DoctorsTableSkeleton({
         ))}
       </div>
 
-      {/* Main Table Headers (lg:block) */}
       <div className="hidden lg:block overflow-x-auto">
         <div className="flex items-center gap-4 py-3.5 border-b border-border">
           <Skeleton className="w-40 h-3.5" />
@@ -235,7 +223,6 @@ export function DoctorsTableSkeleton({
           <Skeleton className="w-16 h-3.5 ml-auto" />
         </div>
 
-        {/* Table Rows */}
         <div className="divide-y divide-border">
           {Array.from({ length: rows }).map((_, r) => (
             <div key={r} className="flex items-center gap-4 py-3.5">
@@ -261,7 +248,6 @@ export function DoctorsTableSkeleton({
         </div>
       </div>
 
-      {/* Pagination Footer skeleton */}
       <div className="flex flex-row items-center justify-between pt-4 mt-2 border-t border-border gap-2">
         <Skeleton className="h-4 w-32" />
         <div className="flex items-center gap-1">
@@ -278,9 +264,7 @@ export function DoctorsTableSkeleton({
 export function DashboardSkeleton() {
   return (
     <div className="space-y-5 pb-6">
-      {/* 1. HERO WELCOME BANNER + 4 METRIC CARDS SKELETON */}
       <div className="relative rounded-xl sm:rounded-2xl bg-gradient-to-r from-white via-white/80 to-primary/10 dark:from-card dark:via-card dark:to-secondary pb-4 border border-border shadow-xs dark:shadow-none overflow-hidden transition-colors">
-        {/* Top Right Hospital Illustration from public/ folder */}
         <div className="hidden md:flex absolute top-0 right-0 h-[160px] items-end justify-end pointer-events-none z-0 opacity-95 dark:opacity-95">
           <img
             src="/Modern Hospital Amidst Lush Greenery-Photoroom.png"
@@ -294,7 +278,6 @@ export function DashboardSkeleton() {
           />
         </div>
 
-        {/* Top Banner Text - Always permanent, never skeleton */}
         <div className="relative z-10 flex items-center justify-between p-3.5 sm:p-5 pb-3 sm:pb-5">
           <div>
             <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
@@ -309,7 +292,6 @@ export function DashboardSkeleton() {
           </div>
         </div>
 
-        {/* 4 Metric Cards Row (2x2 on mobile) */}
         <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 px-3 sm:px-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Card
@@ -328,9 +310,7 @@ export function DashboardSkeleton() {
         </div>
       </div>
 
-      {/* 2. MIDDLE ROW: 2 CHARTS SKELETON */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Patients Per Doctor Bar Chart (7 cols) */}
         <Card className="lg:col-span-7 border-border bg-card rounded-xl shadow-xs p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -351,7 +331,6 @@ export function DashboardSkeleton() {
           </div>
         </Card>
 
-        {/* Patients by Condition Donut Chart (5 cols) */}
         <Card className="lg:col-span-5 border-border bg-card rounded-xl shadow-xs p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -381,9 +360,7 @@ export function DashboardSkeleton() {
         </Card>
       </div>
 
-      {/* 3. BOTTOM ROW: RECENT PATIENTS & DOCTOR DIRECTORY TABLES SKELETON */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Recent Patients Table (7 cols) */}
         <Card className="lg:col-span-7 border-border bg-card rounded-xl p-4 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-border">
             <div className="flex items-center gap-2">
@@ -393,7 +370,6 @@ export function DashboardSkeleton() {
             <Skeleton className="h-7 w-16 rounded-lg" />
           </div>
 
-          {/* Mobile list skeleton */}
           <div className="space-y-2.5 md:hidden pt-3">
             {Array.from({ length: 4 }).map((_, r) => (
               <div key={r} className="p-3 rounded-xl border border-border bg-card/60 flex items-center justify-between gap-3">
@@ -409,7 +385,6 @@ export function DashboardSkeleton() {
             ))}
           </div>
 
-          {/* Desktop table skeleton */}
           <div className="hidden md:block space-y-3 pt-3">
             <div className="flex items-center gap-3 pb-2 border-b border-border">
               <Skeleton className="h-3 w-6" />
@@ -439,7 +414,6 @@ export function DashboardSkeleton() {
           </div>
         </Card>
 
-        {/* Doctor Directory Table (5 cols) */}
         <Card className="lg:col-span-5 border-border bg-card rounded-xl p-4 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-border">
             <div className="flex items-center gap-2">
@@ -449,7 +423,6 @@ export function DashboardSkeleton() {
             <Skeleton className="h-7 w-16 rounded-lg" />
           </div>
 
-          {/* Mobile list skeleton */}
           <div className="space-y-2.5 md:hidden pt-3">
             {Array.from({ length: 4 }).map((_, r) => (
               <div key={r} className="p-3 rounded-xl border border-border bg-card/60 flex items-center justify-between gap-3">
@@ -465,7 +438,6 @@ export function DashboardSkeleton() {
             ))}
           </div>
 
-          {/* Desktop table skeleton */}
           <div className="hidden md:block space-y-3 pt-3">
             <div className="flex items-center gap-3 pb-2 border-b border-border">
               <Skeleton className="h-3 w-6" />
@@ -496,15 +468,12 @@ export function DashboardSkeleton() {
 export function DoctorDetailSkeleton() {
   return (
     <div className="space-y-4">
-      {/* Back link */}
       <div>
         <Skeleton className="h-4 w-28" />
       </div>
 
-      {/* 1. Top Doctor Profile Banner Card Skeleton */}
       <Card className="border-border bg-card rounded-md p-5 sm:p-6 shadow-sm transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          {/* Left: Avatar + Details */}
           <div className="flex items-center gap-4 sm:gap-5">
             <Skeleton className="h-16 w-16 sm:h-18 sm:w-18 rounded-full shrink-0" />
             <div className="space-y-2 min-w-0">
@@ -521,7 +490,6 @@ export function DoctorDetailSkeleton() {
             </div>
           </div>
 
-          {/* Right: Add Patient + Edit Profile buttons */}
           <div className="flex items-center gap-2.5 shrink-0 self-start md:self-auto">
             <Skeleton className="h-9 w-28 rounded-md" />
             <Skeleton className="h-9 w-28 rounded-md" />
@@ -529,9 +497,7 @@ export function DoctorDetailSkeleton() {
         </div>
       </Card>
 
-      {/* 2. Middle Row: Doctor Information (left) and Patients Summary (right) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left: Doctor Information Card */}
         <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 pb-3.5 border-b border-border">
@@ -568,7 +534,6 @@ export function DoctorDetailSkeleton() {
           </div>
         </Card>
 
-        {/* Right: Patients Summary Card */}
         <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 pb-3.5 border-b border-border">
@@ -593,7 +558,6 @@ export function DoctorDetailSkeleton() {
         </Card>
       </div>
 
-      {/* 3. Patients Table Skeleton */}
       <PatientsTableSkeleton rows={8} showDoctorColumn={false} />
     </div>
   );

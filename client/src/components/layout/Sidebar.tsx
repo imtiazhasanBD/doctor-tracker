@@ -17,7 +17,6 @@ import { useUIStore } from '@/store/ui.store';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
 
-// DocTrack Logo SVG matching screenshot
 export const DocTrackLogo = ({ className = 'h-9 w-9' }: { className?: string }) => (
   <svg
     viewBox="0 0 40 40"
@@ -35,7 +34,6 @@ export const DocTrackLogo = ({ className = 'h-9 w-9' }: { className?: string }) 
       d="M20 35C20 35 6 25.5 6 15C6 9.5 10 5.5 15.5 5.5C18 5.5 20 7 20 7C20 7 22 5.5 24.5 5.5C30 5.5 34 9.5 34 15C34 25.5 20 35 20 35Z"
       fill="url(#heartGrad)"
     />
-    {/* ECG Heartbeat line inside */}
     <path
       d="M10 17H15L17.5 11.5L21.5 22.5L24 15L26 17H30"
       stroke="#ffffff"
@@ -59,12 +57,10 @@ export function Sidebar() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Auto-close mobile drawer when route changes
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname, setMobileOpen]);
 
-  // Close on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && mobileOpen) {
@@ -100,7 +96,6 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile Backdrop Overlay */}
       <div
         onClick={() => setMobileOpen(false)}
         className={cn(
@@ -110,20 +105,16 @@ export function Sidebar() {
         aria-hidden="true"
       />
 
-      {/* Main Sidebar Aside */}
       <aside
         className={cn(
           'fixed inset-y-0 left-0 z-50 flex flex-col justify-between border-r border-sidebar-border bg-sidebar select-none transition-transform lg:transition-all duration-300 ease-in-out h-screen overflow-hidden',
-          // Mobile drawer dimensions & translation
           'w-[260px] max-w-[85vw] shadow-2xl',
           mobileOpen ? 'translate-x-0' : '-translate-x-full',
-          // Desktop static flow & width
           'lg:static lg:translate-x-0 lg:shadow-none lg:z-30 shrink-0',
           sidebarOpen ? 'lg:w-[235px]' : 'lg:w-[72px]'
         )}
       >
         <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-          {/* Brand Header */}
           <div
             className={cn(
               'flex pt-5 pb-3 transition-all shrink-0',
@@ -154,7 +145,6 @@ export function Sidebar() {
               )}
             </Link>
 
-            {/* Desktop Toggle Icon Button */}
             <button
               type="button"
               onClick={toggleSidebar}
@@ -169,7 +159,6 @@ export function Sidebar() {
               )}
             </button>
 
-            {/* Mobile Close Button */}
             <button
               type="button"
               id="mobile-menu-close"
@@ -182,7 +171,6 @@ export function Sidebar() {
             </button>
           </div>
 
-          {/* Main Navigation */}
           <nav
             className={cn(
               'space-y-1.5 pt-3 flex-1 min-h-0 overflow-y-auto',
@@ -220,7 +208,6 @@ export function Sidebar() {
               );
             })}
 
-            {/* OTHER SECTION */}
             {showFull ? (
               <div className="pt-4 pb-1 px-3.5">
                 <span className="text-[10px] font-bold text-muted-foreground/80 tracking-wider uppercase">
@@ -250,7 +237,6 @@ export function Sidebar() {
           </nav>
         </div>
 
-        {/* Bottom User Profile Section */}
         <div
           className={cn(
             'border-t border-sidebar-border transition-all shrink-0 bg-sidebar',

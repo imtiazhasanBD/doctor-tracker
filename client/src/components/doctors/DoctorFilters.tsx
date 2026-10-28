@@ -70,12 +70,10 @@ export function DoctorFilters({
     };
   }, [drawerOpen]);
 
-  // Local draft state for bottom sheet so user can pick and then tap "Apply Filters"
   const [draftSpec, setDraftSpec] = useState(specialization);
   const [draftHosp, setDraftHosp] = useState(hospital);
   const [draftStatus, setDraftStatus] = useState(status);
 
-  // Sync draft state when drawer opens
   const handleOpenDrawer = () => {
     setDraftSpec(specialization);
     setDraftHosp(hospital);
@@ -109,9 +107,7 @@ export function DoctorFilters({
 
   return (
     <>
-      {/* ===================== MOBILE VIEW (< lg) ===================== */}
       <div className="flex flex-col gap-2.5 w-full lg:hidden">
-        {/* Search bar matching mockup (Panel 1) */}
         <div className="relative w-full">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
@@ -125,7 +121,6 @@ export function DoctorFilters({
           />
         </div>
 
-        {/* Filter Trigger Button (Panel 1 & Panel 3) */}
         <button
           type="button"
           id="mobile-filter-btn"
@@ -148,7 +143,6 @@ export function DoctorFilters({
           )}
         </button>
 
-        {/* Active Filter Chips (Panel 3: Mobile - After Filter Applied) */}
         {activeCount > 0 && (
           <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
             {activeFilters.map((chip) => (
@@ -171,7 +165,6 @@ export function DoctorFilters({
         )}
       </div>
 
-      {/* ===================== MOBILE FILTER DRAWER (BOTTOM SHEET) (Panel 2) ===================== */}
       {mounted &&
         createPortal(
           <>
@@ -189,10 +182,8 @@ export function DoctorFilters({
                 drawerOpen ? 'translate-y-0' : 'translate-y-full pointer-events-none'
               )}
             >
-              {/* Pull Handle */}
               <div className="w-10 h-1 bg-muted-foreground/30 rounded-full mx-auto mb-4" />
 
-              {/* Drawer Header */}
               <div className="flex items-center justify-between pb-3.5 border-b border-border">
                 <h3 className="text-base font-bold text-foreground">Filters</h3>
                 <button
@@ -206,9 +197,7 @@ export function DoctorFilters({
                 </button>
               </div>
 
-              {/* Filters Form */}
               <div className="space-y-4 py-4">
-                {/* Specialization Filter */}
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
                     <Stethoscope className="h-4 w-4 text-primary" />
@@ -240,7 +229,6 @@ export function DoctorFilters({
                   </Select>
                 </div>
 
-                {/* Hospital Filter */}
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
                     <Building2 className="h-4 w-4 text-primary" />
@@ -272,7 +260,6 @@ export function DoctorFilters({
                   </Select>
                 </div>
 
-                {/* Status Filter */}
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
                     <Users className="h-4 w-4 text-primary" />
@@ -306,7 +293,6 @@ export function DoctorFilters({
                 </div>
               </div>
 
-              {/* Bottom Drawer Actions */}
               <div className="flex items-center gap-3 pt-3 border-t border-border">
                 <Button
                   type="button"
@@ -331,9 +317,7 @@ export function DoctorFilters({
           document.body
         )}
 
-      {/* ===================== DESKTOP VIEW (lg+) ===================== */}
       <div className="hidden lg:flex items-end justify-between gap-3 w-full">
-        {/* Left: Search Input Field */}
         <div className="w-full lg:max-w-xs xl:max-w-sm flex-1">
           <div className="relative">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -349,9 +333,7 @@ export function DoctorFilters({
           </div>
         </div>
 
-        {/* Right: 3 Filters + Reset Button without gap */}
         <div className="flex items-end gap-1 w-full lg:w-auto justify-end">
-          {/* Specialization Filter */}
           <div className="w-36 min-w-0">
             <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Specialization
@@ -382,7 +364,6 @@ export function DoctorFilters({
             </Select>
           </div>
 
-          {/* Hospital Filter */}
           <div className="w-32 min-w-0">
             <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Hospital
@@ -413,7 +394,6 @@ export function DoctorFilters({
             </Select>
           </div>
 
-          {/* Status Filter */}
           <div className="w-28 min-w-0">
             <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
               Status
@@ -445,7 +425,6 @@ export function DoctorFilters({
             </Select>
           </div>
 
-          {/* Reset Button */}
           {onReset && (
             <Button
               type="button"

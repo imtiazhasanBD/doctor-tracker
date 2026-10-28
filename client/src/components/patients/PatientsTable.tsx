@@ -179,7 +179,6 @@ export function PatientsTable({
 
   return (
     <Card className="border-border bg-card rounded-xl p-3.5 sm:p-5 shadow-sm transition-colors space-y-4">
-      {/* Table Header: Patients Count & Action / Export buttons */}
       <div className="flex items-center justify-between pb-4 border-b border-border">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
@@ -204,10 +203,8 @@ export function PatientsTable({
         </div>
       </div>
 
-      {/* Filters (Search & Dropdowns) */}
       {filters && <div className="pt-0.5">{filters}</div>}
 
-      {/* ===================== MOBILE CARD LIST (lg:hidden) ===================== */}
       <div className="space-y-3 lg:hidden">
         {patients.length === 0 ? (
           <div className="text-center py-12 text-xs text-muted-foreground bg-muted/20 rounded-xl border border-dashed border-border">
@@ -225,7 +222,6 @@ export function PatientsTable({
                 className="p-3.5 rounded-xl border border-border bg-card hover:bg-muted/30 transition-colors shadow-xs"
               >
                 <div className="flex items-start justify-between gap-2.5">
-                  {/* Left: Avatar + Patient Details */}
                   <div className="flex items-start gap-3 min-w-0 flex-1">
                     <Avatar className="h-10 w-10 rounded-full shrink-0 border border-border">
                       <AvatarFallback className="text-xs font-bold bg-primary/10 text-primary">
@@ -234,7 +230,6 @@ export function PatientsTable({
                     </Avatar>
 
                     <div className="min-w-0 flex-1 space-y-1">
-                      {/* Name */}
                       <button
                         type="button"
                         onClick={() => setViewingPatient(patient)}
@@ -243,12 +238,10 @@ export function PatientsTable({
                         {patient.name}
                       </button>
 
-                      {/* Code / Demographics */}
                       <p className="text-[11px] text-muted-foreground">
                         {patCode} • {patient.age} yrs • <span className="capitalize">{patient.gender}</span>
                       </p>
 
-                      {/* Doctor Row */}
                       {showDoctorColumn && (
                         <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground pt-0.5">
                           <Stethoscope className="h-3.5 w-3.5 text-primary shrink-0" />
@@ -256,13 +249,11 @@ export function PatientsTable({
                         </div>
                       )}
 
-                      {/* Condition Row */}
                       <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                         <Activity className="h-3.5 w-3.5 text-amber-500 shrink-0" />
                         <span className="truncate font-medium text-foreground">{patient.condition}</span>
                       </div>
 
-                      {/* Visit Date Row */}
                       <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                         <Calendar className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                         <span>Visit: {formatDate(patient.visitDate)}</span>
@@ -270,7 +261,6 @@ export function PatientsTable({
                     </div>
                   </div>
 
-                  {/* Right: Status badge & Actions dropdown */}
                   <div className="flex items-center gap-1.5 shrink-0">
                     <span
                       className={cn(
@@ -331,7 +321,6 @@ export function PatientsTable({
         )}
       </div>
 
-      {/* ===================== DESKTOP TABLE (lg+) ===================== */}
       <div className="hidden lg:block overflow-x-auto">
         <Table>
           <TableHeader className="bg-transparent">
@@ -383,7 +372,6 @@ export function PatientsTable({
                     key={patient._id}
                     className="hover:bg-muted/50 border-b border-border transition-colors"
                   >
-                    {/* Name with Avatar */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8 rounded-full shrink-0">
@@ -404,34 +392,28 @@ export function PatientsTable({
                       </div>
                     </TableCell>
 
-                    {/* Doctor */}
                     {showDoctorColumn && (
                       <TableCell className="text-xs text-muted-foreground py-3.5">
                         {getDoctorName(patient)}
                       </TableCell>
                     )}
 
-                    {/* Age */}
                     <TableCell className="text-xs text-muted-foreground py-3.5">
                       {patient.age}
                     </TableCell>
 
-                    {/* Gender */}
                     <TableCell className="text-xs text-muted-foreground capitalize py-3.5">
                       {patient.gender}
                     </TableCell>
 
-                    {/* Condition */}
                     <TableCell className="text-xs font-medium text-foreground py-3.5">
                       {patient.condition}
                     </TableCell>
 
-                    {/* Visit Date */}
                     <TableCell className="text-xs text-muted-foreground py-3.5 whitespace-nowrap">
                       {formatDate(patient.visitDate)}
                     </TableCell>
 
-                    {/* Status Badge */}
                     <TableCell className="py-3.5">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-colors ${
@@ -444,10 +426,8 @@ export function PatientsTable({
                       </span>
                     </TableCell>
 
-                    {/* Actions: View, Edit, Delete */}
                     <TableCell className="text-right pr-4 py-3.5">
                       <div className="flex items-center justify-end gap-1">
-                        {/* View Button */}
                         <button
                           type="button"
                           onClick={(e) => {
@@ -460,7 +440,6 @@ export function PatientsTable({
                           <Eye className="h-3.5 w-3.5" />
                         </button>
 
-                        {/* Edit Button */}
                         {onEditPatient && (
                           <button
                             type="button"
@@ -475,7 +454,6 @@ export function PatientsTable({
                           </button>
                         )}
 
-                        {/* Delete Button */}
                         <button
                           type="button"
                           onClick={(e) => handleDeleteClick(e, patient._id, patient.name)}
@@ -494,7 +472,6 @@ export function PatientsTable({
         </Table>
       </div>
 
-      {/* ===================== PAGINATION FOOTER ===================== */}
       <div className="flex items-center justify-between gap-3 pt-3 px-1 border-t border-border text-xs">
         <p className="text-muted-foreground whitespace-nowrap text-xs">
           Showing{' '}
@@ -560,7 +537,6 @@ export function PatientsTable({
         )}
       </div>
 
-      {/* Shadcn UI Alert Dialog for Patient Delete */}
       <AlertDialog
         open={Boolean(patientToDelete)}
         onOpenChange={(open) => {
@@ -602,7 +578,6 @@ export function PatientsTable({
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Patient Details View Dialog */}
       <Dialog open={Boolean(viewingPatient)} onOpenChange={(open) => !open && setViewingPatient(null)}>
         <DialogContent className="sm:max-w-md w-full p-6 rounded-2xl bg-card border-border">
           <DialogHeader className="pb-3 border-b border-border">

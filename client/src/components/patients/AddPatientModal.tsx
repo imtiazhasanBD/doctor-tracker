@@ -173,7 +173,6 @@ export function AddPatientModal({
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Patient Name */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Patient Name <span className="text-destructive">*</span>
@@ -188,7 +187,6 @@ export function AddPatientModal({
               )}
             </div>
 
-            {/* Doctor Select */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Doctor <span className="text-destructive">*</span>
@@ -222,7 +220,6 @@ export function AddPatientModal({
               )}
             </div>
 
-            {/* Age */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Age <span className="text-destructive">*</span>
@@ -240,7 +237,6 @@ export function AddPatientModal({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Gender */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Gender <span className="text-destructive">*</span>
@@ -271,7 +267,6 @@ export function AddPatientModal({
               )}
             </div>
 
-            {/* Phone */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Phone <span className="text-destructive">*</span>
@@ -286,7 +281,6 @@ export function AddPatientModal({
               )}
             </div>
 
-            {/* Email */}
             <div>
               <Label className="text-xs font-semibold text-foreground">Email</Label>
               <Input
@@ -302,7 +296,6 @@ export function AddPatientModal({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Condition */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Condition <span className="text-destructive">*</span>
@@ -333,7 +326,6 @@ export function AddPatientModal({
               )}
             </div>
 
-            {/* Visit Date */}
             <div>
               <Label className="text-xs font-semibold text-foreground">
                 Visit Date <span className="text-destructive">*</span>
@@ -348,7 +340,6 @@ export function AddPatientModal({
               )}
             </div>
 
-            {/* Status */}
             <div>
               <Label className="text-xs font-semibold text-foreground">Status</Label>
               <Select
@@ -375,7 +366,6 @@ export function AddPatientModal({
             </div>
           </div>
 
-          {/* Notes */}
           <div>
             <Label className="text-xs font-semibold text-foreground">Notes</Label>
             <Input
@@ -385,7 +375,6 @@ export function AddPatientModal({
             />
           </div>
 
-          {/* Buttons */}
           <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-border">
             <Button
               type="button"

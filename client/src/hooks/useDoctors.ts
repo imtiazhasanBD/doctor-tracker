@@ -33,7 +33,7 @@ export function useDoctorFilters() {
       const res = await api.get('/doctors/filters');
       return res.data.data;
     },
-    staleTime: 1000 * 60 * 30, // 30 mins
+    staleTime: 1000 * 60 * 30,
   });
 }
 

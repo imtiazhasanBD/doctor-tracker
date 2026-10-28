@@ -16,8 +16,6 @@ import { loginSchema, LoginFormData } from '@/schemas';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 
-// 2. BRAND ASSETS & PIXEL-PERFECT SVG ILLUSTRATIONS
-
 const DocTrackHeartLogo = ({ size = 38 }: { size?: number }) => (
   <svg
     width={size}
@@ -104,7 +102,6 @@ const ClearInsightsFeatureIcon = () => (
   </svg>
 );
 
-// Detailed 1:1 Clinic Scene & Friendly Male Doctor Illustration
 const DoctorClinicIllustration = () => (
   <img
     src="/Cheerful Doctor in a Modern Clinic.png"
@@ -113,11 +110,9 @@ const DoctorClinicIllustration = () => (
   />
 );
 
-// 3. MAIN PAGE COMPONENT
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
-  // Authentication integration using existing hook & backend
   const { login, isLoggingIn } = useAuth();
 
   const {
@@ -148,10 +143,7 @@ export default function LoginPage() {
 
   return (
     <div className="h-screen w-screen overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-background select-none">
-      {/* LEFT PANEL (~58.3% / 7 cols): HERO CONTENT + DOCTOR ILLUSTRATION */}
       <div className="hidden lg:flex lg:col-span-7 relative h-full overflow-hidden flex-col justify-between py-10 pl-12 pr-6">
-
-        {/* 1. TOP LEFT LOGO HEADER */}
         <div className="relative z-20 flex items-center gap-3 pt-10">
           <DocTrackHeartLogo size={42} />
           <div>
@@ -165,7 +157,6 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* 2. MAIN HERO COPY & STATIC FEATURE ITEMS */}
         <div className="relative z-20 my-auto max-w-[360px]">
           <p className="text-[11px] font-semibold uppercase tracking-[0.1em] mb-2.5 text-muted-foreground">
             WELCOME TO DOCTRACK
@@ -181,9 +172,7 @@ export default function LoginPage() {
             A simple and powerful admin portal to manage doctors, patients and hospital data efficiently.
           </p>
 
-          {/* Static Feature Items */}
           <div className="mt-7 space-y-4">
-            {/* Feature 1 */}
             <div className="flex items-center gap-3.5">
               <div className="w-10 h-10 rounded-[12px] flex items-center justify-center shrink-0 bg-card border border-border shadow-xs">
                 <ManageDoctorsFeatureIcon />
@@ -198,7 +187,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Feature 2 */}
             <div className="flex items-center gap-3.5">
               <div className="w-10 h-10 rounded-[12px] flex items-center justify-center shrink-0 bg-card border border-border shadow-xs">
                 <TrackPatientsFeatureIcon />
@@ -213,7 +201,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Feature 3 */}
             <div className="flex items-center gap-3.5">
               <div className="w-10 h-10 rounded-[12px] flex items-center justify-center shrink-0 bg-card border border-border shadow-xs">
                 <ClearInsightsFeatureIcon />
@@ -230,24 +217,18 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* DOCTOR ILLUSTRATION (Positioned cleanly on the right/bottom) */}
         <div className="absolute bottom-0 right-0 w-[64%] h-[92%] z-10 flex items-end justify-end pointer-events-none">
           <DoctorClinicIllustration />
         </div>
       </div>
 
-      {/* RIGHT PANEL (~41.7% / 5 cols): LOGIN PORTAL */}
       <div className="col-span-1 lg:col-span-5 h-full flex flex-col items-center justify-center p-6 sm:p-10 bg-background overflow-hidden">
-        {/* CENTER LOGIN CARD CONTAINER */}
         <div className="w-full max-w-[420px] pt-6">
           <div className="relative rounded-md px-7 sm:px-9 pt-12 pb-9 bg-card border border-border shadow-lg">
-
-            {/* Floating Top Center Heart Badge */}
             <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-[56px] h-[56px] rounded-[18px] flex items-center justify-center bg-card border border-border shadow-sm">
               <DocTrackHeartLogo size={28} />
             </div>
 
-            {/* Brand Name & Admin Portal Subtitle */}
             <div className="text-center">
               <div className="inline-flex items-center text-[22px] font-bold tracking-tight leading-none">
                 <span className="text-foreground">Doc</span>
@@ -258,7 +239,6 @@ export default function LoginPage() {
               </p>
             </div>
 
-            {/* Welcome Back Heading */}
             <div className="text-center mt-5 mb-6">
               <h2 className="text-[21px] font-bold tracking-tight text-foreground">
                 Welcome Back
@@ -267,9 +247,8 @@ export default function LoginPage() {
                 Please sign in to continue to your account
               </p>
             </div>
-            {/* LOGIN FORM (React Hook Form + Zod Validation)                */}
+
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-              {/* EMAIL INPUT BOX */}
               <div>
                 <label
                   htmlFor="email-input"
@@ -299,7 +278,6 @@ export default function LoginPage() {
                 )}
               </div>
 
-              {/* PASSWORD INPUT BOX */}
               <div>
                 <label
                   htmlFor="password-input"
@@ -345,7 +323,6 @@ export default function LoginPage() {
                 )}
               </div>
 
-              {/* REMEMBER ME & FORGOT PASSWORD ROW */}
               <div className="flex items-center justify-between pt-1 pb-1">
                 <label className="inline-flex items-center gap-2 cursor-pointer select-none">
                   <button
@@ -376,7 +353,6 @@ export default function LoginPage() {
                 </button>
               </div>
 
-              {/* PRIMARY BLUE GRADIENT SIGN IN BUTTON */}
               <button
                 type="submit"
                 disabled={isLoggingIn}

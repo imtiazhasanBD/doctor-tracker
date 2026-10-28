@@ -66,7 +66,6 @@ interface Props {
   filters?: React.ReactNode;
 }
 
-// Specialization icon & styling helper matching mockup
 const getSpecializationMeta = (spec: string) => {
   const s = spec.toLowerCase();
   if (s.includes('pediatric')) {
@@ -187,7 +186,6 @@ export function DoctorsTable({
 
   return (
     <div className="space-y-4">
-      {/* Card Header matching mockup */}
       <div className="flex items-center justify-between pb-4 border-b border-border">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-md bg-primary/10 text-primary flex items-center justify-center">
@@ -208,10 +206,8 @@ export function DoctorsTable({
         </Button>
       </div>
 
-      {/* Filters (Search & Dropdowns) */}
       {filters && <div className="pt-0.5">{filters}</div>}
 
-      {/* Mobile Doctor Card List matching mockup (Panel 4 & Panel 5) */}
       <div className="space-y-3 lg:hidden">
         {doctors.length === 0 ? (
           <div className="text-center py-10 text-xs text-muted-foreground border border-dashed border-border rounded-xl">
@@ -235,7 +231,6 @@ export function DoctorsTable({
                 key={doctor._id}
                 className="p-3.5 rounded-xl border border-border bg-card shadow-xs transition-colors space-y-2.5"
               >
-                {/* Top row: Avatar + Name + Doc ID on left; Status badge + 3 dots menu on right */}
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-start gap-3 min-w-0 flex-1">
                     <Avatar className="h-10 w-10 rounded-full border border-border shrink-0 mt-0.5">
@@ -255,7 +250,6 @@ export function DoctorsTable({
                         {docId}
                       </span>
 
-                      {/* Hospital row */}
                       <div className="flex items-center gap-1.5 mt-2 text-[12px] text-muted-foreground">
                         <Building2 className="w-3.5 h-3.5 text-primary shrink-0" />
                         <span className="truncate text-foreground/90 font-medium">
@@ -263,7 +257,6 @@ export function DoctorsTable({
                         </span>
                       </div>
 
-                      {/* Specialization row */}
                       <div className="flex items-center gap-1.5 mt-1 text-[12px] text-muted-foreground">
                         <div
                           className={cn(
@@ -280,14 +273,12 @@ export function DoctorsTable({
                     </div>
                   </div>
 
-                  {/* Right: Active Status Badge + Three dots dropdown */}
                   <div className="flex items-center gap-1 shrink-0">
                     <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-success/15 text-success">
                       <span className="w-1.5 h-1.5 rounded-full bg-success" />
                       Active
                     </span>
 
-                    {/* Three dots actions menu (Panel 5) */}
                     <DropdownMenu>
                       <DropdownMenuTrigger
                         id={index === 0 ? 'doctor-actions-btn-0' : undefined}
@@ -328,7 +319,6 @@ export function DoctorsTable({
         )}
       </div>
 
-      {/* Desktop Table (lg+) */}
       <div className="hidden lg:block overflow-x-auto">
         <Table>
           <TableHeader>
@@ -360,7 +350,6 @@ export function DoctorsTable({
                     key={doctor._id}
                     className="hover:bg-muted/50 border-b border-border transition-colors group"
                   >
-                    {/* Name + Avatar + Doc ID */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8 rounded-full border border-border">
@@ -388,7 +377,6 @@ export function DoctorsTable({
                       </div>
                     </TableCell>
 
-                    {/* Specialization with Icon */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-2">
                         <div
@@ -402,7 +390,6 @@ export function DoctorsTable({
                       </div>
                     </TableCell>
 
-                    {/* Hospital with Icon */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <Building2 className="w-3.5 h-3.5 text-primary shrink-0" />
@@ -410,7 +397,6 @@ export function DoctorsTable({
                       </div>
                     </TableCell>
 
-                    {/* Phone with Icon */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <Phone className="w-3.5 h-3.5 text-primary shrink-0" />
@@ -418,12 +404,10 @@ export function DoctorsTable({
                       </div>
                     </TableCell>
 
-                    {/* Patients Count */}
                     <TableCell className="text-xs font-semibold text-foreground text-center py-3.5">
                       {doctor.patientCount || 0}
                     </TableCell>
 
-                    {/* Status Badge */}
                     <TableCell className="py-3.5">
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-success/15 text-success">
                         <span className="w-1.5 h-1.5 rounded-full bg-success" />
@@ -431,7 +415,6 @@ export function DoctorsTable({
                       </span>
                     </TableCell>
 
-                    {/* Actions */}
                     <TableCell className="text-right pr-4 py-3.5">
                       <div className="flex items-center justify-end gap-1">
                         <button
@@ -463,7 +446,6 @@ export function DoctorsTable({
         </Table>
       </div>
 
-      {/* Pagination Footer matching mockup (Panel 6) */}
       <div className="flex flex-row items-center justify-between text-xs text-muted-foreground pt-4 mt-2 border-t border-border gap-2">
         <p className="text-[12px] whitespace-nowrap">
           Showing{' '}
@@ -513,7 +495,6 @@ export function DoctorsTable({
         )}
       </div>
 
-      {/* Shadcn UI Alert Dialog for Doctor Delete */}
       <AlertDialog
         open={Boolean(doctorToDelete)}
         onOpenChange={(open) => {

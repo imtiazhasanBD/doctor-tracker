@@ -13,7 +13,6 @@ export function useAuth() {
     queryFn: async () => {
       try {
         const res = await api.get('/auth/me');
-        // Backend returns: { data: { id, name, email, role } }
         return res.data.data;
       } catch (err: any) {
         if (err.response?.status === 401) {
@@ -28,12 +27,10 @@ export function useAuth() {
 
   const loginMutation = useMutation({
     mutationFn: async (credentials: LoginFormData) => {
-      // Backend expects { email, password }
       const res = await api.post('/auth/login', {
         email: credentials.email,
         password: credentials.password,
       });
-      // Backend returns: { data: { id, name, email, role } }
       return res.data.data;
     },
     onSuccess: (userData) => {

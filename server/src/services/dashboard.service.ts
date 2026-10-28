@@ -187,7 +187,6 @@ export async function getDashboardStats(
   const since = new Date(now.getTime() - days * DAY_MS);
   const sinceMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - (MONTHS_BACK - 1), 1) - DAY_MS);
 
-  // Month & Day boundaries for growth calculation
   const startOfThisMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
   const startOfLastMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
   const startOfToday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
@@ -241,7 +240,6 @@ export async function getDashboardStats(
   const patientsByMonth = fillSeries(monthKeys, monthly).map(({ key, count }) => ({ month: key, count }));
   const newPatients = patientsOverTime.reduce((sum, d) => sum + d.count, 0);
 
-  // Growth calculations
   const doctorsGrowth = calculateGrowth(totalDoctors, Math.max(1, totalDoctors - doctorsThisMonth));
   const patientsGrowth = calculateGrowth(totalPatients, Math.max(1, totalPatients - patientsThisMonth));
   const thisMonthGrowth = calculateGrowth(patientsThisMonth, patientsLastMonth);

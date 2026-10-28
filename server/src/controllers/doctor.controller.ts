@@ -36,8 +36,6 @@ export async function remove(req: Request, res: Response) {
   res.status(204).end();
 }
 
-// ---- patients under a doctor ----
-
 export async function listPatients(req: Request, res: Response) {
   const { id } = idParam.parse(req.params);
   await doctors.assertDoctorExists(id);

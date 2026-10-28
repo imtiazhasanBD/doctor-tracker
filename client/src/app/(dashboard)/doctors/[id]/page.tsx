@@ -41,7 +41,6 @@ export default function DoctorDetailPage({
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const limit = 10;
 
-  // TanStack Query for doctor details and doctor's patients
   const { data: doctor, isLoading: docLoading } = useDoctor(id);
   const { data: patientsData, isLoading: patientsLoading } = useDoctorPatients(
     id,
@@ -102,7 +101,6 @@ export default function DoctorDetailPage({
     .slice(0, 2)
     .toUpperCase();
 
-  // Metrics calculation from real database data
   const totalPatients = doctor.patientCount ?? total ?? 0;
   const activePatientsCount =
     doctor.activePatients ??
@@ -113,7 +111,6 @@ export default function DoctorDetailPage({
 
   return (
     <div className="space-y-4">
-      {/* Back link */}
       <div>
         <Link
           href="/doctors"
@@ -123,10 +120,8 @@ export default function DoctorDetailPage({
         </Link>
       </div>
 
-      {/* 1. Top Doctor Profile Banner Card */}
       <Card className="border-border bg-card rounded-md p-5 sm:p-6 shadow-sm transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          {/* Left: Avatar + Details */}
           <div className="flex items-center gap-4 sm:gap-5">
             <Avatar className="h-16 w-16 sm:h-18 sm:w-18 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl shrink-0 shadow-sm">
               <AvatarFallback className="bg-primary text-primary-foreground font-bold text-xl">
@@ -165,7 +160,6 @@ export default function DoctorDetailPage({
             </div>
           </div>
 
-          {/* Right: Add Patient + Edit Profile buttons */}
           <div className="flex items-center gap-2.5 shrink-0 self-start md:self-auto">
             <Button
               onClick={handleAddPatient}
@@ -187,9 +181,7 @@ export default function DoctorDetailPage({
         </div>
       </Card>
 
-      {/* 2. Middle Row: Doctor Information (left) and Patients Summary (right) with real data */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left: Doctor Information Card */}
         <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 pb-3.5 border-b border-border">
@@ -230,7 +222,6 @@ export default function DoctorDetailPage({
           </div>
         </Card>
 
-        {/* Right: Patients Summary Card */}
         <Card className="border-border bg-card rounded-md p-5 shadow-sm transition-colors flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 pb-3.5 border-b border-border">
@@ -239,7 +230,6 @@ export default function DoctorDetailPage({
             </div>
 
             <div className="space-y-3 pt-3">
-              {/* Row 1: Total Patients */}
               <div className="flex items-center justify-between p-2.5 sm:p-3">
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-md bg-primary/10 text-primary flex items-center justify-center shrink-0">
@@ -254,7 +244,6 @@ export default function DoctorDetailPage({
                 </div>
               </div>
 
-              {/* Row 2: Active Patients */}
               <div className="flex items-center justify-between p-2.5 sm:p-3">
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-md bg-success/10 text-success flex items-center justify-center shrink-0">
@@ -269,7 +258,6 @@ export default function DoctorDetailPage({
                 </div>
               </div>
 
-              {/* Row 3: Discharged Patients */}
               <div className="flex items-center justify-between p-2.5 sm:p-3">
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-md bg-destructive/10 text-destructive flex items-center justify-center shrink-0">
@@ -288,7 +276,6 @@ export default function DoctorDetailPage({
         </Card>
       </div>
 
-      {/* 3. Bottom Section: Recent Patients Table */}
       <div className="space-y-3">
         {patientsLoading ? (
           <PatientsTableSkeleton rows={limit} showDoctorColumn={false} />
@@ -317,7 +304,6 @@ export default function DoctorDetailPage({
         )}
       </div>
 
-      {/* Add/Edit Patient modal pre-scoped to this doctor */}
       <AddPatientModal
         open={patientModalOpen}
         onOpenChange={setPatientModalOpen}
@@ -325,7 +311,6 @@ export default function DoctorDetailPage({
         patientToEdit={editingPatient}
       />
 
-      {/* Edit Doctor modal */}
       <AddDoctorModal
         open={editDoctorOpen}
         onOpenChange={setEditDoctorOpen}

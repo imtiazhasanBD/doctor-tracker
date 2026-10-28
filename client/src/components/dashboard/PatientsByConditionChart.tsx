@@ -21,12 +21,12 @@ interface Props {
 }
 
 const COLORS = [
-  'var(--chart-1)', // Diabetes - Blue
-  'var(--chart-5)', // Hypertension - Purple
-  'var(--chart-2)', // Asthma - Emerald
-  'var(--chart-3)', // Heart Disease - Amber
-  'var(--chart-4)', // Arthritis - Rose/Orange
-  'var(--muted-foreground)', // Others - Muted
+  'var(--chart-1)',
+  'var(--chart-5)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--muted-foreground)',
 ];
 
 export function PatientsByConditionChart({
@@ -100,7 +100,6 @@ export function PatientsByConditionChart({
           </div>
         ) : (
           <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4 sm:h-[220px]">
-            {/* Donut Chart */}
             <div className="relative h-[160px] w-[160px] sm:h-[185px] sm:w-[185px] shrink-0 my-1 sm:my-0">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -133,7 +132,6 @@ export function PatientsByConditionChart({
                 </PieChart>
               </ResponsiveContainer>
 
-              {/* Center label */}
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                 <span className="text-[17px] sm:text-[19px] font-bold text-foreground leading-none">
                   {displayTotal.toLocaleString()}
@@ -144,7 +142,6 @@ export function PatientsByConditionChart({
               </div>
             </div>
 
-            {/* Condition Legend list with Count + Percentage */}
             <div className="flex-1 w-full space-y-2 sm:space-y-2.5 sm:pl-1">
               {chartData.map((item) => (
                 <div

@@ -20,7 +20,7 @@ export function useDashboardStats() {
       const res = await api.get('/dashboard/stats');
       return res.data.data;
     },
-    refetchInterval: 1000 * 60 * 5, // 5 mins
+    refetchInterval: 1000 * 60 * 5,
   });
 }
 
@@ -34,7 +34,7 @@ export function usePatientsPerDoctor(timeframe: string, initialData?: TopDoctor[
       return res.data.data;
     },
     initialData: timeframe === 'month' && initialData && initialData.length > 0 ? initialData : undefined,
-    staleTime: 1000 * 60, // 1 min
+    staleTime: 1000 * 60,
   });
 }
 
@@ -65,6 +65,6 @@ export function usePatientsByCondition(
             total: initialData.total ?? initialData.conditions.reduce((acc, c) => acc + c.count, 0),
           }
         : undefined,
-    staleTime: 1000 * 60, // 1 min
+    staleTime: 1000 * 60,
   });
 }
