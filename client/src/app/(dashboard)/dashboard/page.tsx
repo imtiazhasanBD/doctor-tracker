@@ -65,73 +65,10 @@ export default function DashboardPage() {
     thisMonthPatients: 0,
     todayPatients: 0,
   };
-  const growth = data?.growth || {};
-
   const conditionsCount = data?.conditions?.length || 0;
 
   const recentPatients = data?.recentPatients || [];
   const doctorDirectory = data?.doctorDirectory || [];
-
-  const statCards = [
-    {
-      title: 'Total Doctors',
-      value: (totals.doctors ?? 0).toLocaleString(),
-      growth:
-        growth.doctorsGrowthText ||
-        (growth.doctorsPctMonth != null
-          ? growth.doctorsPctMonth >= 0
-            ? `+${growth.doctorsPctMonth}%`
-            : `${growth.doctorsPctMonth}%`
-          : '+0%'),
-      period: 'from last month',
-      icon: User,
-      iconBg: 'bg-[#ebf4ff] dark:bg-[#132c54]',
-      iconColor: 'text-[#2584ff] dark:text-[#38bdf8]',
-      sparkColor: '#38bdf8',
-    },
-    {
-      title: 'Total Patients',
-      value: (totals.patients ?? 0).toLocaleString(),
-      growth:
-        growth.patientsGrowthText ||
-        (growth.patientsPctMonth != null
-          ? growth.patientsPctMonth >= 0
-            ? `+${growth.patientsPctMonth}%`
-            : `${growth.patientsPctMonth}%`
-          : '+0%'),
-      period: 'from last month',
-      icon: Users,
-      iconBg: 'bg-[#f4ebff] dark:bg-[#261c4a]',
-      iconColor: 'text-[#9333ea] dark:text-[#c084fc]',
-      sparkColor: '#c084fc',
-    },
-    {
-      title: 'Patients Added This Month',
-      value: (totals.thisMonthPatients ?? 0).toLocaleString(),
-      growth:
-        growth.thisMonthGrowthText ||
-        (growth.thisMonthPct != null
-          ? growth.thisMonthPct >= 0
-            ? `+${growth.thisMonthPct}%`
-            : `${growth.thisMonthPct}%`
-          : '+0%'),
-      period: 'from last month',
-      icon: UserPlus,
-      iconBg: 'bg-[#ecfdf5] dark:bg-[#12332e]',
-      iconColor: 'text-[#10b981] dark:text-[#34d399]',
-      sparkColor: '#34d399',
-    },
-    {
-      title: 'Patient Conditions',
-      value: conditionsCount.toString(),
-      growth: growth.conditionsGrowthText || '+0%',
-      period: 'from last month',
-      icon: Activity,
-      iconBg: 'bg-[#fff7ed] dark:bg-[#3a2518]',
-      iconColor: 'text-[#f97316] dark:text-[#fb923c]',
-      sparkColor: '#fb923c',
-    },
-  ];
 
   const quickActions = [
     {
@@ -167,7 +104,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 pb-6">
       {/* 1. HERO WELCOME BANNER + 4 METRIC CARDS CONTAINER                  */}
-      <div className="relative rounded-md bg-gradient-to-r from-[#f3f9ff] via-[#eef6ff] to-[#e4f1fe] dark:from-[#0b1428] dark:via-[#0d172e] dark:to-[#101b36] pb-8 md:pb-8 border border-white/80 dark:border-[#19284a] shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] dark:shadow-none overflow-hidden transition-colors">
+      <div className="relative rounded-md bg-gradient-to-r from-[#f3f9ff] via-[#eef6ff] to-[#e4f1fe] dark:from-[#0b1428] dark:via-[#0d172e] dark:to-[#101b36] pb-4 border border-white/80 dark:border-[#19284a] shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] dark:shadow-none overflow-hidden transition-colors">
 
         {/* Top Right Hospital Illustration from public/ folder */}
         <div className="hidden md:flex absolute top-0 right-0 h-[160px] items-end justify-end pointer-events-none z-0 opacity-95 dark:opacity-95">
@@ -190,10 +127,35 @@ export default function DashboardPage() {
         </div>
 
         {/* 4 Metric Cards Row */}
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 px-4">
-          {statCards.map((card) => (
-            <StatCard key={card.title} {...card} />
-          ))}
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 px-4">
+          <StatCard
+            title="Total Doctors"
+            value={(totals.doctors ?? 0).toLocaleString()}
+            icon={User}
+            iconBg="bg-[#ebf4ff] dark:bg-[#132c54]"
+            iconColor="text-[#2584ff] dark:text-[#38bdf8]"
+          />
+          <StatCard
+            title="Total Patients"
+            value={(totals.patients ?? 0).toLocaleString()}
+            icon={Users}
+            iconBg="bg-[#f4ebff] dark:bg-[#261c4a]"
+            iconColor="text-[#9333ea] dark:text-[#c084fc]"
+          />
+          <StatCard
+            title="Patients Added This Month"
+            value={(totals.thisMonthPatients ?? 0).toLocaleString()}
+            icon={UserPlus}
+            iconBg="bg-[#ecfdf5] dark:bg-[#12332e]"
+            iconColor="text-[#10b981] dark:text-[#34d399]"
+          />
+          <StatCard
+            title="Patient Conditions"
+            value={conditionsCount.toString()}
+            icon={Activity}
+            iconBg="bg-[#fff7ed] dark:bg-[#3a2518]"
+            iconColor="text-[#f97316] dark:text-[#fb923c]"
+          />
         </div>
       </div>
 

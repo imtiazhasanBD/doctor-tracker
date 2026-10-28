@@ -181,7 +181,7 @@ export function DoctorsTable({
             <Users className="h-4 w-4" />
           </div>
           <h2 className="text-base font-bold text-slate-800 dark:text-white">
-            Doctors ({totalCount})
+            Doctors list 
           </h2>
         </div>
 
@@ -200,7 +200,6 @@ export function DoctorsTable({
         <Table>
           <TableHeader>
             <TableRow className="border-b border-slate-100 dark:border-[#172545] hover:bg-transparent">
-              <TableHead className="w-12 text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">#</TableHead>
               <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">Name</TableHead>
               <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">Specialization</TableHead>
               <TableHead className="text-xs font-semibold text-slate-400 dark:text-slate-500 py-3">Hospital</TableHead>
@@ -228,11 +227,6 @@ export function DoctorsTable({
                     key={doctor._id}
                     className="hover:bg-slate-50/70 dark:hover:bg-[#101b33] border-b border-slate-100/80 dark:border-[#14213d] transition-colors group"
                   >
-                    {/* Index */}
-                    <TableCell className="text-xs text-slate-400 dark:text-slate-500 font-medium py-3.5">
-                      {startIndex + index + 1}
-                    </TableCell>
-
                     {/* Name + Avatar + Doc ID */}
                     <TableCell className="py-3.5">
                       <div className="flex items-center gap-3">

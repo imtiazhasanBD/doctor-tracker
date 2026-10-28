@@ -129,42 +129,30 @@ export default function PatientsPage() {
           <StatCard
             title="Total Patients"
             value={totalPatients}
-            growth="+ 18%"
-            period="from last month"
             icon={Users}
             iconColor="text-[#2563eb] dark:text-[#3b82f6]"
             iconBg="bg-[#eff6ff] dark:bg-[#122347]"
-            sparkColor="#3b82f6"
           />
           <StatCard
             title="Active Patients"
             value={activePatients}
-            growth="+ 12%"
-            period="from last month"
             icon={Activity}
             iconColor="text-[#10b981] dark:text-[#34d399]"
             iconBg="bg-[#ecfdf5] dark:bg-[#0c2a23]"
-            sparkColor="#10b981"
           />
           <StatCard
             title="Discharged Patients"
             value={dischargedPatients}
-            growth="+ 8%"
-            period="from last month"
             icon={UserCheck}
             iconColor="text-[#9333ea] dark:text-[#a855f7]"
             iconBg="bg-[#faf5ff] dark:bg-[#251642]"
-            sparkColor="#a855f7"
           />
           <StatCard
             title="Today's Patients"
             value={todayPatients}
-            growth="+ 20%"
-            period="from yesterday"
             icon={Calendar}
             iconColor="text-[#ea580c] dark:text-[#fb923c]"
             iconBg="bg-[#fff7ed] dark:bg-[#331c10]"
-            sparkColor="#f97316"
           />
         </div>
       )}

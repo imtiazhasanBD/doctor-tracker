@@ -10,7 +10,7 @@ import { DoctorFilters } from '@/components/doctors/DoctorFilters';
 import { AddDoctorModal } from '@/components/doctors/AddDoctorModal';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { Button } from '@/components/ui/button';
-import { TableSkeleton } from '@/components/ui/app-skeletons';
+import { DoctorsTableSkeleton, StatCardsRowSkeleton } from '@/components/ui/app-skeletons';
 import { Doctor } from '@/types/api';
 
 export default function DoctorsPage() {
@@ -39,7 +39,7 @@ export default function DoctorsPage() {
   });
 
   const { data: filtersData } = useDoctorFilters();
-  const { data: statsData } = useDashboardStats();
+  const { data: statsData, isLoading: statsLoading } = useDashboardStats();
 
   const doctors = doctorsData?.data || [];
   const total = doctorsData?.total ?? doctorsData?.pagination?.total ?? (doctors.length > 0 ? 25 : 0);
@@ -125,48 +125,40 @@ export default function DoctorsPage() {
       </div>
 
       {/* 4 Metric Cards Row matching mockup */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Total Doctors"
-          value={totalDoctors}
-          growth="+ 12%"
-          period="from last month"
-          icon={User}
-          iconColor="text-[#2563eb] dark:text-[#3b82f6]"
-          iconBg="bg-[#eff6ff] dark:bg-[#122347]"
-          sparkColor="#3b82f6"
-        />
-        <StatCard
-          title="Active Doctors"
-          value={activeDoctors}
-          growth="+ 10%"
-          period="from last month"
-          icon={Stethoscope}
-          iconColor="text-[#9333ea] dark:text-[#a855f7]"
-          iconBg="bg-[#faf5ff] dark:bg-[#251642]"
-          sparkColor="#a855f7"
-        />
-        <StatCard
-          title="Hospitals"
-          value={totalHospitals}
-          growth="+ 14%"
-          period="from last month"
-          icon={Building2}
-          iconColor="text-[#0284c7] dark:text-[#38bdf8]"
-          iconBg="bg-[#f0f9ff] dark:bg-[#0c283f]"
-          sparkColor="#10b981"
-        />
-        <StatCard
-          title="Avg. Patients per Doctor"
-          value={avgPatients}
-          growth="+ 8%"
-          period="from last month"
-          icon={Users}
-          iconColor="text-[#ea580c] dark:text-[#fb923c]"
-          iconBg="bg-[#fff7ed] dark:bg-[#331c10]"
-          sparkColor="#f97316"
-        />
-      </div>
+      {statsLoading ? (
+        <StatCardsRowSkeleton count={4} />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatCard
+            title="Total Doctors"
+            value={totalDoctors}
+            icon={User}
+            iconColor="text-[#2563eb] dark:text-[#3b82f6]"
+            iconBg="bg-[#eff6ff] dark:bg-[#122347]"
+          />
+          <StatCard
+            title="Active Doctors"
+            value={activeDoctors}
+            icon={Stethoscope}
+            iconColor="text-[#9333ea] dark:text-[#a855f7]"
+            iconBg="bg-[#faf5ff] dark:bg-[#251642]"
+          />
+          <StatCard
+            title="Hospitals"
+            value={totalHospitals}
+            icon={Building2}
+            iconColor="text-[#0284c7] dark:text-[#38bdf8]"
+            iconBg="bg-[#f0f9ff] dark:bg-[#0c283f]"
+          />
+          <StatCard
+            title="Avg. Patients per Doctor"
+            value={avgPatients}
+            icon={Users}
+            iconColor="text-[#ea580c] dark:text-[#fb923c]"
+            iconBg="bg-[#fff7ed] dark:bg-[#331c10]"
+          />
+        </div>
+      )}
 
       {/* Filter Bar matching mockup */}
       <DoctorFilters
@@ -186,7 +178,7 @@ export default function DoctorsPage() {
 
       {/* Doctors Table Card with Pagination matching mockup */}
       {isLoading ? (
-        <TableSkeleton columns={8} rows={8} />
+        <DoctorsTableSkeleton rows={limit} />
       ) : (
         <DoctorsTable
           doctors={doctors}

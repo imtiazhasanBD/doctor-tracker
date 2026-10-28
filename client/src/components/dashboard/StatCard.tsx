@@ -5,61 +5,23 @@ import { LucideIcon } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
-// Mini Sparkline SVG for Stat Cards
-export const MiniSparkline = ({ color }: { color: string }) => {
-  const gradId = `spark-${color.replace('#', '')}`;
-  return (
-    <svg width="76" height="34" viewBox="0 0 76 34" fill="none" className="shrink-0 select-none">
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="34" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor={color} stopOpacity="0.22" />
-          <stop offset="100%" stopColor={color} stopOpacity="0.0" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M2 25C14 27 24 21 36 21C48 21 56 12 74 7V34H2V25Z"
-        fill={`url(#${gradId})`}
-      />
-      <path
-        d="M2 25C14 27 24 21 36 21C48 21 56 12 74 7"
-        stroke={color}
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-};
-
 export interface StatCardProps {
   title: string;
   value: string | number;
-  growth: string | number;
-  period?: string;
   icon: LucideIcon;
   iconColor: string;
   iconBg: string;
-  sparkColor?: string;
   className?: string;
 }
 
 export function StatCard({
   title,
   value,
-  growth,
-  period = 'from last month',
   icon: Icon,
   iconColor,
   iconBg,
-  sparkColor = '#3b82f6',
   className,
 }: StatCardProps) {
-  const cleanGrowth = String(growth).replace(/^[+-\s]+/, '');
-  const isNegative = String(growth).trim().startsWith('-');
-  const isNumeric = /^[0-9.]+/.test(cleanGrowth);
-  const growthDisplay = isNumeric
-    ? `${cleanGrowth}${cleanGrowth.endsWith('%') ? '' : '%'}`
-    : cleanGrowth;
-
   return (
     <Card
       className={cn(
@@ -84,25 +46,6 @@ export function StatCard({
             {value}
           </h3>
         </div>
-      </div>
-
-      <div className="flex items-end justify-between mt-3.5 pt-1">
-        <div>
-          <span
-            className={cn(
-              'inline-flex items-center text-[11.5px] font-bold',
-              isNegative
-                ? 'text-[#f43f5e] dark:text-[#f87171]'
-                : 'text-[#10b981] dark:text-[#34d399]'
-            )}
-          >
-            {isNegative ? '↓ ' : '↑ '} {growthDisplay}
-          </span>
-          <p className="text-[11px] text-[#94a3b8] dark:text-[#5a6d8c] leading-tight">
-            {period}
-          </p>
-        </div>
-        <MiniSparkline color={sparkColor} />
       </div>
     </Card>
   );
