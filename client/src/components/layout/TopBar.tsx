@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { Search, Bell, ChevronDown, Menu } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useUIStore } from '@/store/ui.store';
@@ -25,12 +26,17 @@ export function TopBar() {
           <Menu className="h-5 w-5" />
         </button>
 
-        <div className="flex items-center gap-2 lg:hidden select-none">
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-2 lg:hidden select-none cursor-pointer hover:opacity-90 active:scale-95 transition-all"
+          title="Go to Dashboard"
+          id="mobile-nav-logo-link"
+        >
           <DocTrackLogo className="h-7 w-7" />
           <span className="font-bold text-[17px] text-foreground tracking-tight leading-none">
             Doc<span className="text-primary">Track</span>
           </span>
-        </div>
+        </Link>
 
         <div className="hidden lg:flex relative w-full">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

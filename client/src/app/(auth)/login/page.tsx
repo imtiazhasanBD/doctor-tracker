@@ -18,33 +18,34 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 
-const DocTrackHeartLogo = ({ size = 38 }: { size?: number }) => (
+const DocTrackHeartLogo = ({
+  size = 38,
+  id = 'logoHeartGrad',
+}: {
+  size?: number;
+  id?: string;
+}) => (
   <svg
     width={size}
     height={size}
-    viewBox="0 0 44 40"
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className="shrink-0 select-none"
   >
     <defs>
-      <linearGradient id="heartCyanGrad" x1="0" y1="0" x2="44" y2="40" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor="#35C9E8" />
-        <stop offset="55%" stopColor="#1BA8CE" />
-        <stop offset="100%" stopColor="#1283B0" />
+      <linearGradient id={id} x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#00c6ff" />
+        <stop offset="100%" stopColor="#0072ff" />
       </linearGradient>
-      <filter id="heartDropShadow" x="-10%" y="-10%" width="120%" height="130%">
-        <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#0284c7" floodOpacity="0.18" />
-      </filter>
     </defs>
     <path
-      filter="url(#heartDropShadow)"
-      d="M22 37.5C22 37.5 3.5 26.2 3.5 13.2C3.5 6.8 8.5 2 14.5 2C18.1 2 20.8 3.9 22 6.2C23.2 3.9 25.9 2 29.5 2C35.5 2 40.5 6.8 40.5 13.2C40.5 26.2 22 37.5 22 37.5Z"
-      fill="url(#heartCyanGrad)"
+      d="M20 35C20 35 6 25.5 6 15C6 9.5 10 5.5 15.5 5.5C18 5.5 20 7 20 7C20 7 22 5.5 24.5 5.5C30 5.5 34 9.5 34 15C34 25.5 20 35 20 35Z"
+      fill={`url(#${id})`}
     />
     <path
-      d="M6.5 19.5H14L16.8 11.5L20.5 27.5L24.2 15.2L26.5 21.5L28.5 19.5H37.5"
-      stroke="white"
+      d="M10 17H15L17.5 11.5L21.5 22.5L24 15L26 17H30"
+      stroke="#ffffff"
       strokeWidth="2.3"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -157,13 +158,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-background select-none">
+    <div className="relative min-h-screen min-h-[100dvh] w-full grid grid-cols-1 lg:grid-cols-12 bg-background select-none overflow-y-auto lg:overflow-hidden">
       <div className="absolute top-4 right-4 z-50">
         <ThemeToggle />
       </div>
       <div className="hidden lg:flex lg:col-span-7 relative h-full overflow-hidden flex-col justify-between py-10 pl-12 pr-6">
         <div className="relative z-20 flex items-center gap-3 pt-10">
-          <DocTrackHeartLogo size={42} />
+          <DocTrackHeartLogo size={42} id="desktopDocTrackLogo" />
           <div>
             <div className="flex items-center text-[23px] font-bold tracking-tight leading-none">
               <span className="text-foreground">Doc</span>
@@ -240,11 +241,12 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <div className="col-span-1 lg:col-span-5 h-full flex flex-col items-center justify-center p-6 sm:p-10 bg-background overflow-hidden">
-        <div className="w-full max-w-[420px] pt-6">
-          <div className="relative rounded-md px-7 sm:px-9 pt-12 pb-9 bg-card border border-border shadow-lg">
-            <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-[56px] h-[56px] rounded-[18px] flex items-center justify-center bg-card border border-border shadow-sm">
-              <DocTrackHeartLogo size={28} />
+      <div className="col-span-1 lg:col-span-5 min-h-screen lg:min-h-full flex flex-col items-center justify-center p-4 sm:p-8 lg:p-10 py-12 lg:py-0 bg-background relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-primary/5 pointer-events-none lg:hidden" />
+        <div className="w-full max-w-[420px] pt-6 sm:pt-4 relative z-10">
+          <div className="relative rounded-2xl px-6 sm:px-9 pt-12 pb-8 sm:pb-9 bg-card border border-border shadow-xl">
+            <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-[58px] h-[58px] rounded-2xl flex items-center justify-center bg-card border border-border shadow-md">
+              <DocTrackHeartLogo size={32} id="cardDocTrackLogo" />
             </div>
 
             <div className="text-center">
